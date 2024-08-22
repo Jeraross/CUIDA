@@ -27,7 +27,7 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 
 - [Guilherme Mourão](https://github.com/guilhermemouraovc) - gmvc@cesar.school
 - [Henrique Figueiredo](https://github.com/fthenri) - hft@cesar.school
-- [Henrique Gueiros](https://github.com/) - hwg@cesar.school
+- [Henrique Gueiros](https://github.com/henrique-gueiros) - hwg@cesar.school
 - [Jeronimo Rossi](https://github.com/Jeraross) - jbr2@cesar.school
 - [João Pedro Aguiar](https://github.com/Jp-moraiss) - jpam@cesar.school
 - [Maria Julia Dantas](https://github.com/mariajuliadantas) - mjdma@cesar.school
