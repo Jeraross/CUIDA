@@ -2,7 +2,7 @@
 
 ## Descrição
 
-CUIDA é um projeto desenvolvido no framework Django, projetado para otimizar a gestão hospitalar em hospitais públicos, com foco na administração eficiente dos pacientes e na organização dos seus dados. O sistema oferece uma interface intuitiva e de fácil navegação, facilitando o uso por diferentes profissionais de saúde.
+CUIDA é um software desenvolvido no framework Django, projetado para otimizar a gestão hospitalar em hospitais públicos, com foco na administração eficiente dos pacientes e na organização dos seus dados. O sistema oferece uma interface intuitiva e de fácil navegação, facilitando o uso por diferentes profissionais de saúde.
 
 Este projeto foi criado como parte da disciplina de Fundamentos de Desenvolvimento de Software na CESAR School - turma 2024.2.
 
