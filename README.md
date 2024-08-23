@@ -1,10 +1,10 @@
-# CUIDA
+![CUIDA banner](https://github.com/user-attachments/assets/6b6bee69-c34e-408c-86ef-3812a4c3b6a9)
 
 ## Descrição
 
-Este é um projeto Django para ajudar os hospitais públicos à gerenciar melhor seu ambiente hospitalar com foco em gerenciamento dos pacientes
+CUIDA é um projeto desenvolvido no framework Django, projetado para otimizar a gestão hospitalar em hospitais públicos, com foco na administração eficiente dos pacientes e na organização dos seus dados. O sistema oferece uma interface intuitiva e de fácil navegação, facilitando o uso por diferentes profissionais de saúde.
 
-Este é um trabalho para a disciplina de Fundamentos de Desenvolvimento de Software - CESAR School 2024.2.
+Este projeto foi criado como parte da disciplina de Fundamentos de Desenvolvimento de Software na CESAR School - turma 2024.2.
 
 ## Funcionalidades
 
@@ -22,10 +22,16 @@ Este é um trabalho para a disciplina de Fundamentos de Desenvolvimento de Softw
 
 ## Tecnologias
 
-- **Framework de Desenvolvimento** - Django - Framework web em Python para o back-end.
-- **Interface** - HTML/CSS/JavaScript - Para a interface do usuário.
-- **Banco de dados** - Sqlite/PostgreSQL - Para armazenar informações.
-- **Hospedagem** - Azure - O produto final será hospedado na plataforma Azure.
+- **Framework de Desenvolvimento**: Django - Framework web em Python para o back-end.
+- **Interface**: HTML/CSS/JavaScript - Para a interface do usuário.
+- **Banco de dados**: Sqlite/PostgreSQL - Para armazenar informações.
+- **Hospedagem**: Azure - O produto final será hospedado na plataforma Azure.
+
+## Ferramentas
+
+- **Prototipação**: Figma - Utilizado para criar e validar protótipos de design da interface do usuário.
+- **Gestão de Projetos**: Jira - Ferramenta para o planejamento e acompanhamento das tarefas do projeto.
+- **Comunicação e Reuniões**: Discord/WhatsApp - Plataformas utilizadas para reuniões e comunicação da equipe.
 
 ## Licença
 
