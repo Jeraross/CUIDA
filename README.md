@@ -1,16 +1,24 @@
-# (nome do projeto)
+# HospiTech
 
 ## Descrição
 
-Este é um projeto Django para ajudar os usuários...
+Este é um projeto Django para ajudar os hospitais públicos à gerenciar melhor seu ambiente hospitalar com foco em gerenciamento dos pacientes
 
-Este é um trabalho para a disciplina de Projetos 2 - CESAR School 2024.2.
+Este é um trabalho para a disciplina de Fundamentos de Desenvolvimento de Software - CESAR School 2024.2.
 
 ## Futuras Funcionalidades
 
-- Visualizar...
-- Adicionar...
-- Cadastrar...
+- Visualização:
+    >Pacientes atendidos / pendentes
+    >Histórico de visitas dos pacientes
+- Adicionar pacientes na planilha 
+- Cadastrar médicos, atendentes e administradores
+- Automação:
+    >Entrada de dados
+    >Verificação de duplicatas pelo número do prontuário
+    >Marcação de status
+- Gerar relatórios (mensais/ por pedido)
+- Backup automático de dados
 
 ## Tecnologias que Utilizaremos
 
