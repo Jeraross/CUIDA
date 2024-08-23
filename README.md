@@ -6,7 +6,7 @@ Este é um projeto Django para ajudar os hospitais públicos à gerenciar melhor
 
 Este é um trabalho para a disciplina de Fundamentos de Desenvolvimento de Software - CESAR School 2024.2.
 
-## Futuras Funcionalidades
+## Funcionalidades
 
 - Visualização:
     >Pacientes atendidos / pendentes
@@ -20,7 +20,7 @@ Este é um trabalho para a disciplina de Fundamentos de Desenvolvimento de Softw
 - Gerar relatórios (mensais/ por pedido)
 - Backup automático de dados
 
-## Tecnologias que Utilizaremos
+## Tecnologias
 
 - **Framework de Desenvolvimento** - Django - Framework web em Python para o back-end.
 - **Interface** - HTML/CSS/JavaScript - Para a interface do usuário.
