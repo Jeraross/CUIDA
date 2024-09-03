@@ -48,4 +48,5 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 
 ## Jira Backlog
 
+![backlog1](https://github.com/user-attachments/assets/d9c650d1-76a2-4ef4-a9d2-4c6dc0bb75ba)
 
