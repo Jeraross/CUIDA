@@ -46,7 +46,7 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 - [João Pedro Aguiar](https://github.com/Jp-moraiss) - jpam@cesar.school
 - [Maria Julia Dantas](https://github.com/mariajuliadantas) - mjdma@cesar.school
 
-## Jira Backlog
+## Jira primeira entrega
 
 ![backlog1](https://github.com/user-attachments/assets/d9c650d1-76a2-4ef4-a9d2-4c6dc0bb75ba)
 ![backlog2](https://github.com/user-attachments/assets/f12892e9-dc8e-42c0-9077-40b8af543f0f)
