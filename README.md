@@ -49,4 +49,16 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 ## Jira Backlog
 
 ![backlog1](https://github.com/user-attachments/assets/d9c650d1-76a2-4ef4-a9d2-4c6dc0bb75ba)
+![backlog2](https://github.com/user-attachments/assets/f12892e9-dc8e-42c0-9077-40b8af543f0f)
+![sprint](https://github.com/user-attachments/assets/ff3a1603-29c0-4087-b6b9-a16b690d86af)
+
+O objetivo deste sprint é estabelecer a base operacional do sistema, focando em funcionalidades críticas para o gerenciamento de usuários e a integridade dos dados. Isso inclui o desenvolvimento das seguintes funcionalidades:
+
+Cadastro de Usuários: Implementar a funcionalidade para que administradores possam cadastrar médicos, atendentes e outros administradores, garantindo que as permissões de acesso ao sistema sejam devidamente gerenciadas.
+
+Visualização de Pacientes Atendidos/Pendentes: Criar uma interface que permita aos administradores acompanhar o status dos pacientes, visualizando facilmente quais foram atendidos e quais estão pendentes, para melhorar a gestão e priorização dos atendimentos.
+
+Verificação de Duplicatas pelo Número do Prontuário: Desenvolver um mecanismo de verificação automática para identificar e evitar a criação de registros duplicados no sistema, garantindo a precisão e a integridade dos dados dos pacientes.
+
+Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar diferentes tipos de usuários com permissões adequadas, permitir o acompanhamento eficaz dos atendimentos, e assegurar que os dados dos pacientes sejam únicos e precisos.
 
