@@ -45,3 +45,7 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 - [Jeronimo Rossi](https://github.com/Jeraross) - jbr2@cesar.school
 - [João Pedro Aguiar](https://github.com/Jp-moraiss) - jpam@cesar.school
 - [Maria Julia Dantas](https://github.com/mariajuliadantas) - mjdma@cesar.school
+
+## Jira Backlog
+
+
