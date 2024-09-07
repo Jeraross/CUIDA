@@ -49,7 +49,8 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 ## Jira primeira entrega
 
 ![backlog](https://github.com/user-attachments/assets/1e6d4853-a3fb-49e1-854e-7ff15a1a59e9)
-![sprint](https://github.com/user-attachments/assets/ff3a1603-29c0-4087-b6b9-a16b690d86af)
+![sprint](https://github.com/user-attachments/assets/cd3fb06a-28d2-4e3e-be80-4d41126c887b)
+
 
 O objetivo deste sprint é estabelecer a base operacional do sistema, focando em funcionalidades críticas para o gerenciamento de usuários e a integridade dos dados. Isso inclui o desenvolvimento das seguintes funcionalidades:
 
