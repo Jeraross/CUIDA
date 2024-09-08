@@ -48,7 +48,7 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 
 ## Primeira entrega
 
-![Screencast do protótipo](https://youtu.be/rj-HaZjpsRU)
+[Screencast do protótipo](https://youtu.be/rj-HaZjpsRU)
 
 ![backlog](https://github.com/user-attachments/assets/1abc56dc-6828-4db7-847c-75446909ea6d)
 
