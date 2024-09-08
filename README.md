@@ -48,7 +48,8 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 
 ## Jira primeira entrega
 
-![backlog](https://github.com/user-attachments/assets/1e6d4853-a3fb-49e1-854e-7ff15a1a59e9)
+![backlog](https://github.com/user-attachments/assets/1abc56dc-6828-4db7-847c-75446909ea6d)
+
 ![sprint](https://github.com/user-attachments/assets/cd3fb06a-28d2-4e3e-be80-4d41126c887b)
 
 
