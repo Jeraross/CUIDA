@@ -50,6 +50,8 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 
 [Screencast do protótipo](https://youtu.be/rj-HaZjpsRU)
 
+[Link do jira da equipe](https://projetofds-2.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog)
+
 ![backlog](https://github.com/user-attachments/assets/1abc56dc-6828-4db7-847c-75446909ea6d)
 
 ![sprint](https://github.com/user-attachments/assets/cd3fb06a-28d2-4e3e-be80-4d41126c887b)
