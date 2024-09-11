@@ -52,9 +52,9 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 
 [Link do jira da equipe](https://projetofds-2.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog)
 
-![backlog](https://github.com/user-attachments/assets/1abc56dc-6828-4db7-847c-75446909ea6d)
+![backlog](https://github.com/user-attachments/assets/19e4291e-e775-4708-9ecc-9d0093c022de)
 
-![sprint](https://github.com/user-attachments/assets/cd3fb06a-28d2-4e3e-be80-4d41126c887b)
+![Sprint](https://github.com/user-attachments/assets/83452c10-191d-45f9-af89-4f5c09271bb1)
 
 
 O objetivo deste sprint é estabelecer a base operacional do sistema, focando em funcionalidades críticas para o gerenciamento de usuários e a integridade dos dados. Isso inclui o desenvolvimento das seguintes funcionalidades:
