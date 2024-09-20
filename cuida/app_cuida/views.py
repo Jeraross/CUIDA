@@ -9,6 +9,10 @@ def pacientes(request):
     novo_paciente = Paciente()
     novo_paciente.nome = request.POST.get('nome')
     novo_paciente.idade = request.POST.get('idade')
+    novo_paciente.numero_celular = request.POST.get('numero_celular')
+    novo_paciente.numero_prontuario = request.POST.get('numero_prontuario')
+    novo_paciente.tipo_cirurgia = request.POST.get('tipo_cirurgia')
+    novo_paciente.status = request.POST.get('status')
     novo_paciente.save()
     #Exibir todos os usuários já cadastrados em uma nova página:
     pacientes = {
