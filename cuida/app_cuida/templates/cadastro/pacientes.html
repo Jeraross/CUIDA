@@ -1,0 +1,28 @@
+{% extends 'cadastro/base.html' %}
+{% block conteudo %}
+<div class="container"></div>
+<h1>Pacientes Cadastrados:</h1>
+    <table class=" table table-bordered table-striped">
+        <tr>
+            <th>id</th>
+            <th>nome</th>
+            <th>idade</th>
+            <th>numero de celular</th>
+            <th>numero de prontuario</th>
+            <th>tipo de cirurgia</th>
+            <th>status</th>
+        </tr>
+        {% for paciente in pacientes %}
+        <tr>
+            <td>{{paciente.id_paciente}}</td>
+            <td>{{paciente.nome}}</td>
+            <td>{{paciente.idade}}</td>
+            <td>{{paciente.numero_celular}}</td>
+            <td>{{paciente.numero_prontuario}}</td>
+            <td>{{paciente.tipo_cirurgia}}</td>
+            <td>{{paciente.status}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
