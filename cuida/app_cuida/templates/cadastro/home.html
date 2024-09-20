@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'cadastro/base.html' %}
+{% block conteudo %}
+<form action="{% url 'listagem_pacientes' %}" method="post">
+  {% csrf_token %}
+<div style="text-align: center;" class="container">
+  <h1>Cadastro de pacientes</h1>
+  Nome <input name="nome" class="form-control-sm" type="text">
+  Idade <input name="idade" class="form-control-sm" type="text">
+  Número de Celular <input name="numero_celular" class="form-control-sm" type="text">
+  Número de Prontuário <input name="numero_prontuario" class="form-control-sm" type="text">
+  Tipo de Cirurgia <input name="tipo_cirurgia" class="form-control-sm" type="text">
+  Status <input name="status" class="form-control-sm" type="text">
+  <button class="form-control-sm">Enviar</button>
+</div>
+</form>
+{% endblock %}
