@@ -1,43 +1,16 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <nav style="background-color:bisque !important;" class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <span class="navbar-brand mb-0 h1">Cadastro</span>
-        </div>
-      </nav>
-      <form action="{% url 'listagem_pacientes' %}" method="post">
-      <div style="text-align: center;" class="container">
-        <h1>Cadastro de pacientes</h1>
-        Nome <input name="nome" class="form-control-sm" type="text">
-        Idade <input name="idade" class="form-control-sm" type="text">
-        Número de Celular <input name="numero_celular" class="form-control-sm" type="text">
-        Número de Prontuário <input name="numero_prontuario" class="form-control-sm" type="text">
-        Tipo de Cirurgia <input name="tipo_cirurgia" class="form-control-sm" type="text">
-        Status <input name="Status" class="form-control-sm" type="text">
-        <button class="form-control-sm">Enviar</button>
-      </div>
-    </form>
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
-  </body>
-</html>
+{% extends 'cadastro/base.html' %}
+{% block conteudo %}
+<form action="{% url 'listagem_pacientes' %}" method="post">
+  {% csrf_token %}
+<div style="text-align: center;" class="container">
+  <h1>Cadastro de pacientes</h1>
+  Nome <input name="nome" class="form-control-sm" type="text">
+  Idade <input name="idade" class="form-control-sm" type="text">
+  Número de Celular <input name="numero_celular" class="form-control-sm" type="text">
+  Número de Prontuário <input name="numero_prontuario" class="form-control-sm" type="text">
+  Tipo de Cirurgia <input name="tipo_cirurgia" class="form-control-sm" type="text">
+  Status <input name="status" class="form-control-sm" type="text">
+  <button class="form-control-sm">Enviar</button>
+</div>
+</form>
+{% endblock %}
