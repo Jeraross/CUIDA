@@ -56,18 +56,24 @@ def update(request, id_paciente):
 
 
 def pacientes(request):
-    #Salvar os dados da tela para o banco de dados
-    novo_paciente = Paciente()
-    novo_paciente.nome = request.POST.get('nome')
-    novo_paciente.idade = request.POST.get('idade')
-    novo_paciente.numero_celular = request.POST.get('numero_celular')
-    novo_paciente.numero_prontuario = request.POST.get('numero_prontuario')
-    novo_paciente.tipo_cirurgia = request.POST.get('tipo_cirurgia')
-    novo_paciente.status = request.POST.get('status')
-    novo_paciente.save()
-    #Exibir todos os usuários já cadastrados em uma nova página:
-    pacientes = {
-        'pacientes': Paciente.objects.all()
+    if request.method == 'POST':
+        form = PacienteForm(request.POST)
+        
+        if form.is_valid():
+            # Salvar o novo paciente
+            form.save()
+            return redirect('listagem_pacientes')
+        else:
+            # Se o formulário não for válido, renderizar a página com erros
+            context = {
+                'form': form,
+                'pacientes': Paciente.objects.all(),
+            }
+            return render(request, 'cadastro/pacientes.html', context)
+    
+    # Se o método for GET, exibir a listagem de pacientes
+    context = {
+        'form': PacienteForm(),
+        'pacientes': Paciente.objects.all(),
     }
-    #Retornar os dados para a página de listagem de pacientes:
-    return render(request, 'cadastro/pacientes.html', pacientes)
+    return render(request, 'cadastro/pacientes.html', context)
