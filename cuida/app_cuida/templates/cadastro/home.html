@@ -2,58 +2,18 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/base.css' %}?v=1.0">
-
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
 <form action="{% url 'listagem_pacientes' %}" method="post">
   {% csrf_token %}
-
-<div class="container">
-
-  
-  <div class="form">
-
-    <div class="form-header">
-      <div class="title">
-          <h1>Cadastro de Pacientes</h1>
-      </div>
-    </div>
-
-    <div class="input-group">
-
-    <div class="input-box">
-      <label for="nome">Nome</label> 
-  <input name="nome" class="form-control-sm" type="text">
-    </div>
-
-    <div class="input-box">
-      <label for =idade>Idade</label>
-   <input name="idade" class="form-control-sm" type="text">
-    </div>
-
-    <div class="input-box">
-      <label for="numero_celular">Número de Celular</label>  
-    <input name="numero_celular" class="form-control-sm" type="text">
-    </div>
-
-    <div class="input-box">
-      <label for="numero_prontuario">Número de Prontuário</label>
-  <input name="numero_prontuario" class="form-control-sm" type="text">
-    </div>
-    <div class="input-box">
-      <label for="tipo_cirurgia">Tipo de Cirurgia</label>
-  <input name="tipo_cirurgia" class="form-control-sm" type="text">
-    </div>
-    <div class="input-box">
-      <label for="status">Status</label>
-   <input name="status" class="form-control-sm" type="text">
-    </div>
-  </div>
-
-  <div class="continue-button">
-  <button class="form-control-sm" ><a>Adicionar Paciente</a></button>
-</div>
-</div>
+<div style="text-align: center;" class="container">
+  <h1>Cadastro de pacientes</h1>
+  Nome <input name="nome" class="form-control-sm" type="text">
+  Idade <input name="idade" class="form-control-sm" type="text">
+  Número de Celular <input name="numero_celular" class="form-control-sm" type="text">
+  Número de Prontuário <input name="numero_prontuario" class="form-control-sm" type="text">
+  Tipo de Cirurgia <input name="tipo_cirurgia" class="form-control-sm" type="text">
+  Status <input name="status" class="form-control-sm" type="text">
+  <button class="form-control-sm">Enviar</button>
 </div> 
 </form>
-
 {% endblock %}
