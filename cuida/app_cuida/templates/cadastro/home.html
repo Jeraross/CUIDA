@@ -3,17 +3,9 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/base.css' %}">
-<form action="{% url 'listagem_pacientes' %}" method="post">
+<form action="." method="post">
   {% csrf_token %}
-<div style="text-align: center;" class="container">
-  <h1>Cadastro de pacientes</h1>
-  Nome <input name="nome" class="form-control-sm" type="text">
-  Idade <input name="idade" class="form-control-sm" type="text">
-  Número de Celular <input name="numero_celular" class="form-control-sm" type="text">
-  Número de Prontuário <input name="numero_prontuario" class="form-control-sm" type="text">
-  Tipo de Cirurgia <input name="tipo_cirurgia" class="form-control-sm" type="text">
-  Status <input name="status" class="form-control-sm" type="text">
+  {{ form.as_p }} 
   <button class="form-control-sm">Enviar</button>
-</div> 
 </form>
 {% endblock %}

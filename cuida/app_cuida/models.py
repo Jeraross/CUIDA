@@ -2,9 +2,12 @@ from django.db import models
 
 class Paciente(models.Model):
     id_paciente = models.AutoField(primary_key=True)
-    nome = models.TextField(max_length=255)
-    idade = models.IntegerField()
+    nome = models.CharField(max_length=25, null=True, blank=True)
+    idade = models.IntegerField(null=True, blank=True)
     numero_celular = models.CharField(max_length=15, null=True, blank=True)
     numero_prontuario = models.CharField(max_length=15, null=True, blank=True)
-    tipo_cirurgia = models.TextField(max_length=255, null=True, blank=True)
-    status = models.TextField(max_length=255, null=True, blank=True)
+    tipo_cirurgia = models.CharField(max_length=15, null=True, blank=True)
+    status = models.CharField(max_length=15, null=True, blank=True)
+
+    def __str__(self):
+        return self.nome
