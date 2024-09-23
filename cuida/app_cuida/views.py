@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Paciente
 from .forms import PacienteForm
 
@@ -77,3 +77,8 @@ def pacientes(request):
         'pacientes': Paciente.objects.all(),
     }
     return render(request, 'cadastro/pacientes.html', context)
+
+def delete_paciente(request, id_paciente):
+    paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
+    paciente.delete()
+    return redirect('listagem_pacientes')

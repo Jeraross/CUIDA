@@ -21,6 +21,9 @@
             <td>{{paciente.numero_prontuario}}</td>
             <td>{{paciente.tipo_cirurgia}}</td>
             <td>{{paciente.status}}</td>
+            <td>
+                <a href="{% url 'delete_paciente' paciente.id_paciente %}">Excluir</a>
+            </td>
         </tr>
         {% endfor %}
     </table>

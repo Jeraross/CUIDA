@@ -7,4 +7,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('pacientes/', views.pacientes, name='listagem_pacientes'),
     path('update/<int:id_paciente>/', views.update, name='update_paciente'),
+    path('delete/<int:id_paciente>/', views.delete_paciente, name='delete_paciente'),
 ]
