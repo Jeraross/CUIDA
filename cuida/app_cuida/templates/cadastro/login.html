@@ -9,13 +9,12 @@
     <link rel="stylesheet" href="{% static 'css/login.css' %}?v=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
-
 <body>
     <div class="container" id="container">
         <div class="form-container sign_up">
             <form method="post" action="{% url 'register' %}">
                 {% csrf_token %}
-                <img src="{% static 'image/IMG_0211C.PNG' %}" class="user-image">
+                <img src="{% static 'image\IMG_0211C.PNG' %}" class="user-image">
                 <h2>Crie sua conta</h2>
                 <div class="user-perfil">
                     <input type="radio" id="admin" name="perfil">
