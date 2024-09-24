@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CUIDA</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}?v=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign_up">
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                <img src="{% static 'image/IMG_0211C.PNG' %}" class="user-image">
+                <h2>Crie sua conta</h2>
+                <div class="user-perfil">
+                    <input type="radio" id="admin" name="perfil">
+                    <label for="admin">Administrador</label>
+                    <input type="radio" id="user" name="perfil">
+                    <label for="user">Usuário</label>
+                </div>
+                
+                <input type="text" placeholder="Nome">
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Senha">
+                <button>Cadastrar</button>
+            </form>
+        </div>
+        <div class="form-container sign_in">
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <img src="{% static 'image/IMG_0211C.PNG' %}" class="user-image">
+                <h2>Entre na conta</h2>
+                <div class="user-perfil">
+                    <input type="radio" id="admin" name="perfil">
+                    <label for="admin">Administrador</label>
+                    <input type="radio" id="user" name="perfil">
+                    <label for="user">Usuário</label>
+                </div>
+
+                
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Senha">
+                <button>Entrar</button>
+            </form>
+        </div>
+        <div class="toggle_container">
+            <div class="toggle">
+                <div class="toggle-panel toggle_left">
+                    <h1>Olá, já tem sua conta?</h1>              
+                    <p>Ótimo! Clique em 'Entar' e continue sua experiência com a gente. Estamos prontos para te receber de volta!"</p>
+                    <button class="hidden"  id="login">Entrar</button>
+                </div>
+                <div class="toggle-panel toggle_right">
+                    <h1 >Bem vindo, ainda não tem cadastro?</h1>
+                    <p >Clique em 'Cadastrar' e crie sua conta para começar a usar todos os recursos!</p>
+                    <button class="hidden" id="register">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+   <script>
+    const container = document.getElementById('container');
+    const registerBtn = document.getElementById('register');
+    const login = document.getElementById('login');
+
+    registerBtn.addEventListener('click', () => {
+        container.classList.add("active");
+    });
+
+    login.addEventListener('click', () => {
+        container.classList.remove("active");
+    })
+   </script>
+
+</body>
+
+</html>

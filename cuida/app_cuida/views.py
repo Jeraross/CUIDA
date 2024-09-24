@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Paciente
 from .forms import PacienteForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
+from django.contrib import messages
 
 def home(request):
 
@@ -82,3 +85,36 @@ def delete_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     paciente.delete()
     return redirect('listagem_pacientes')
+
+def register(request):
+    if request.method == 'POST':
+        username = request.POST['nome']
+        email = request.POST['email']
+        password = request.POST['senha']
+        perfil = request.POST['perfil']
+
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+        
+
+        messages.success(request, 'Conta criada com sucesso! Faça login.')
+        return redirect('login')
+
+    return render(request, 'cadastro/login.html')  # Altere conforme o nome do seu template
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['nome']
+        password = request.POST['senha']
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('home')  # Redirecione para a página inicial ou onde desejar
+        else:
+            messages.error(request, 'Nome de usuário ou senha inválidos.')
+
+    return render(request, 'cadastro/login.html')  # Altere conforme o nome do seu template
+
+
+
