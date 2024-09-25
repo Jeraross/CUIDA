@@ -11,102 +11,71 @@
 </head>
 <body>
     <div class="container" id="container">
-        <!-- Cadastro -->
         <div class="form-container sign_up">
-            <form method="post" action="{% url 'register' %}" onsubmit="return validateFormRegister()">
+            <form method="post" action="{% url 'register' %}">
                 {% csrf_token %}
-                <img src="{% static 'image/IMG_0211C.PNG' %}" class="user-image">
+                <img src="{% static 'image\IMG_0211C.PNG' %}" class="user-image">
                 <h2>Crie sua conta</h2>
                 <div class="user-perfil">
-                    <input type="radio" id="admin" name="perfil" required>
+                    <input type="radio" id="admin" name="perfil">
                     <label for="admin">Administrador</label>
-                    <input type="radio" id="user" name="perfil" required>
+                    <input type="radio" id="user" name="perfil">
                     <label for="user">Usuário</label>
                 </div>
                 
-                <input type="text" placeholder="Nome" id="register-name" required>
-                <input type="email" placeholder="Email" id="register-email" required>
-                <input type="password" placeholder="Senha" id="register-password" required>
-                <button type="submit">Cadastrar</button>
+                <input type="text" placeholder="Nome">
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Senha">
+                <button>Cadastrar</button>
             </form>
         </div>
-
-        <!-- Login -->
         <div class="form-container sign_in">
-            <form method="post" action="{% url 'login' %}" onsubmit="return validateFormLogin()">
+            <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
                 <img src="{% static 'image/IMG_0211C.PNG' %}" class="user-image">
                 <h2>Entre na conta</h2>
                 <div class="user-perfil">
-                    <input type="radio" id="admin" name="perfil" required>
+                    <input type="radio" id="admin" name="perfil">
                     <label for="admin">Administrador</label>
-                    <input type="radio" id="user" name="perfil" required>
+                    <input type="radio" id="user" name="perfil">
                     <label for="user">Usuário</label>
                 </div>
+
                 
-                <input type="email" placeholder="Email" id="login-email" required>
-                <input type="password" placeholder="Senha" id="login-password" required>
-                <button type="submit">Entrar</button>
+                <input type="email" placeholder="Email">
+                <input type="password" placeholder="Senha">
+                <button>Entrar</button>
             </form>
         </div>
-
-        <!-- Toggle entre login e cadastro -->
         <div class="toggle_container">
             <div class="toggle">
                 <div class="toggle-panel toggle_left">
                     <h1>Olá, já tem sua conta?</h1>              
                     <p>Ótimo! Clique em 'Entrar' e continue sua experiência com a gente. Estamos prontos para te receber de volta!</p>
-                    <button class="hidden" id="login">Entrar</button>
+                    <button class="hidden"  id="login">Entrar</button>
                 </div>
                 <div class="toggle-panel toggle_right">
-                    <h1>Bem vindo, ainda não tem cadastro?</h1>
-                    <p>Clique em 'Cadastrar' e crie sua conta para começar a usar todos os recursos!</p>
+                    <h1 >Bem vindo, ainda não tem cadastro?</h1>
+                    <p >Clique em 'Cadastrar' e crie sua conta para começar a usar todos os recursos!</p>
                     <button class="hidden" id="register">Cadastrar</button>
                 </div>
             </div>
         </div>
     </div>
     
-    <!-- Scripts -->
-    <script>
-        // Validação do formulário de cadastro
-        function validateFormRegister() {
-            var name = document.getElementById('register-name').value;
-            var email = document.getElementById('register-email').value;
-            var password = document.getElementById('register-password').value;
+   <script>
+    const container = document.getElementById('container');
+    const registerBtn = document.getElementById('register');
+    const login = document.getElementById('login');
 
-            if (name === "" || email === "" || password === "") {
-                alert("Por favor, preencha todos os campos.");
-                return false;
-            }
-            return true;
-        }
+    registerBtn.addEventListener('click', () => {
+        container.classList.add("active");
+    });
 
-        // Validação do formulário de login
-        function validateFormLogin() {
-            var email = document.getElementById('login-email').value;
-            var password = document.getElementById('login-password').value;
-
-            if (email === "" || password === "") {
-                alert("Por favor, preencha todos os campos.");
-                return false;
-            }
-            return true;
-        }
-
-        // Controle de visibilidade dos formulários
-        const container = document.getElementById('container');
-        const registerBtn = document.getElementById('register');
-        const login = document.getElementById('login');
-
-        registerBtn.addEventListener('click', () => {
-            container.classList.add("active");
-        });
-
-        login.addEventListener('click', () => {
-            container.classList.remove("active");
-        });
-    </script>
+    login.addEventListener('click', () => {
+        container.classList.remove("active");
+    })
+   </script>
 
 </body>
 
