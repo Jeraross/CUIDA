@@ -47,11 +47,6 @@
                 <input type="email" placeholder="Email" id="login-email" required>
                 <input type="password" placeholder="Senha" id="login-password" required>
                 <button type="submit">Entrar</button>
-                {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
             </form>
         </div>
 
