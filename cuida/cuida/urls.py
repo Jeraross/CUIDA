@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from app_cuida import views
 from django.contrib import admin
 
@@ -13,5 +13,6 @@ urlpatterns = [
     path('delete/<int:id_paciente>/', views.delete_paciente, name='delete_paciente'),
     path('login/', views.login_view, name='login'), 
     path('editar/',views.edit, name='editar_pacientes'),
+    path('auth', include('accounts.urls'))
 ]
 

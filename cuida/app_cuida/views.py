@@ -16,7 +16,7 @@ def form(request):
             'form': form,
         }
 
-        return render(request, 'cadastro/form.html', context)
+        return render(request, 'app_cuida/form.html', context)
     elif request.method == 'POST':
         form = PacienteForm(request.POST)
 
@@ -30,7 +30,7 @@ def form(request):
                 'pacientes' : pacientes,
                 'form': form,
             }
-            return render(request, 'cadastro/form.html', context)
+            return render(request, 'app_cuida/form.html', context)
 
 
 def update(request, id_paciente):
@@ -41,7 +41,7 @@ def update(request, id_paciente):
             'form': form,
         }
 
-        return render(request, 'cadastro/form.html', context)
+        return render(request, 'app_cuida/form.html', context)
     elif request.method == 'POST':
         paciente = Paciente.objects.filter(id_paciente=id_paciente).first()
         form = PacienteForm(request.POST, instance = paciente)
@@ -54,7 +54,7 @@ def update(request, id_paciente):
             context = {
                 'pacientes' : pacientes,
             }
-            return render(request, 'cadastro/pacientes.html', context)
+            return render(request, 'app_cuida/pacientes.html', context)
 
 
 
@@ -63,23 +63,20 @@ def pacientes(request):
         form = PacienteForm(request.POST)
         
         if form.is_valid():
-            # Salvar o novo paciente
             form.save()
             return redirect('listagem_pacientes')
         else:
-            # Se o formulário não for válido, renderizar a página com erros
             context = {
                 'form': form,
                 'pacientes': Paciente.objects.all(),
             }
-            return render(request, 'cadastro/pacientes.html', context)
+            return render(request, 'app_cuida/pacientes.html', context)
     
-    # Se o método for GET, exibir a listagem de pacientes
     context = {
         'form': PacienteForm(),
         'pacientes': Paciente.objects.all(),
     }
-    return render(request, 'cadastro/pacientes.html', context)
+    return render(request, 'app_cuida/pacientes.html', context)
 
 def delete_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
@@ -91,7 +88,6 @@ def register(request):
         username = request.POST['nome']
         email = request.POST['email']
         password = request.POST['senha']
-        perfil = request.POST['perfil']
 
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
@@ -100,7 +96,7 @@ def register(request):
         messages.success(request, 'Conta criada com sucesso! Faça login.')
         return redirect('login')
 
-    return render(request, 'cadastro/login.html')  # Altere conforme o nome do seu template
+    return render(request, 'app_cuida/login.html') 
 
 def login_view(request):
     if request.method == 'POST':
@@ -110,11 +106,11 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')  # Redirecione para a página inicial ou onde desejar
+            return redirect('home') 
         else:
             messages.error(request, 'Nome de usuário ou senha inválidos.')
 
-    return render(request, 'cadastro/login.html')  # Altere conforme o nome do seu template
+    return render(request, 'app_cuida/login.html')  
 
 
 def edit(request):
@@ -124,7 +120,7 @@ def edit(request):
             'pacientes' : pacientes,
         }
 
-    return render(request, 'cadastro/editar.html', context)
+    return render(request, 'app_cuida/editar.html', context)
 
 def home(request):
-    return render(request, 'cadastro/home.html')
+    return render(request, 'app_cuida/home.html')
