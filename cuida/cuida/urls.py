@@ -13,6 +13,5 @@ urlpatterns = [
     path('delete/<int:id_paciente>/', views.delete_paciente, name='delete_paciente'),
     path('login/', views.login_view, name='login'), 
     path('editar/',views.edit, name='editar_pacientes'),
-    path('auth/', include('accounts.urls'))
 ]
 
