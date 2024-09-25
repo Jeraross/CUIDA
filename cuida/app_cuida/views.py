@@ -117,4 +117,11 @@ def login_view(request):
     return render(request, 'cadastro/login.html')  # Altere conforme o nome do seu template
 
 
+def edit(request):
+    pacientes = Paciente.objects.all()
 
+    context = {
+            'pacientes' : pacientes,
+        }
+
+    return render(request, 'cadastro/editar.html', context)
