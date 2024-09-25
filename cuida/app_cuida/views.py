@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
 
-def home(request):
+def form(request):
 
     if request.method == 'GET':
         pacientes = Paciente.objects.all()
@@ -16,7 +16,7 @@ def home(request):
             'form': form,
         }
 
-        return render(request, 'cadastro/home.html', context)
+        return render(request, 'cadastro/form.html', context)
     elif request.method == 'POST':
         form = PacienteForm(request.POST)
 
@@ -30,7 +30,7 @@ def home(request):
                 'pacientes' : pacientes,
                 'form': form,
             }
-            return render(request, 'cadastro/home.html', context)
+            return render(request, 'cadastro/form.html', context)
 
 
 def update(request, id_paciente):
@@ -41,7 +41,7 @@ def update(request, id_paciente):
             'form': form,
         }
 
-        return render(request, 'cadastro/home.html', context)
+        return render(request, 'cadastro/form.html', context)
     elif request.method == 'POST':
         paciente = Paciente.objects.filter(id_paciente=id_paciente).first()
         form = PacienteForm(request.POST, instance = paciente)
@@ -84,7 +84,7 @@ def pacientes(request):
 def delete_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     paciente.delete()
-    return redirect('listagem_pacientes')
+    return redirect('editar_pacientes')
 
 def register(request):
     if request.method == 'POST':
@@ -125,3 +125,6 @@ def edit(request):
         }
 
     return render(request, 'cadastro/editar.html', context)
+
+def home(request):
+    return render(request, 'cadastro/home.html')

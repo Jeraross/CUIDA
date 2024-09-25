@@ -4,49 +4,7 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/base.css' %}?v=1.0">  
 
-<!-- O formulário com campos renderizados individualmente -->
-<form action="." method="post">
-  {% csrf_token %}
-
-
-  <!-- Campo para Nome -->
-  <div class="form-group">
-    <label for="nome">Nome</label>
-    {{ form.nome }}
-  </div>
-
-  <!-- Campo para Idade -->
-  <div class="form-group">
-    <label for="idade">Idade</label>
-    {{ form.idade }}
-  </div>
-
-  <!-- Campo para Número de Celular -->
-  <div class="form-group">
-    <label for="numero_celular">Número de Celular</label>
-    {{ form.numero_celular }}
-  </div>
-
-  <!-- Campo para Número de Prontuário -->
-  <div class="form-group">
-    <label for="numero_prontuario">Número de Prontuário</label>
-    {{ form.numero_prontuario }}
-  </div>
-
-  <!-- Campo para Tipo de Cirurgia -->
-  <div class="form-group">
-    <label for="tipo_cirurgia">Tipo de Cirurgia</label>
-    {{ form.tipo_cirurgia }}
-  </div>
-
-  <!-- Campo para Status -->
-  <div class="form-group">
-    <label for="status">Status</label>
-    {{ form.status }}
-  </div>
-
-  <!-- Botão de Enviar -->
-  <button type="submit" class="btn btn-primary">Enviar</button>
-</form>
-
+<a href="{% url 'form' %}"><button>Cadastrar Pacientes</button></a>
+<a href="{% url 'listagem_pacientes' %}"><button>Visualizar Pacientes</button></a>
+<a href="{% url 'editar_pacientes' %}"><button>Editar Pacientes</button></a>
 {% endblock %}
