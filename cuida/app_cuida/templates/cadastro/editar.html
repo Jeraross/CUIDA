@@ -24,7 +24,7 @@
             <td>
                 <a href="{% url 'delete_paciente' paciente.id_paciente %}">Excluir</a>
             </td>
-            <td> <a href={% url 'update_paciente' paciente.id_paciente %}>Editar</a></td>
+            <td> <a href="{% url 'update_paciente' paciente.id_paciente %}">Editar</a></td>
         </tr>
         {% endfor %}
     </table>
