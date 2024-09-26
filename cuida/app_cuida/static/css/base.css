@@ -1,7 +1,7 @@
 /* Estilos globais */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    background: linear-gradient(to right, #cbe6f1a2, #30d1fec5);
     margin: 0;
     padding: 0;
     display: flex;
@@ -22,7 +22,7 @@ body {
 h1 {
     font-size: 24px;
     margin-bottom: 20px;
-    color: #ce1818;
+    color: #fff;
 }
 
 input[type="text"], input[type="number"], input[type="tel"] {
@@ -38,7 +38,7 @@ input[type="text"], input[type="number"], input[type="tel"] {
 button {
     width: 100%;
     padding: 10px;
-    background-color: #6d063a;
+    background-color: #1f2b5b;
     border: none;
     color: white;
     font-size: 16px;
@@ -69,3 +69,18 @@ button:hover {
         font-size: 14px;
     }
 }
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to right,  #1f2b5b,#30a8ff);
+    z-index: 1000;
+    padding: 10px 0;
+    color: white;
+    
+}
+
+
+
