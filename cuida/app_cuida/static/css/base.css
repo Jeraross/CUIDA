@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 /* Estilos globais */
 body {
     font-family: Arial, sans-serif;
@@ -82,5 +84,26 @@ button:hover {
     
 }
 
+.navbar h1{
+    font-family: "Poppins", sans-serif;
+    color: #fff;
+    padding: 0px 25px;
+}
 
+.homebutton {
+    padding: 10px;
+    margin: 10px;
+}
 
+.basefooter {
+    font-family: "Poppins", sans-serif;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to left, #1f2b5b,#30a8ff);
+    color: white; /* Cor do texto */
+    text-align: center; /* Centraliza o conteúdo no footer */
+    padding: 0px 0; /* Espaçamento interno */
+    z-index: 1000; /* Garante que o footer fique acima de outros elementos */
+}

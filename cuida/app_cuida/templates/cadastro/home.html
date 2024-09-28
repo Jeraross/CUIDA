@@ -4,7 +4,7 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/base.css' %}?v=1.0">  
 
-<a href="{% url 'form' %}"><button>Cadastrar Pacientes</button></a>
-<a href="{% url 'listagem_pacientes' %}"><button>Visualizar Pacientes</button></a>
-<a href="{% url 'editar_pacientes' %}"><button>Editar Pacientes</button></a>
+<a href="{% url 'form' %}"><button class="homebutton">Cadastrar Pacientes</button></a>
+<a href="{% url 'listagem_pacientes' %}"><button class="homebutton">Visualizar Pacientes</button></a>
+<a href="{% url 'editar_pacientes' %}"><button class="homebutton">Editar Pacientes</button></a>
 {% endblock %}
