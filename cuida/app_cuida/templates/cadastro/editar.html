@@ -22,9 +22,9 @@
             <td>{{paciente.tipo_cirurgia}}</td>
             <td>{{paciente.status}}</td>
             <td>
-                <a href="{% url 'delete_paciente' paciente.id_paciente %}" style="text-decoration: none;" style="color: black;">Excluir</a>
+                <a href="{% url 'delete_paciente' paciente.id_paciente %}">Excluir</a>
             </td>
-            <td> <a href="{% url 'update_paciente' paciente.id_paciente %}" style="text-decoration: none;" style="color: black;">Editar</a></td>
+            <td> <a href="{% url 'update_paciente' paciente.id_paciente %}">Editar</a></td>
         </tr>
         {% endfor %}
     </table>

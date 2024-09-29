@@ -8,48 +8,45 @@
 <form action="." method="post">
   {% csrf_token %}
 
+
   <!-- Campo para Nome -->
   <div class="form-group">
     <label for="nome">Nome</label>
-    <input type="text" id="nome" name="nome" class="form-control" value="{{ paciente.nome }}">
+    {{ form.nome }}
   </div>
 
   <!-- Campo para Idade -->
   <div class="form-group">
     <label for="idade">Idade</label>
-    <input type="number" id="idade" name="idade" class="form-control" value="{{ paciente.idade }}">
+    {{ form.idade }}
   </div>
 
   <!-- Campo para Número de Celular -->
   <div class="form-group">
     <label for="numero_celular">Número de Celular</label>
-    <input type="text" id="numero_celular" name="numero_celular" class="form-control" value="{{ paciente.numero_celular }}">
+    {{ form.numero_celular }}
   </div>
 
   <!-- Campo para Número de Prontuário -->
   <div class="form-group">
     <label for="numero_prontuario">Número de Prontuário</label>
-    <input type="text" id="numero_prontuario" name="numero_prontuario" class="form-control" value="{{ paciente.numero_prontuario }}">
+    {{ form.numero_prontuario }}
   </div>
 
   <!-- Campo para Tipo de Cirurgia -->
   <div class="form-group">
     <label for="tipo_cirurgia">Tipo de Cirurgia</label>
-    <input type="text" id="tipo_cirurgia" name="tipo_cirurgia" class="form-control" value="{{ paciente.tipo_cirurgia }}">
+    {{ form.tipo_cirurgia }}
   </div>
 
   <!-- Campo para Status -->
   <div class="form-group">
     <label for="status">Status</label>
-    <select id="status" name="status" class="form-control" value="{{ paciente.status }}">
-      <option value="ATENDIDO">Atendido</option>
-      <option value="NAO ATENDIDO">Não Atendido</option>
-    </select>
+    {{ form.status }}
   </div>
 
   <!-- Botão de Enviar -->
   <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
-
 
 {% endblock %}
