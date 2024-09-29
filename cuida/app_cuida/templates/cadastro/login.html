@@ -12,7 +12,7 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign_up">
-            <form method="post" action="{% url 'register' %}">
+            <form method="post" action= '.'>
                 {% csrf_token %}
                 <img src="{% static 'image\IMG_0211C.PNG' %}" class="user-image">
                 <h2>Crie sua conta</h2>
@@ -30,7 +30,7 @@
             </form>
         </div>
         <div class="form-container sign_in">
-            <form method="post" action="{% url 'login' %}">
+            <form method="post" action=".">
                 {% csrf_token %}
                 <img src="{% static 'image/IMG_0211C.PNG' %}" class="user-image">
                 <h2>Entre na conta</h2>
