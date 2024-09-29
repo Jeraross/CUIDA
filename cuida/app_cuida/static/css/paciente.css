@@ -43,6 +43,7 @@ main.table{
 .table_header h1{
     color:#1f2b5b;
     font-size: 30px;
+    margin-left: -270px;
     
    
 }
@@ -53,7 +54,6 @@ main.table{
 }
 .table_header img.back{
     width: 35px;
-    margin-right: -250px;
     cursor: pointer;
     
 }

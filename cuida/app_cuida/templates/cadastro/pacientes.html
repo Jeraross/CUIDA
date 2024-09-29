@@ -13,7 +13,9 @@
 <body>
     <main class="table">
         <section class="table_header">
-            <img src="{% static 'image\seta.PNG' %}" class="back">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'image/seta.PNG' %}" class="back">
+            </a>
             <h1>Pacientes Cadastrados:</h1>
             <div class="input-group">
                 <input type="search" id="searchInput" placeholder="Busque aqui...">
