@@ -17,14 +17,13 @@
         <img src="{% static 'image/seta.PNG' %}" class="back">
       </a>
       <h1>Cadastro de Pacientes:</h1>
-      <img src="{% static 'image\IMG_0211C.PNG' %}" class="logo">
+      <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
     </nav>
   </header>
 
   <main>
-
-    <!-- O formulário com campos renderizados individualmente -->
-    <form action="." method="post">
+    <!-- O formulário com validação em JavaScript -->
+    <form action="." method="post" onsubmit="return validateForm()">
       {% csrf_token %}
 
       <!-- Campo para Nome -->
@@ -42,22 +41,19 @@
       <!-- Campo para Número de Celular -->
       <div class="form-group">
         <label for="numero_celular">Número de Celular</label>
-        <input type="text" id="numero_celular" name="numero_celular" class="form-control"
-          value="{{paciente.numero_celular}}">
+        <input type="text" id="numero_celular" name="numero_celular" class="form-control" value="{{paciente.numero_celular}}">
       </div>
 
       <!-- Campo para Número de Prontuário -->
       <div class="form-group">
         <label for="numero_prontuario">Número de Prontuário</label>
-        <input type="text" id="numero_prontuario" name="numero_prontuario" class="form-control"
-          value="{{paciente.numero_prontuario}}">
+        <input type="text" id="numero_prontuario" name="numero_prontuario" class="form-control" value="{{paciente.numero_prontuario}}">
       </div>
 
       <!-- Campo para Tipo de Cirurgia -->
       <div class="form-group">
         <label for="tipo_cirurgia">Tipo de Cirurgia</label>
-        <input type="text" id="tipo_cirurgia" name="tipo_cirurgia" class="form-control"
-          value="{{paciente.tipo_cirurgia}}">
+        <input type="text" id="tipo_cirurgia" name="tipo_cirurgia" class="form-control" value="{{paciente.tipo_cirurgia}}">
       </div>
 
       <!-- Campo para Status -->
@@ -74,6 +70,47 @@
     </form>
   </main>
 
+  <script>
+    function validateForm() {
+      // Validação de Nome
+      const nome = document.getElementById('nome').value;
+      if (nome === "") {
+        alert("Por favor, insira o nome do paciente.");
+        return false;
+      }
+
+      // Validação de Idade
+      const idade = document.getElementById('idade').value;
+      if (idade === "" || idade < 0 || idade > 120) {
+        alert("Por favor, insira uma idade válida (0-120).");
+        return false;
+      }
+
+      // Validação de Número de Celular
+      const numero_celular = document.getElementById('numero_celular').value;
+      const celularRegex = /^\d{10,11}$/;  // Aceita 10 ou 11 dígitos
+      if (!celularRegex.test(numero_celular)) {
+        alert("Por favor, insira um número de celular válido (10 ou 11 dígitos).");
+        return false;
+      }
+
+      // Validação de Número de Prontuário
+      const numero_prontuario = document.getElementById('numero_prontuario').value;
+      if (numero_prontuario === "") {
+        alert("Por favor, insira o número de prontuário.");
+        return false;
+      }
+
+      // Validação de Tipo de Cirurgia
+      const tipo_cirurgia = document.getElementById('tipo_cirurgia').value;
+      if (tipo_cirurgia === "") {
+        alert("Por favor, insira o tipo de cirurgia.");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
 
 </body>
 
