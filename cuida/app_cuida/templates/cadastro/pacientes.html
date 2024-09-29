@@ -13,11 +13,12 @@
 <body>
     <main class="table">
         <section class="table_header">
-            <img src="{% static 'image\IMG_0211C.PNG' %}" class="user-image">
+            <img src="{% static 'image\seta.PNG' %}" class="back">
             <h1>Pacientes Cadastrados:</h1>
             <div class="input-group">
                 <input type="search" id="searchInput" placeholder="Busque aqui...">
             </div>
+            <img src="{% static 'image\IMG_0211C.PNG' %}" class="logo">
         </section>
         <section class="table_body">
             <table>
@@ -45,7 +46,7 @@
                 <td>{{paciente.tipo_cirurgia}}</td>
                 <td>{{paciente.status}}</td>
                 
-                <td> <a href="{% url 'update_paciente' paciente.id_paciente %}">Editar</a></td>
+                <td> <a href="{% url 'update_paciente' paciente.id_paciente %}" class="edit-link" >Editar</a></td>
                </td> 
             </tr>
                 {% endfor %}

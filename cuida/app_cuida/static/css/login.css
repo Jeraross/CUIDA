@@ -229,11 +229,16 @@ body {
     border-radius: 50%;
     background-color: #fff;
     border: 1px solid #ccc;
+    cursor: pointer;
   }
   
   .user-perfil input[type="radio"]:checked {
     background-color: #1f2b5b; /* roxo */
     border: 1px solid #1f2b5b; /* roxo */
+  }
+
+  .sign_in input, .sign_up input[type="submit"] {
+    cursor: pointer;
   }
   
   .user-perfil label {
