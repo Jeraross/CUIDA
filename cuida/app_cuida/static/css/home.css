@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to right, #cbe6f1a2, #30d1fec5);
+    margin: 0;
+}
+
+/* Estilizando o header */
+header {
+    width: 100%;
+    background-color: #ffffffaf; /* Mesma cor de fundo que o main */
+    margin-top: 60px;
+    padding: 10px 0; /* Um pequeno padding para dar espaço entre o topo e a navbar */
+}
+
+.navbar {
+    width: 100vw;
+    height: 70px;
+    background-color: transparent; /* Cor de fundo transparente para que use a do header */
+    padding: 0.8rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1{
+    color:#1f2b5b;
+}
+
+.logo {
+    height: 65px;
+    width: 110px;
+}
+
+main {
+   display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffffaf;
+    border-radius: 30px;
+    padding: 2rem;
+    margin-top: 70px; /* Espaço entre a navbar e o main */
+    flex-direction: column;
+}
+
+.main_body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 2.5rem; /* Espaçamento entre os botões */
+    width: 32vw;
+}
+
+.homebutton {
+    width: 25vw;
+    padding: 10px;
+    background-color: #30d1fe;
+    border: none;
+    color:#1f2b5b;
+    cursor: pointer;
+}
+
+.homebutton:hover {
+    background-color: #2ab9de;
+}
