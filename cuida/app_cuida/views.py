@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Paciente
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import HttpResponse
 
+@login_required(login_url='login')
 def add(request):
     if request.method == 'POST':
-
         nome = request.POST.get('nome')
         idade = request.POST.get('idade')
         numero_celular = request.POST.get('numero_celular')
@@ -28,6 +30,7 @@ def add(request):
 
     return render(request, 'cadastro/form.html')
 
+@login_required(login_url='login')
 def update(request, id_paciente):
     paciente = Paciente.objects.filter(id_paciente=id_paciente).first()
     
@@ -48,7 +51,7 @@ def update(request, id_paciente):
     }
     return render(request, 'cadastro/form.html', context)
 
-
+@login_required(login_url='login')
 def visualizar(request):
     pacientes = Paciente.objects.all()
     context = {
@@ -56,14 +59,48 @@ def visualizar(request):
     }
     return render(request, 'cadastro/pacientes.html', context)
 
+@login_required(login_url='login')
 def delete_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     paciente.delete()
     return redirect('listagem_pacientes')
 
-def register(request):
+def cadastro(request):
+    if request.method == 'GET':
+        return render(request, 'cadastro/login.html')
+    else:
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
 
-    return render(request, 'cadastro/login.html')  # Altere conforme o nome do seu template
+        # Verifica se o usuário já existe
+        user = User.objects.filter(username=username).first()
 
+        if user:
+            return HttpResponse('Já existe um usuário com esse nome!')
+        
+        # Se não existir, cria um novo usuário
+        user = User.objects.create_user(username=username, email=email, password=senha)
+        user.save()
+
+        return render(request, 'cadastro/login.html', {'success_message': 'Usuário cadastrado com sucesso!'})
+
+def login(request):
+    if request.method == 'GET':
+        return render(request, 'cadastro/login.html')
+    else:
+        username = request.POST.get('username')
+        senha = request.POST.get('senha')
+
+        # Autentica o usuário
+        user = authenticate(request, username=username, password=senha)
+
+        if user is not None:
+            auth_login(request, user)  # Alterado o nome para auth_login para não sobrecarregar o método login
+            return redirect('home')
+        else:
+            return HttpResponse('Usuário ou senha inválidos!')
+
+@login_required(login_url='login')
 def home(request):
     return render(request, 'cadastro/home.html')

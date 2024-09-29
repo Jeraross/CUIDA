@@ -12,7 +12,7 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign_up">
-            <form method="post" action= '.'>
+            <form method="POST" action= "{% url 'cadastro' %}">
                 {% csrf_token %}
                 <img src="{% static 'image\IMG_0211C.PNG' %}" class="user-image">
                 <h2>Crie sua conta</h2>
@@ -23,14 +23,14 @@
                     <label for="user">Usuário</label>
                 </div>
                 
-                <input type="text" placeholder="Nome">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Senha">
-                <button>Cadastrar</button>
+                <input type="text" placeholder="Username" name="username">
+                <input type="email" placeholder="Email" name="email">
+                <input type="password" placeholder="Senha" name="senha">
+                <input type="submit" value="CADASTRAR">
             </form>
         </div>
         <div class="form-container sign_in">
-            <form method="post" action=".">
+            <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
                 <img src="{% static 'image/IMG_0211C.PNG' %}" class="user-image">
                 <h2>Entre na conta</h2>
@@ -40,11 +40,9 @@
                     <input type="radio" id="user" name="perfil">
                     <label for="user">Usuário</label>
                 </div>
-
-                
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Senha">
-                <button>Entrar</button>
+                <input type="text" placeholder="Username" name="username">
+                <input type="password" placeholder="Senha" name="senha">
+                <input type="submit" value="ENTRAR">
             </form>
         </div>
         <div class="toggle_container">
@@ -62,6 +60,7 @@
             </div>
         </div>
     </div>
+    
     
    <script>
     const container = document.getElementById('container');
