@@ -18,8 +18,8 @@ body {
 header {
     width: 100%;
     background-color: #ffffffaf; /* Mesma cor de fundo que o main */
-    margin-top: 60px;
-    padding: 10px 0; /* Um pequeno padding para dar espaço entre o topo e a navbar */
+    
+    padding: 12px 0; /* Um pequeno padding para dar espaço entre o topo e a navbar */
 }
 
 .navbar {
@@ -34,11 +34,20 @@ header {
 
 .navbar h1{
     color:#1f2b5b;
+    margin-bottom: 5px;
+    font-size: 36px;
+    margin-left: 15px;
 }
 
 .logo {
     height: 65px;
     width: 110px;
+    margin-right: -990px;
+}
+.out{
+    width: 40px;
+    cursor: pointer;
+    
 }
 
 main {

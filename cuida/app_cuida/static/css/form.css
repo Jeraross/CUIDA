@@ -18,7 +18,7 @@ body {
 header {
     width: 100%;
     background-color: #ffffffaf;
-    margin-top: 60px;
+    margin-top: 0px;
     padding: 10px 0;
 }
 
@@ -35,16 +35,19 @@ header {
 .navbar h1 {
     color: #1f2b5b;
     font-size: 30px;
-    margin-left: -890px;
+    margin-left: -790px;
 }
 
-.logo {
+img.logo {
     height: 65px;
     width: 110px;
+   
+
 }
 img.back{
     width: 35px;
     cursor: pointer;
+    margin-left: 5px;
     
 }
 
