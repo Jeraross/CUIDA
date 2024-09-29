@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to right, #cbe6f1a2, #30d1fec5);
+    margin: 0;
+}
+
+/* Estilizando o header */
+header {
+    width: 100%;
+    background-color: #ffffffaf;
+    margin-top: 60px;
+    padding: 10px 0;
+}
+
+.navbar {
+    width: 100vw;
+    height: 70px;
+    background-color: transparent;
+    padding: 0.8rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1 {
+    color: #1f2b5b;
+    font-size: 30px;
+    margin-left: -890px;
+}
+
+.logo {
+    height: 65px;
+    width: 110px;
+}
+img.back{
+    width: 35px;
+    cursor: pointer;
+    
+}
+
+/* Estilizando o main e o formulário */
+main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+form {
+    width: 400px; /* Largura da "caixinha" */
+    background-color: #ffffffaf;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra leve para destacar a caixinha */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    padding: 10px;
+    background-color: #30d1fe;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #2ab9de;
+}

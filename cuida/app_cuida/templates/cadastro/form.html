@@ -1,54 +1,80 @@
-{% extends 'base/base.html' %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-<link rel="stylesheet" href="{% static 'css/base.css' %}?v=1.0">  
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Pacientes</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
 
-<!-- O formulário com campos renderizados individualmente -->
-<form action="." method="post">
-  {% csrf_token %}
+<body>
 
-  <!-- Campo para Nome -->
-  <div class="form-group">
-    <label for="nome">Nome</label>
-    <input type="text" id="nome" name="nome" class="form-control" value="{{paciente.nome}}">
-  </div>
+  <header>
+    <nav class="navbar">
+      <a href="{% url 'home' %}">
+        <img src="{% static 'image/seta.PNG' %}" class="back">
+      </a>
+      <h1>Cadastro de Pacientes:</h1>
+      <img src="{% static 'image\IMG_0211C.PNG' %}" class="logo">
+    </nav>
+  </header>
 
-  <!-- Campo para Idade -->
-  <div class="form-group">
-    <label for="idade">Idade</label>
-    <input type="number" id="idade" name="idade" class="form-control" value="{{paciente.idade}}">
-  </div>
+  <main>
 
-  <!-- Campo para Número de Celular -->
-  <div class="form-group">
-    <label for="numero_celular">Número de Celular</label>
-    <input type="text" id="numero_celular" name="numero_celular" class="form-control" value="{{paciente.numero_celular}}">
-  </div>
+    <!-- O formulário com campos renderizados individualmente -->
+    <form action="." method="post">
+      {% csrf_token %}
 
-  <!-- Campo para Número de Prontuário -->
-  <div class="form-group">
-    <label for="numero_prontuario">Número de Prontuário</label>
-    <input type="text" id="numero_prontuario" name="numero_prontuario" class="form-control" value="{{paciente.numero_prontuario}}">
-  </div>
+      <!-- Campo para Nome -->
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" class="form-control" value="{{paciente.nome}}">
+      </div>
 
-  <!-- Campo para Tipo de Cirurgia -->
-  <div class="form-group">
-    <label for="tipo_cirurgia">Tipo de Cirurgia</label>
-    <input type="text" id="tipo_cirurgia" name="tipo_cirurgia" class="form-control" value="{{paciente.tipo_cirurgia}}">
-  </div>
+      <!-- Campo para Idade -->
+      <div class="form-group">
+        <label for="idade">Idade</label>
+        <input type="number" id="idade" name="idade" class="form-control" value="{{paciente.idade}}">
+      </div>
 
-  <!-- Campo para Status -->
-  <div class="form-group">
-    <label for="status">Status</label>
-    <select id="status" name="status" class="form-control" value="{{paciente.status}}">
-      <option value="ATENDIDO">Atendido</option>
-      <option value="NÃO ATENDIDO">Não Atendido</option>
-    </select>
-  </div>
+      <!-- Campo para Número de Celular -->
+      <div class="form-group">
+        <label for="numero_celular">Número de Celular</label>
+        <input type="text" id="numero_celular" name="numero_celular" class="form-control"
+          value="{{paciente.numero_celular}}">
+      </div>
 
-  <!-- Botão de Enviar -->
-  <button type="submit" class="btn btn-primary">Enviar</button>
-</form>
+      <!-- Campo para Número de Prontuário -->
+      <div class="form-group">
+        <label for="numero_prontuario">Número de Prontuário</label>
+        <input type="text" id="numero_prontuario" name="numero_prontuario" class="form-control"
+          value="{{paciente.numero_prontuario}}">
+      </div>
 
-{% endblock %}
+      <!-- Campo para Tipo de Cirurgia -->
+      <div class="form-group">
+        <label for="tipo_cirurgia">Tipo de Cirurgia</label>
+        <input type="text" id="tipo_cirurgia" name="tipo_cirurgia" class="form-control"
+          value="{{paciente.tipo_cirurgia}}">
+      </div>
+
+      <!-- Campo para Status -->
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status" class="form-control" value="{{paciente.status}}">
+          <option value="ATENDIDO">Atendido</option>
+          <option value="NÃO ATENDIDO">Não Atendido</option>
+        </select>
+      </div>
+
+      <!-- Botão de Enviar -->
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+  </main>
+
+
+</body>
+
+</html>

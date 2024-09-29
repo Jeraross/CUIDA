@@ -64,7 +64,9 @@ main {
 
 .homebutton {
     width: 25vw;
-    padding: 10px;
+    padding: 18px;
+    font-size: large;
+    font-family: sans-serif;
     background-color: #30d1fe;
     border: none;
     color:#1f2b5b;
