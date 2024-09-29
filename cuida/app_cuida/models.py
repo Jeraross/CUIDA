@@ -1,8 +1,8 @@
 from django.db import models
 
 class Paciente(models.Model):
-    ATENDIDO = 'ATENDIDO'
-    NAO_ATENDIDO = 'NAO ATENDIDO'
+    ATENDIDO = 'Atendido'
+    NAO_ATENDIDO = 'Não atendido'
 
     STATUS_CHOICES = [
         (ATENDIDO, 'Atendido'),

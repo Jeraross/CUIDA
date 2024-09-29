@@ -1,0 +1,162 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #cbe6f1a2, #30d1fec5);
+}
+
+table, th, td{
+    border-collapse: collapse;
+    padding: 1.2rem;
+    justify-content: center; 
+    align-items: center;
+    text-align: center;
+}
+
+main.table{
+    width: auto;
+    height: auto;
+    background-color: #ffffffaf;
+    overflow: hidden;
+}
+
+/* Estilos da barra de cabeçalho */
+.table_header{
+    width: 100%;
+    height: 10%;
+    background-color:#ffffffb9 ;
+    padding: .8rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-items: center;
+}
+
+.table_header h1{
+    color:#1f2b5b;
+    font-size: 30px;
+    margin-left: -370px;
+}
+.table_header img{
+    width: 100px;
+}
+
+.table_header .input-group{
+    width: 35%;
+    height: 100%;
+    padding: 0 .8rem;
+    background-color: #ccd4f065;
+    border-radius: 30px;
+}
+
+.table_header .input-group input {
+    width: 100%; /* Mantém a largura total da caixa */
+    height: 2.5rem; /* Aumenta a altura do input */
+    padding: 0.5rem 1rem; /* Ajusta o padding para deixar o campo mais espaçoso */
+    background-color: transparent;
+    border: none;
+    outline: none;
+    display: inline;
+    cursor: pointer;
+    font-size: 16px; /* Aumenta o tamanho da fonte */
+}
+
+td strong{
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+td strong:hover{
+    color:#055970c5;
+}
+
+
+
+/* Ajuste da área do corpo da tabela */
+.table_body {
+    width: 95%;
+    max-height: 89%;
+    background-color: #ffffffb9;
+    margin: .8rem auto;
+    border-radius: 30px;
+    overflow: hidden;
+    height:496px; /* Define a altura mínima */
+    display: flex;
+    flex-direction: column;
+}
+
+.table_body table {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Permite a rolagem do corpo da tabela */
+tbody {
+    display: block;
+    overflow-y: auto;
+    max-height: 350px; /* Ajuste a altura máxima do tbody */
+    flex-grow: 1;
+}
+
+/* Garante que as linhas da tabela mantenham a largura correta */
+thead, tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Estilos da barra de rolagem */
+.table_body::-webkit-scrollbar{ 
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.table_body::-webkit-scrollbar-thumb{
+    width: .5rem;
+    background-color: #00000083;
+}
+
+/* Estilo dos cabeçalhos da tabela */
+thead th{
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: #cbe6f1a2;
+    color: #1f2b5b;
+}
+
+/* Alterna a cor de fundo para as linhas pares */
+tbody tr:nth-child(even){
+    background-color: #cbe6f134;
+}
+
+/* Estilo para o status de atendimento */
+.status-atendido {
+    background-color: rgba(90, 209, 90, 0.555);
+    font-size: 12px;
+    color: green;
+    padding: 2px 8px; 
+    border-radius: 30px; 
+    display: inline-block; 
+    overflow: hidden;
+}
+
+.status-nao-atendido {
+    background-color: rgba(230, 233, 85, 0.555);
+    font-size: 12px;
+    color: rgb(175, 136, 7);
+    padding: 2px 8px; 
+    border-radius: 30px; 
+    display: inline-block; 
+    overflow: hidden;
+}

@@ -84,7 +84,7 @@ def pacientes(request):
 def delete_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     paciente.delete()
-    return redirect('editar_pacientes')
+    return redirect('listagem_pacientes')
 
 def register(request):
     if request.method == 'POST':
@@ -124,7 +124,7 @@ def edit(request):
             'pacientes' : pacientes,
         }
 
-    return render(request, 'cadastro/editar.html', context)
+    return render(request, 'cadastro/pacientes.html', context)
 
 def home(request):
     return render(request, 'cadastro/home.html')

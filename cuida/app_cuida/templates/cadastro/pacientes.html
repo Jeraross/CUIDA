@@ -1,28 +1,99 @@
-{% extends 'base/base.html' %}
-{% block content %}
-<div class="container"></div>
-<h1>Pacientes Cadastrados:</h1>
-    <table class=" table table-bordered table-striped">
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Idade</th>
-            <th>Número de celular</th>
-            <th>Número de prontuario</th>
-            <th>Tipo de cirurgia</th>
-            <th>Status</th>
-        </tr>
-        {% for paciente in pacientes %}
-        <tr>
-            <td>{{paciente.id_paciente}}</td>
-            <td>{{paciente.nome}}</td>
-            <td>{{paciente.idade}}</td>
-            <td>{{paciente.numero_celular}}</td>
-            <td>{{paciente.numero_prontuario}}</td>
-            <td>{{paciente.tipo_cirurgia}}</td>
-            <td>{{paciente.status}}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CUIDA</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/paciente.css' %}?v=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+
+<body>
+    <main class="table">
+        <section class="table_header">
+            <img src="{% static 'image\IMG_0211C.PNG' %}" class="user-image">
+            <h1>Pacientes Cadastrados:</h1>
+            <div class="input-group">
+                <input type="search" id="searchInput" placeholder="Busque aqui...">
+            </div>
+        </section>
+        <section class="table_body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Idade</th>
+                        <th>Número de celular</th>
+                        <th>Número de prontuario</th>
+                        <th>Tipo de cirurgia</th>
+                        <th>Status</th>
+                        <th>Editar</th>
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                {% for paciente in pacientes %}
+            <tr>
+                <td>{{paciente.id_paciente}}</td>
+                <td><strong>{{paciente.nome}}</strong></td>
+                <td>{{paciente.idade}}</td>
+                <td>{{paciente.numero_celular}}</td>
+                <td>{{paciente.numero_prontuario}}</td>
+                <td>{{paciente.tipo_cirurgia}}</td>
+                <td>{{paciente.status}}</td>
+                
+                <td> <a href="{% url 'update_paciente' paciente.id_paciente %}">Editar</a></td>
+               </td> <td>
+                    <a href="{% url 'delete_paciente' paciente.id_paciente %}">Excluir</a>
+                </td>
+            </tr>
+                {% endfor %}
+                    
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const tableRows = document.querySelectorAll("tbody tr");
+
+        // Função para filtrar a tabela
+        searchInput.addEventListener("input", function () {
+            const searchText = searchInput.value.toLowerCase();
+
+            tableRows.forEach(function (row) {
+                const rowData = row.textContent.toLowerCase();
+                if (rowData.includes(searchText)) {
+                    row.style.display = ""; // Exibe a linha
+                } else {
+                    row.style.display = "none"; // Oculta a linha
+                }
+            });
+        });
+
+        // Código para aplicar as classes de status no carregamento da página
+        tableRows.forEach(function (row) {
+            const statusElement = row.querySelectorAll("td")[6]; // Seleciona a 7ª coluna (índice 6)
+            const status = statusElement.textContent.trim().toLowerCase();
+
+            if (status === "atendido") {
+                statusElement.classList.add("status-atendido");
+            } else if (status === "não atendido") {
+                statusElement.classList.add("status-nao-atendido");
+            }
+        });
+    });
+</script>
+
+
+</html>
+
+
+

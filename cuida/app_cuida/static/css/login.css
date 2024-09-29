@@ -25,9 +25,9 @@ body {
     box-shadow: 0 5px 15px #00000059;
     position: relative;
     overflow: hidden;
-    width: 768px;
+    width: 968px;
     max-width: 100%;
-    min-height: 480px;
+    min-height: 540px;
 }
 
 .container p {
