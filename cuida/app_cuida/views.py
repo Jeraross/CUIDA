@@ -1,84 +1,67 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Paciente
-from .forms import PacienteForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+from django.shortcuts import render, redirect
+from .models import Paciente
+
 def form(request):
+    if request.method == 'POST':
+        # Capturar os dados do formulário
+        nome = request.POST.get('nome')
+        idade = request.POST.get('idade')
+        numero_celular = request.POST.get('numero_celular')
+        numero_prontuario = request.POST.get('numero_prontuario')
+        tipo_cirurgia = request.POST.get('tipo_cirurgia')
+        status = request.POST.get('status')
 
-    if request.method == 'GET':
-        pacientes = Paciente.objects.all()
-        form = PacienteForm()
+        # Criar um novo objeto Paciente
+        paciente = Paciente(
+            nome=nome,
+            idade=idade,
+            numero_celular=numero_celular,
+            numero_prontuario=numero_prontuario,
+            tipo_cirurgia=tipo_cirurgia,
+            status=status
+        )
+        paciente.save()
 
-        context = {
-            'pacientes' : pacientes,
-            'form': form,
-        }
+        return redirect('home')
 
-        return render(request, 'cadastro/form.html', context)
-    elif request.method == 'POST':
-        form = PacienteForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('listagem_pacientes')
-        else:
-            pacientes = Paciente.objects.all()
-
-            context = {
-                'pacientes' : pacientes,
-                'form': form,
-            }
-            return render(request, 'cadastro/form.html', context)
+    return render(request, 'cadastro/form.html')
 
 
 def update(request, id_paciente):
-    if request.method == 'GET':
-        paciente = Paciente.objects.filter(id_paciente=id_paciente).first()
-        form = PacienteForm(instance=paciente)
-        context = {
-            'form': form,
-        }
+    paciente = Paciente.objects.filter(id_paciente=id_paciente).first()
+    
+    if request.method == 'POST':
+        # Capturar os dados do formulário
+        paciente.nome = request.POST.get('nome')
+        paciente.idade = request.POST.get('idade')
+        paciente.numero_celular = request.POST.get('numero_celular')
+        paciente.numero_prontuario = request.POST.get('numero_prontuario')
+        paciente.tipo_cirurgia = request.POST.get('tipo_cirurgia')
+        paciente.status = request.POST.get('status')
 
-        return render(request, 'cadastro/form.html', context)
-    elif request.method == 'POST':
-        paciente = Paciente.objects.filter(id_paciente=id_paciente).first()
-        form = PacienteForm(request.POST, instance = paciente)
-        if form.is_valid():
-            form.save()
-            return redirect('listagem_pacientes')
-        else:
-            pacientes = Paciente.objects.all()
+        paciente.save()
+        return redirect('home')
 
-            context = {
-                'pacientes' : pacientes,
-            }
-            return render(request, 'cadastro/pacientes.html', context)
-
+    context = {
+        'paciente': paciente
+    }
+    return render(request, 'cadastro/form.html', context)
 
 
 def pacientes(request):
-    if request.method == 'POST':
-        form = PacienteForm(request.POST)
-        
-        if form.is_valid():
-            # Salvar o novo paciente
-            form.save()
-            return redirect('listagem_pacientes')
-        else:
-            # Se o formulário não for válido, renderizar a página com erros
-            context = {
-                'form': form,
-                'pacientes': Paciente.objects.all(),
-            }
-            return render(request, 'cadastro/pacientes.html', context)
-    
     # Se o método for GET, exibir a listagem de pacientes
+    pacientes = Paciente.objects.all()
+
     context = {
-        'form': PacienteForm(),
-        'pacientes': Paciente.objects.all(),
+        'pacientes': pacientes
     }
+
     return render(request, 'cadastro/pacientes.html', context)
 
 def delete_paciente(request, id_paciente):
