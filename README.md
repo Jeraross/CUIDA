@@ -69,3 +69,15 @@ Verificação de Duplicatas pelo Número do Prontuário: Desenvolver um mecanism
 Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar diferentes tipos de usuários com permissões adequadas, permitir o acompanhamento eficaz dos atendimentos, e assegurar que os dados dos pacientes sejam únicos e precisos.
 </details>
 
+<details>
+<summary><h2>Segunda entrega</h2></summary>
+
+![print jira](https://github.com/user-attachments/assets/9bc67e63-33ab-4a5b-9a38-0f2d70de8f51)
+![print backlog](https://github.com/user-attachments/assets/dbd63170-59f0-4090-9376-496df929f044)
+
+</details>
+
+
+
+
+
