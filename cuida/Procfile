@@ -1,1 +1,1 @@
-web: gunicorn cuida.wsgi
+web: gunicorn Cuida.wsgi
