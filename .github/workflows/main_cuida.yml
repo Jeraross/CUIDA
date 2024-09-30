@@ -30,8 +30,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run collectstatic
-        run: cd cuida && python manage.py collectstatic --noinput
+      - name: Run runserver
+        run: cd cuida && python manage.py runserver
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
