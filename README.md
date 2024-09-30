@@ -46,7 +46,8 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 - [João Pedro Aguiar](https://github.com/Jp-moraiss) - jpam@cesar.school
 - [Maria Julia Dantas](https://github.com/mariajuliadantas) - mjdma@cesar.school
 
-## Primeira entrega
+<details>
+<summary><h2>Primeira entrega</h2></summary>
 
 [Screencast do protótipo](https://youtu.be/rj-HaZjpsRU)
 
@@ -66,4 +67,5 @@ Visualização de Pacientes Atendidos/Pendentes: Criar uma interface que permita
 Verificação de Duplicatas pelo Número do Prontuário: Desenvolver um mecanismo de verificação automática para identificar e evitar a criação de registros duplicados no sistema, garantindo a precisão e a integridade dos dados dos pacientes.
 
 Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar diferentes tipos de usuários com permissões adequadas, permitir o acompanhamento eficaz dos atendimentos, e assegurar que os dados dos pacientes sejam únicos e precisos.
+</details>
 
