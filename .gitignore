@@ -13,9 +13,6 @@ __pycache__/
 db.sqlite3
 *.sqlite3
 
-# Arquivos de migrações
-*/migrations/*
-
 # Arquivos de configurações do IDE/editor
 .vscode/
 .idea/
