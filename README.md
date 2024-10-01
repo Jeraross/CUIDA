@@ -47,6 +47,18 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 - [Maria Julia Dantas](https://github.com/mariajuliadantas) - mjdma@cesar.school
 
 <details>
+<summary><h2>Links</h2></summary>
+
+[Azure](https://cuida.azurewebsites.net/)
+
+[Jira](https://projetofds-2.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog)
+
+[figma](https://www.figma.com/design/CndQKFYTloNvwzZdAP9MBW/CUIDA?node-id=0-1&t=9B6yPwZDwriNW5Py-1)
+
+</details>
+
+
+<details>
 <summary><h2>Primeira entrega</h2></summary>
 
 [Screencast do protótipo](https://youtu.be/rj-HaZjpsRU)
