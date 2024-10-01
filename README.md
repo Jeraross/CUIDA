@@ -76,7 +76,7 @@ Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar
 
 ![print backlog](https://github.com/user-attachments/assets/dbd63170-59f0-4090-9376-496df929f044)
 
-![Screencast](https://youtu.be/7yJdWBe9-RI)
+[Screencast](https://youtu.be/7yJdWBe9-RI)
 
 
 </details>
