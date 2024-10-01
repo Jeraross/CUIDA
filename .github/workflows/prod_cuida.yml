@@ -32,9 +32,6 @@ jobs:
 
       - name: Cleaning testing files
         run: |
-          cd cuida/
-          rm db.sqlite3
-          cd ..
           rm .env
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
