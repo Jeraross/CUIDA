@@ -49,7 +49,7 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 <details>
 <summary><h2>Links</h2></summary>
 
-[Azure](https://cuida.azurewebsites.net/)
+[site - Azure](https://cuida.azurewebsites.net/)
 
 [Jira](https://projetofds-2.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog)
 
