@@ -183,11 +183,29 @@ a.edit-link {
     transition: background-color 0.3s ease;
 }
 
-/* Estilo para o hover no link "Editar" */
+
 a.edit-link:hover {
-    background-color: #ffffffbe; /* Cor de fundo no hover */
+    background-color: #ffffffbe; 
 }
 
 td {
-    vertical-align: middle; /* Centraliza o conteúdo das células verticalmente */
+    vertical-align: middle; 
+}
+
+a.delete-link {
+    background-color: #f0565671; 
+    color: #8b0505; 
+    padding: 5px 10px; 
+    border-radius: 30px; 
+    text-decoration: none; 
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+}
+
+a.delete-link:hover {
+    background-color: #ffffffbe;
+}
+
+td {
+    vertical-align: middle; 
 }

@@ -44,7 +44,7 @@ def update(request, id_paciente):
         paciente.status = request.POST.get('status')
 
         paciente.save()
-        return redirect('listagem_pacientes')
+        return render('cadastro/editar.html')
 
     context = {
         'paciente': paciente
@@ -58,6 +58,14 @@ def visualizar(request):
         'pacientes': pacientes
     }
     return render(request, 'cadastro/pacientes.html', context)
+
+@login_required(login_url='login')
+def visualizar_edit(request):
+    pacientes = Paciente.objects.all()
+    context = {
+        'pacientes': pacientes
+    }
+    return render(request, 'cadastro/editar.html', context)
 
 @login_required(login_url='login')
 def delete_paciente(request, id_paciente):

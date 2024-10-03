@@ -26,26 +26,18 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nome</th>
-                        <th>Idade</th>
-                        <th>Número de celular</th>
-                        <th>Número de prontuario</th>
-                        <th>Tipo de cirurgia</th>
-                        <th>Status</th>
+                        <th>Editar</th>
+                        <th>Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
                     
                 {% for paciente in pacientes %}
             <tr>
-                <td>{{paciente.id_paciente}}</td>
                 <td><strong>{{paciente.nome}}</strong></td>
-                <td>{{paciente.idade}}</td>
-                <td>{{paciente.numero_celular}}</td>
-                <td>{{paciente.numero_prontuario}}</td>
-                <td>{{paciente.tipo_cirurgia}}</td>
-                <td>{{paciente.status}}</td>
+                <td> <a href="{% url 'update_paciente' paciente.id_paciente %}" class="edit-link" >Editar</a></td>
+                <td><a href="{% url 'delete_paciente' paciente.id_paciente %}" class="delete-link" >Excluir</a></td>
             </tr>
                 {% endfor %}
                     
