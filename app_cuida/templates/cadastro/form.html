@@ -38,6 +38,12 @@
         <input type="number" id="idade" name="idade" class="form-control" value="{{paciente.idade}}">
       </div>
 
+      <!-- Campo para CPF -->
+      <div class="form-group">
+        <label for="cpf">CPF</label>
+        <input type="text" id="cpf" name="cpf" class="form-control" value="{{paciente.cpf}}">
+      </div>
+
       <!-- Campo para Número de Celular -->
       <div class="form-group">
         <label for="numero_celular">Número de Celular</label>
@@ -52,9 +58,14 @@
 
       <!-- Campo para Tipo de Cirurgia -->
       <div class="form-group">
-        <label for="tipo_cirurgia">Tipo de Cirurgia</label>
-        <input type="text" id="tipo_cirurgia" name="tipo_cirurgia" class="form-control" value="{{paciente.tipo_cirurgia}}">
-      </div>
+        <label for="sexo">Sexo</label>
+        <select id="sexo" name="sexo" class="form-control" value="{{paciente.sexo}}">
+            <option value="">Selecione</option>
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+            <option value="N">Prefiro não informar</option>
+        </select>
+    </div>
 
       <!-- Campo para Status -->
       <div class="form-group">
@@ -101,14 +112,55 @@
         return false;
       }
 
-      // Validação de Tipo de Cirurgia
-      const tipo_cirurgia = document.getElementById('tipo_cirurgia').value;
-      if (tipo_cirurgia === "") {
-        alert("Por favor, insira o tipo de cirurgia.");
+      // Validação de Sexo
+      const sexo = document.getElementById('sexo').value;
+      if (sexo === "") {
+        alert("Por favor, selecione o sexo.");
         return false;
       }
 
-      return true;
+      // Validação de CPF
+      const cpf = document.getElementById('cpf').value;
+      if (!validarCPF(cpf)) {
+        alert("Por favor, insira um CPF válido.");
+        return false;
+      }
+
+      return true;  // Se tudo estiver correto, permitir o envio do formulário
+    }
+
+    // Função para validar o CPF
+    function validarCPF(cpf) {
+      cpf = cpf.replace(/[^\d]+/g, ''); // Remove tudo que não for número
+
+      if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) {
+        return false; // CPF tem que ter 11 dígitos e não pode ser repetido
+      }
+
+      let soma = 0;
+      let resto;
+
+      // Validação do primeiro dígito verificador
+      for (let i = 1; i <= 9; i++) {
+        soma += parseInt(cpf.charAt(i - 1)) * (11 - i);
+      }
+
+      resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(cpf.charAt(9))) return false;
+
+      soma = 0;
+
+      // Validação do segundo dígito verificador
+      for (let i = 1; i <= 10; i++) {
+        soma += parseInt(cpf.charAt(i - 1)) * (12 - i);
+      }
+
+      resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(cpf.charAt(10))) return false;
+
+      return true;  // CPF é válido
     }
   </script>
 

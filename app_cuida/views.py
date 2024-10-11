@@ -13,7 +13,8 @@ def add(request):
         idade = request.POST.get('idade')
         numero_celular = request.POST.get('numero_celular')
         numero_prontuario = request.POST.get('numero_prontuario')
-        tipo_cirurgia = request.POST.get('tipo_cirurgia')
+        sexo = request.POST.get('sexo')
+        cpf = request.POST.get('cpf')
         status = request.POST.get('status')
 
         paciente = Paciente(
@@ -21,7 +22,8 @@ def add(request):
             idade=idade,
             numero_celular=numero_celular,
             numero_prontuario=numero_prontuario,
-            tipo_cirurgia=tipo_cirurgia,
+            sexo=sexo,
+            cpf=cpf,
             status=status
         )
         paciente.save()
@@ -40,11 +42,12 @@ def update(request, id_paciente):
         paciente.idade = request.POST.get('idade')
         paciente.numero_celular = request.POST.get('numero_celular')
         paciente.numero_prontuario = request.POST.get('numero_prontuario')
-        paciente.tipo_cirurgia = request.POST.get('tipo_cirurgia')
+        paciente.sexo = request.POST.get('sexo')
+        paciente.cpf = request.POST.get('cpf')
         paciente.status = request.POST.get('status')
 
         paciente.save()
-        return render('cadastro/editar.html')
+        return redirect('listagem_pacientes')
 
     context = {
         'paciente': paciente

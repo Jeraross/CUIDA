@@ -28,10 +28,10 @@
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
+                        <th>Sexo</th>
                         <th>Idade</th>
                         <th>Número de celular</th>
                         <th>Número de prontuario</th>
-                        <th>Tipo de cirurgia</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -41,10 +41,10 @@
             <tr>
                 <td>{{paciente.id_paciente}}</td>
                 <td><strong>{{paciente.nome}}</strong></td>
+                <td>{{paciente.sexo}}</td>
                 <td>{{paciente.idade}}</td>
                 <td>{{paciente.numero_celular}}</td>
                 <td>{{paciente.numero_prontuario}}</td>
-                <td>{{paciente.tipo_cirurgia}}</td>
                 <td>{{paciente.status}}</td>
             </tr>
                 {% endfor %}
