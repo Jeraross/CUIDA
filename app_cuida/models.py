@@ -1,3 +1,4 @@
+from datetime import date
 from django.db import models
 
 class Paciente(models.Model):
@@ -37,6 +38,21 @@ class Paciente(models.Model):
         default=NAO_ATENDIDO
     )
 
+
+    def __str__(self):
+        return self.nome
+    
+class Especialidade(models.Model):
+    nome = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.nome
+
+class Medico(models.Model):
+    nome = models.CharField(max_length=255)
+    especialidade = models.ForeignKey(Especialidade, on_delete=models.CASCADE)
+    crm = models.CharField(max_length=15, null=True, blank=True)
+    numero_celular = models.CharField(max_length=15, null=True, blank=True)
 
     def __str__(self):
         return self.nome

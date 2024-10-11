@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Paciente
+from .models import Paciente, Especialidade, Medico
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -95,6 +95,26 @@ def cadastro(request):
         user.save()
 
         return render(request, 'cadastro/login.html', {'success_message': 'Usuário cadastrado com sucesso!'})
+    
+def cadastrar_especialidade(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+
+        if nome:
+            Especialidade.objects.create(nome=nome)
+            return redirect('visualizar_especialidades')
+        
+    return render(request, 'cadastro/cadastrar_especialidade.html')
+
+def visualizar_especialidades(request):
+    especialidades = Especialidade.objects.all()
+    context = {
+        'especialidades': especialidades
+    }
+    return render(request, 'cadastro/lista_especialidades.html', context)
+
+
+
 
 def login(request):
     if request.method == 'GET':

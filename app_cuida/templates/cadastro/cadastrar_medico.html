@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Médicos</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar">
+      <a href="{% url 'home' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
+      </a>
+      <h1>Cadastro de Médicos:</h1>
+      <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
+    </nav>
+  </header>
+
+  <main>
+    <form action="." method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="especialidade">Especialidade</label>
+        <select id="especialidade" name="especialidade" class="form-control">
+          <option value="">Selecione uma especialidade</option>
+          {% for especialidade in especialidades %}
+            <option value="{{ especialidade.id }}">{{ especialidade.nome }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="crm">CRM</label>
+        <input type="text" id="crm" name="crm" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="numero_celular">Número de Celular</label>
+        <input type="text" id="numero_celular" name="numero_celular" class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+  </main>
+
+</body>
+
+</html>
