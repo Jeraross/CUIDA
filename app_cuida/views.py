@@ -114,7 +114,31 @@ def visualizar_especialidades(request):
     return render(request, 'cadastro/lista_especialidades.html', context)
 
 
+# views.py
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Medico, Especialidade
 
+def cadastrar_medico(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+        especialidade_id = request.POST.get('especialidade')
+        crm = request.POST.get('crm')
+        numero_celular = request.POST.get('numero_celular')
+
+        if nome and especialidade_id and crm:
+            especialidade = get_object_or_404(Especialidade, id=especialidade_id)
+            Medico.objects.create(nome=nome, especialidade=especialidade, crm=crm, numero_celular=numero_celular)
+            return redirect('visualizar_medicos')
+
+    especialidades = Especialidade.objects.all()
+    return render(request, 'cadastro/cadastrar_medico.html', {'especialidades': especialidades})
+
+def visualizar_medicos(request):
+    medicos = Medico.objects.all()
+    context = {
+        'medicos': medicos
+    }
+    return render(request, 'cadastro/lista_medicos.html', context)
 
 def login(request):
     if request.method == 'GET':
