@@ -1,0 +1,18 @@
+<table>
+  <tr>
+      <th>ID</th>
+      <th>Paciente</th>
+      <th>Médico</th>
+      <th>Data</th>
+      <th>Horário</th>
+  </tr>
+  {% for consulta in consultas %}
+  <tr>
+      <td>{{ consulta.id }}</td>
+      <td>{{ consulta.paciente.nome }}</td>
+      <td>{{ consulta.medico.nome }}</td>
+      <td>{{ consulta.data_consulta }}</td>
+      <td>{{ consulta.horario }}</td>
+  </tr>
+  {% endfor %}
+</table>

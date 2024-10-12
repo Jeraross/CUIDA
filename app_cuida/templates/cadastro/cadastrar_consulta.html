@@ -1,0 +1,45 @@
+<form action="{% url 'cadastrar_consulta' %}" method="post">
+    {% csrf_token %}
+  
+    <!-- Campo para Selecionar Paciente -->
+    <div class="form-group">
+      <label for="paciente">Paciente</label>
+      <select id="paciente" name="paciente" class="form-control">
+        <option value="">Selecione um paciente</option>
+        {% for paciente in pacientes %}
+          <option value="{{ paciente.id_paciente }}">{{ paciente.nome }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  
+    <!-- Campo para Selecionar Médico -->
+    <div class="form-group">
+        <label for="medico">Médico</label>
+        <select id="medico" name="medico" class="form-control">
+          <option value="">Selecione um médico</option>
+          {% for medico in medicos %}
+            <option value="{{ medico.id }}">{{ medico.nome }}</option>
+          {% endfor %}
+        </select>
+      </div>
+  
+    <!-- Campo para Data da Consulta -->
+    <div class="form-group">
+      <label for="data_consulta">Data da Consulta</label>
+      <input type="date" id="data_consulta" name="data_consulta" class="form-control">
+    </div>
+  
+    <!-- Campo para Selecionar Horário -->
+    <div class="form-group">
+      <label for="horario">Horário</label>
+      <select id="horario" name="horario" class="form-control">
+        <option value="">Selecione um horário</option>
+        {% for horario in horarios %}
+          <option value="{{ horario }}">{{ horario }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  
+    <button type="submit" class="btn btn-primary">Cadastrar Consulta</button>
+  </form>
+  

@@ -57,3 +57,11 @@ class Medico(models.Model):
     def __str__(self):
         return self.nome
     
+class Consulta(models.Model):
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
+    medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
+    data_consulta = models.DateField()
+    horario = models.TimeField(max_length=5)
+
+    def __str__(self):
+        return f"Consulta de {self.paciente.nome} com {self.medico.nome} em {self.data_consulta} às {self.horario}"

@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Paciente, Especialidade, Medico
+from .models import Paciente, Especialidade, Medico, Consulta
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse
+from datetime import datetime
 
 @login_required(login_url='login')
 def add(request):
@@ -139,6 +140,39 @@ def visualizar_medicos(request):
         'medicos': medicos
     }
     return render(request, 'cadastro/lista_medicos.html', context)
+
+def cadastrar_consulta(request):
+    if request.method == 'POST':
+        paciente_id = request.POST.get('paciente')
+        medico_id = request.POST.get('medico')
+        data_consulta_str = request.POST.get('data_consulta')
+        horario = request.POST.get('horario')
+
+        # Verifique se os dados estão sendo capturados corretamente
+        print(f"Paciente ID: {paciente_id}, Médico ID: {medico_id}, Data: {data_consulta_str}, Horário: {horario}")
+
+        if paciente_id and medico_id and data_consulta_str and horario:
+            paciente = Paciente.objects.get(id_paciente=paciente_id)
+            medico = Medico.objects.get(id=medico_id)
+            data_consulta = datetime.strptime(data_consulta_str, '%Y-%m-%d').date()  # Converter string para date
+            Consulta.objects.create(paciente=paciente, medico=medico, data_consulta=data_consulta, horario=horario)
+            return redirect('visualizar_consultas')
+
+    pacientes = Paciente.objects.all()
+    medicos = Medico.objects.all()
+    horarios = ['08:00', '09:00', '10:00', '14:00', '15:00']
+
+    return render(request, 'cadastro/cadastrar_consulta.html', {'pacientes': pacientes, 'medicos': medicos, 'horarios': horarios})
+
+
+
+
+def visualizar_consultas(request):
+    consultas = Consulta.objects.all()
+    context = {
+        'consultas': consultas
+    }
+    return render(request, 'cadastro/lista_consultas.html', context)
 
 def login(request):
     if request.method == 'GET':
