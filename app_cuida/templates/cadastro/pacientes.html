@@ -11,8 +11,8 @@
 </head>
 
 <body>
-    <main class="table">
-        <section class="table_header">
+    <main class="container">
+        <section class="header">
             <a href="{% url 'home' %}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
             </a>
@@ -20,76 +20,55 @@
             <div class="input-group">
                 <input type="search" id="searchInput" placeholder="Busque aqui...">
             </div>
-            <img src="{% static 'image\IMG_0211C.PNG' %}" class="logo">
+            <a href="{% url 'form' %}">
+                <svg xmlns="c:\Users\maria\Downloads\edit.svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
+            </a>
+            <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
         </section>
-        <section class="table_body">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Idade</th>
-                        <th>Número de celular</th>
-                        <th>Número de prontuario</th>
-                        <th>Tipo de cirurgia</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                {% for paciente in pacientes %}
-            <tr>
-                <td>{{paciente.id_paciente}}</td>
-                <td><strong>{{paciente.nome}}</strong></td>
-                <td>{{paciente.idade}}</td>
-                <td>{{paciente.numero_celular}}</td>
-                <td>{{paciente.numero_prontuario}}</td>
-                <td>{{paciente.tipo_cirurgia}}</td>
-                <td>{{paciente.status}}</td>
-            </tr>
-                {% endfor %}
-                    
-                </tbody>
-            </table>
+
+        <section class="cards">
+            {% for paciente in pacientes %}
+            <div class="card">
+                <h3><a href="{% url 'update_paciente' paciente.id_paciente %}">{{ paciente.nome }}</a></h3>
+                <p><strong>Tipo de cirurgia:</strong> {{paciente.tipo_cirurgia}}</p>
+                <p class="status {{paciente.status|lower|slugify}}">{{paciente.status}}</p>
+            </div>
+            {% endfor %}
         </section>
     </main>
-</body>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const searchInput = document.getElementById("searchInput");
-        const tableRows = document.querySelectorAll("tbody tr");
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById("searchInput");
+            const cards = document.querySelectorAll(".card");
 
-        // Função para filtrar a tabela
-        searchInput.addEventListener("input", function () {
-            const searchText = searchInput.value.toLowerCase();
+            // Função para filtrar os cartões
+            searchInput.addEventListener("input", function () {
+                const searchText = searchInput.value.toLowerCase();
 
-            tableRows.forEach(function (row) {
-                const rowData = row.textContent.toLowerCase();
-                if (rowData.includes(searchText)) {
-                    row.style.display = ""; // Exibe a linha
-                } else {
-                    row.style.display = "none"; // Oculta a linha
+                cards.forEach(function (card) {
+                    const cardData = card.textContent.toLowerCase();
+                    if (cardData.includes(searchText)) {
+                        card.style.display = ""; // Exibe o cartão
+                    } else {
+                        card.style.display = "none"; // Oculta o cartão
+                    }
+                });
+            });
+
+            // Código para aplicar as classes de status no carregamento da página
+            cards.forEach(function (card) {
+                const statusElement = card.querySelector('.status');
+                const status = statusElement.textContent.trim().toLowerCase();
+
+                if (status === "atendido") {
+                    statusElement.classList.add("status-atendido");
+                } else if (status === "não atendido") {
+                    statusElement.classList.add("status-nao-atendido");
                 }
             });
         });
-
-        // Código para aplicar as classes de status no carregamento da página
-        tableRows.forEach(function (row) {
-            const statusElement = row.querySelectorAll("td")[6]; // Seleciona a 7ª coluna (índice 6)
-            const status = statusElement.textContent.trim().toLowerCase();
-
-            if (status === "atendido") {
-                statusElement.classList.add("status-atendido");
-            } else if (status === "não atendido") {
-                statusElement.classList.add("status-nao-atendido");
-            }
-        });
-    });
-</script>
-
+    </script>
+</body>
 
 </html>
-
-
-
