@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse
-from datetime import datetime
+from datetime import datetime, timedelta
 
 @login_required(login_url='login')
 def add(request):
@@ -165,6 +165,27 @@ def cadastrar_consulta(request):
     return render(request, 'cadastro/cadastrar_consulta.html', {'pacientes': pacientes, 'medicos': medicos, 'horarios': horarios})
 
 
+def calendario_view(request):
+   
+    now = datetime.now()
+    month = now.month
+    year = now.year
+
+   
+    first_day = datetime(year, month, 1)
+    if month == 12:
+        next_month = datetime(year + 1, 1, 1)
+    else:
+        next_month = datetime(year, month + 1, 1)
+    num_days = (next_month - first_day).days
+
+    
+    days = [first_day + timedelta(days=i) for i in range(num_days)]
+
+    context = {
+        'days': days,   
+    }
+    return render(request, 'calendario.html', context)
 
 
 def visualizar_consultas(request):
