@@ -1,6 +1,8 @@
 from django.urls import path
 from app_cuida import views
 from django.contrib import admin
+from app_cuida.views import calendario_view
+    
 
 urlpatterns = [
     path('', views.cadastro, name='cadastro'),
@@ -18,4 +20,5 @@ urlpatterns = [
     path('visualizar_medicos/', views.visualizar_medicos, name='visualizar_medicos'),
     path('cadastrar_consulta/', views.cadastrar_consulta, name='cadastrar_consulta'),
     path('visualizar_consultas/', views.visualizar_consultas, name='visualizar_consultas'),
+    path('calendario/', calendario_view, name='calendario'),
 ]
