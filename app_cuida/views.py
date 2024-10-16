@@ -185,7 +185,7 @@ def calendario_view(request):
     context = {
         'days': days,   
     }
-    return render(request, 'calendario.html', context)
+    return render(request, 'cadastro/calendario.html', context)
 
 
 def visualizar_consultas(request):
