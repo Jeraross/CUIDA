@@ -144,6 +144,13 @@ def visualizar_medicos(request):
     }
     return render(request, 'cadastro/lista_medicos.html', context)
 
+def excluir_medico(request, id):
+    medico = get_object_or_404(Medico, id=id)  # Busca o médico ou retorna 404 se não encontrar
+    if request.method == 'POST':
+        medico.delete()  # Exclui o médico
+        return redirect('visualizar_medicos')  # Redireciona para a lista de médicos
+    return render(request, 'confirmar_exclusao.html', {'medico': medico})
+
 def cadastrar_consulta(request):
     if request.method == 'POST':
         paciente_id = request.POST.get('paciente')

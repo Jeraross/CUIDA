@@ -28,6 +28,7 @@
                     <th>Especialidade</th>
                     <th>CRM</th>
                     <th>Número de Celular</th>
+                    <th>Ações</th> <!-- Nova coluna para ações -->
                 </tr>
             </thead>
             <tbody>
@@ -37,15 +38,48 @@
                     <td>{{ medico.especialidade.nome }}</td>
                     <td>{{ medico.crm }}</td>
                     <td>{{ medico.numero_celular }}</td>
+                    <td>
+                        <form action="{% url 'excluir_medico' medico.id %}" method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Excluir</button>
+                        </form>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4">Nenhum médico cadastrado.</td>
+                    <td colspan="5">Nenhum médico cadastrado.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </main>
+
+    <style>
+        table {
+    width: 100%;
+    border-collapse: collapse; /* Remove o espaço entre as bordas das células */
+    margin: 20px 0; /* Adiciona um espaço em cima e embaixo da tabela */
+}
+
+th, td {
+    padding: 12px; /* Adiciona espaço interno nas células */
+    text-align: left; /* Alinha o texto à esquerda */
+    border: 1px solid #ddd; /* Adiciona borda às células */
+}
+
+th {
+    background-color: #f2f2f2; /* Cor de fundo para o cabeçalho */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Cor de fundo para linhas pares */
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* Cor de fundo ao passar o mouse */
+}
+
+    </style>
 </body>
 
 </html>
