@@ -115,9 +115,12 @@ def visualizar_especialidades(request):
     return render(request, 'cadastro/lista_especialidades.html', context)
 
 
+def excluir_especialidade(request, id):
+    if request.method == 'POST':
+        especialidade = get_object_or_404(Especialidade, id=id)
+        especialidade.delete()
+        return redirect('visualizar_especialidades')
 # views.py
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Medico, Especialidade
 
 def cadastrar_medico(request):
     if request.method == 'POST':

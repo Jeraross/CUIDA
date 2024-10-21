@@ -23,13 +23,38 @@
   <main>
     <ul>
       {% for especialidade in especialidades %}
-        <li>{{ especialidade.nome }}</li>
+        <li>
+          {{ especialidade.nome }}
+          <form action="{% url 'excluir_especialidade' especialidade.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Excluir</button>
+          </form>
+        </li>
       {% empty %}
         <li>Nenhuma especialidade cadastrada.</li>
       {% endfor %}
     </ul>
   </main>
 
+  <style>
+    .btn {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Vermelho para botão de exclusão */
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333; /* Cor mais escura ao passar o mouse */
+}
+
+  </style>
 </body>
 
 </html>
