@@ -26,11 +26,20 @@ Cypress.Commands.add('switchToRegister', () => {
     cy.get('#register').click();
 });
 
+Cypress.Commands.add('viewPatients', () => {
+    cy.get('[href="/pacientes/"] > .homebutton').click();
+});
+
+Cypress.Commands.add('search', (name) => {
+    cy.get('#searchInput').clear().type(name); // Limpa o campo antes de digitar
+    cy.get('#searchInput').type('{enter}'); // Pressiona Enter para pesquisar, se necessário
+});
+
 describe('User flow', () => {
-    it('should delete all users, create a new user, and login', () => {
+    it('should delete all users, create a new user, login, and search for a patient', () => {
         cy.deleteAllUsers();
 
-        cy.visit('/')
+        cy.visit('/');
 
         cy.switchToRegister();
 
@@ -38,5 +47,13 @@ describe('User flow', () => {
 
         cy.login('testuser', 'password123');
 
+        cy.viewPatients();
+
+        const nomePaciente = 'Guilherme Mourão';
+
+        cy.search(nomePaciente);
+
+        // Verifica se o paciente aparece na lista após a pesquisa
+        cy.contains(nomePaciente).should('exist'); // Verifica se o nome do paciente está na página
     });
 });

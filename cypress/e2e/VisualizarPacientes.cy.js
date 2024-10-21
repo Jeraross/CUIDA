@@ -26,6 +26,11 @@ Cypress.Commands.add('switchToRegister', () => {
     cy.get('#register').click();
 });
 
+Cypress.Commands.add('view', () => {
+    cy.get('[href="/pacientes/"] > .homebutton').click();
+});
+
+
 describe('User flow', () => {
     it('should delete all users, create a new user, and login', () => {
         cy.deleteAllUsers();
@@ -38,5 +43,6 @@ describe('User flow', () => {
 
         cy.login('testuser', 'password123');
 
+        cy.view();
     });
 });

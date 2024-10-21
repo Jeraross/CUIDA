@@ -38,7 +38,7 @@ Cypress.Commands.add('createPatient', (nome, idade, cpf, numero_celular, numero_
 });
 
 describe('User flow and Patient Registration', () => {
-    it('should delete the specific patient, login, and register a new patient', () => {
+    it('should delete all users, create a new user, login, delete the specific patient, and register a new patient', () => {
         const testUsername = 'testuser';
         const cpfToDelete = '12345678909'; 
 
