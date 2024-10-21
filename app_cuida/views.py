@@ -148,14 +148,24 @@ def cadastrar_consulta(request):
         data_consulta_str = request.POST.get('data_consulta')
         horario = request.POST.get('horario')
 
-        # Verifique se os dados estão sendo capturados corretamente
         print(f"Paciente ID: {paciente_id}, Médico ID: {medico_id}, Data: {data_consulta_str}, Horário: {horario}")
 
         if paciente_id and medico_id and data_consulta_str and horario:
             paciente = Paciente.objects.get(id_paciente=paciente_id)
             medico = Medico.objects.get(id=medico_id)
-            data_consulta = datetime.strptime(data_consulta_str, '%Y-%m-%d').date()  # Converter string para date
+            data_consulta = datetime.strptime(data_consulta_str, '%Y-%m-%d').date()
+
+            # Verifica se já existe uma consulta agendada para o médico na mesma data e horário
+            if Consulta.objects.filter(medico=medico, data_consulta=data_consulta, horario=horario).exists():
+                messages.error(request, "O médico já está ocupado neste horário.")
+                return render(request, 'cadastro/cadastrar_consulta.html', {
+                    'pacientes': Paciente.objects.all(),
+                    'medicos': Medico.objects.all(),
+                    'horarios': ['08:00', '09:00', '10:00', '14:00', '15:00'],
+                })
+
             Consulta.objects.create(paciente=paciente, medico=medico, data_consulta=data_consulta, horario=horario)
+            messages.success(request, "Consulta cadastrada com sucesso.")
             return redirect('visualizar_consultas')
 
     pacientes = Paciente.objects.all()
