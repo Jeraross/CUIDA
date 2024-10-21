@@ -21,4 +21,6 @@ urlpatterns = [
     path('cadastrar_consulta/', views.cadastrar_consulta, name='cadastrar_consulta'),
     path('visualizar_consultas/', views.visualizar_consultas, name='visualizar_consultas'),
     path('calendario/', calendario_view, name='calendario'),
+    path('paciente/<int:id_paciente>/', views.detalhes_paciente, name='detalhes_paciente'),
+    
 ]

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes do Paciente</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar">
+        <a href="{% url 'listagem_pacientes' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
+      </a>
+      
+      <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
+
+      <h3><a href="{% url 'update_paciente' paciente.id_paciente %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
+      </a></h3>
+    </nav>
+  </header>
+
+  <main>
+    <section class="details">
+      <h2>{{ paciente.nome }}</h2>
+
+      <!-- Exibição dos campos com os detalhes do paciente -->
+      <div class="form-group">
+        <label for="nome">Nome:</label>
+        <p>{{ paciente.nome }}</p>
+      </div>
+
+      <div class="form-group">
+        <label for="idade">Idade:</label>
+        <p>{{ paciente.idade }}</p>
+      </div>
+
+      <div class="form-group">
+        <label for="cpf">CPF:</label>
+        <p>{{ paciente.cpf }}</p>
+      </div>
+
+      <div class="form-group">
+        <label for="numero_celular">Número de Celular:</label>
+        <p>{{ paciente.numero_celular }}</p>
+      </div>
+
+      <div class="form-group">
+        <label for="numero_prontuario">Número de Prontuário:</label>
+        <p>{{ paciente.numero_prontuario }}</p>
+      </div>
+
+      <div class="form-group">
+        <label for="sexo">Sexo:</label>
+        <p>{{ paciente.sexo }}</p>
+      </div>
+
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <p>{{ paciente.status }}</p>
+      </div>
+    </section>
+  </main>
+
+</body>
+
+</html>

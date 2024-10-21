@@ -29,7 +29,7 @@
         <section class="cards">
             {% for paciente in pacientes %}
             <div class="card">
-                <h3><a href="{% url 'update_paciente' paciente.id_paciente %}">{{ paciente.nome }}</a></h3>
+                <h3><a href="{% url 'detalhes_paciente' paciente.id_paciente %}">{{ paciente.nome }}</a></h3>
                 <p><strong>CPF</strong> {{paciente.cpf}}</p>
                 <p><strong>Prontuário</strong> {{paciente.numero_prontuario}}</p>
                 <p class="status {{paciente.status|lower|slugify}}">{{paciente.status}}</p>

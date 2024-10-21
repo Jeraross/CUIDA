@@ -214,3 +214,7 @@ def login(request):
 @login_required(login_url='login')
 def home(request):
     return render(request, 'cadastro/home.html')
+
+def detalhes_paciente(request, id_paciente):
+    paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
+    return render(request, 'cadastro/detalhes_paciente.html', {'paciente': paciente})
