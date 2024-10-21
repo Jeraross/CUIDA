@@ -145,10 +145,10 @@ def visualizar_medicos(request):
     return render(request, 'cadastro/lista_medicos.html', context)
 
 def excluir_medico(request, id):
-    medico = get_object_or_404(Medico, id=id)  # Busca o médico ou retorna 404 se não encontrar
+    medico = get_object_or_404(Medico, id=id)  
     if request.method == 'POST':
-        medico.delete()  # Exclui o médico
-        return redirect('visualizar_medicos')  # Redireciona para a lista de médicos
+        medico.delete() 
+        return redirect('visualizar_medicos') 
     return render(request, 'confirmar_exclusao.html', {'medico': medico})
 
 def cadastrar_consulta(request):
@@ -184,6 +184,17 @@ def cadastrar_consulta(request):
 
     return render(request, 'cadastro/cadastrar_consulta.html', {'pacientes': pacientes, 'medicos': medicos, 'horarios': horarios})
 
+def visualizar_consultas(request):
+    consultas = Consulta.objects.all()
+    context = {
+        'consultas': consultas
+    }
+    return render(request, 'cadastro/lista_consultas.html', context)
+
+def excluir_consulta(request, id):
+    consulta = get_object_or_404(Consulta, id=id)
+    consulta.delete()
+    return redirect('visualizar_consultas')
 
 def calendario_view(request):
    
@@ -206,14 +217,6 @@ def calendario_view(request):
         'days': days,   
     }
     return render(request, 'cadastro/calendario.html', context)
-
-
-def visualizar_consultas(request):
-    consultas = Consulta.objects.all()
-    context = {
-        'consultas': consultas
-    }
-    return render(request, 'cadastro/lista_consultas.html', context)
 
 def login(request):
     if request.method == 'GET':
