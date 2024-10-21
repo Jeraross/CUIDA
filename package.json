@@ -1,0 +1,14 @@
+{
+  "name": "cuida",
+  "version": "1.0.0",
+  "description": "![CUIDA banner](https://github.com/user-attachments/assets/6b6bee69-c34e-408c-86ef-3812a4c3b6a9)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^13.15.0"
+  }
+}

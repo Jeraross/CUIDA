@@ -19,3 +19,4 @@ db.sqlite3
 
 # Arquivos de mídia e uploads (se você estiver armazenando no projeto)
 media/
+node_modules
