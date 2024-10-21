@@ -42,26 +42,39 @@
         document.addEventListener("DOMContentLoaded", function () {
             const searchInput = document.getElementById("searchInput");
             const cards = document.querySelectorAll(".card");
-
-            // Função para filtrar os cartões
+            const notFoundMessage = document.createElement("div");
+            notFoundMessage.id = "notFoundMessage";
+            notFoundMessage.textContent = "Paciente não encontrado.";
+            notFoundMessage.style.display = "none";
+            notFoundMessage.style.color = "red";
+            notFoundMessage.style.marginTop = "10px";
+            searchInput.parentNode.insertBefore(notFoundMessage, searchInput.nextSibling);
+    
             searchInput.addEventListener("input", function () {
                 const searchText = searchInput.value.toLowerCase();
-
+                let found = false;
+    
                 cards.forEach(function (card) {
                     const cardData = card.textContent.toLowerCase();
                     if (cardData.includes(searchText)) {
-                        card.style.display = ""; // Exibe o cartão
+                        card.style.display = "";
+                        found = true;
                     } else {
-                        card.style.display = "none"; // Oculta o cartão
+                        card.style.display = "none";
                     }
                 });
+    
+                if (!found) {
+                    notFoundMessage.style.display = "";
+                } else {
+                    notFoundMessage.style.display = "none";
+                }
             });
-
-            // Código para aplicar as classes de status no carregamento da página
+    
             cards.forEach(function (card) {
                 const statusElement = card.querySelector('.status');
                 const status = statusElement.textContent.trim().toLowerCase();
-
+    
                 if (status === "atendido") {
                     statusElement.classList.add("status-atendido");
                 } else if (status === "não atendido") {
@@ -70,6 +83,7 @@
             });
         });
     </script>
+    
 </body>
 
 </html>
