@@ -32,7 +32,7 @@ Cypress.Commands.add('view', () => {
 
 
 describe('User flow', () => {
-    it('should delete all users, create a new user, and login', () => {
+    it('should delete all users, create a new user, login and access the view page', () => {
         cy.deleteAllUsers();
 
         cy.visit('/')

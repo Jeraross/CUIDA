@@ -53,7 +53,6 @@ describe('User flow', () => {
 
         cy.search(nomePaciente);
 
-        // Verifica se o paciente aparece na lista após a pesquisa
-        cy.contains(nomePaciente).should('exist'); // Verifica se o nome do paciente está na página
+        cy.contains(nomePaciente).should('exist');
     });
 });
