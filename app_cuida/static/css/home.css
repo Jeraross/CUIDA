@@ -63,7 +63,7 @@ main {
 
 .main_body {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -72,16 +72,28 @@ main {
 }
 
 .homebutton {
-    width: 25vw;
-    padding: 18px;
-    font-size: large;
-    font-family: sans-serif;
-    background-color: #30d1fe;
-    border: none;
-    color:#1f2b5b;
-    cursor: pointer;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    width: 15vw; 
+    padding: 18px; 
+    font-size: large; 
+    font-family: sans-serif; 
+    background-color: #30d1fe; 
+    border: none; 
+    color: #1f2b5b; 
+    cursor: pointer; 
+    border-radius: 5px; 
 }
 
 .homebutton:hover {
-    background-color: #2ab9de;
+    background-color: #2ab9de; 
+}
+
+.homebutton svg {
+    margin-bottom: 5px; 
+    width: 90px;  /* Tamanho aumentado */
+    height:90px; /* Tamanho aumentado */
+    transform: rotate(0deg); /* Alinhamento correto */
 }
