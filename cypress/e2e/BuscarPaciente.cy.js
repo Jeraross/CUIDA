@@ -31,12 +31,12 @@ Cypress.Commands.add('viewPatients', () => {
 });
 
 Cypress.Commands.add('search', (name) => {
-    cy.get('#searchInput').clear().type(name); // Limpa o campo antes de digitar
-    cy.get('#searchInput').type('{enter}'); // Pressiona Enter para pesquisar, se necessário
+    cy.get('#searchInput').clear().type(name);
+    cy.get('#searchInput').type('{enter}');
 });
 
 describe('User flow', () => {
-    it('should delete all users, create a new user, login, and search for a patient', () => {
+    it('Deve deletar todos os usuários, criar um novo usuário, fazer login, e procurar por um paciente (paciente procurado deve ser exibido).', () => {
         cy.deleteAllUsers();
 
         cy.visit('/');
@@ -54,5 +54,28 @@ describe('User flow', () => {
         cy.search(nomePaciente);
 
         cy.contains(nomePaciente).should('exist');
+    });
+});
+
+describe('User flow', () => {
+    it('Deve deletar todos os usuários, criar um novo usuário, fazer login, e exibir um erro ao procurar por um paciente não existente.', () => {
+        cy.deleteAllUsers();
+
+        cy.visit('/');
+
+        cy.switchToRegister();
+
+        cy.createUser('testuser', 'testuser@example.com', 'password123');
+
+        cy.login('testuser', 'password123');
+
+        cy.viewPatients();
+
+        const nomePaciente = 'Paciente';
+
+        cy.search(nomePaciente);
+
+        cy.get('#notFoundMessage').should('exist');
+
     });
 });
