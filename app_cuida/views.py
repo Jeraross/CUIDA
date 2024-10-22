@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse
 from datetime import datetime, timedelta
-from django.http import JsonResponse # Importar JsonResponse
+from django.http import JsonResponse 
 
 @login_required(login_url='login')
 def add(request):
@@ -205,60 +205,16 @@ def index(request):
     }
     return render(request, 'cadastro/index.html', context)
 
-def all_events(request):                                                                                                 
-    all_consultas = Consulta.objects.all()                                                                                    
-    out = []                                                                                                             
-    for consulta in all_consultas:                                                                                             
-        out.append({                                                                                                     
-            'title': f"{consulta.paciente.nome} com {consulta.medico.nome}",                                                            
-            'id': consulta.id,                                                                                               
-            'start': consulta.data_consulta.strftime("%Y-%m-%d") + "T" + consulta.horario,
-            'end': consulta.data_consulta.strftime("%Y-%m-%d") + "T" + consulta.horario,
-        })                                                                                                               
-    return JsonResponse(out, safe=False)
+def all_consultas(request):
+    consultas = Consulta.objects.all()  # Supondo que você tenha um modelo chamado 'Consulta'
+    events = []
 
-def add_event(request):
-    start = request.GET.get("start", None)
-    end = request.GET.get("end", None)
-    title = request.GET.get("title", None)
+    for consulta in consultas:
+        events.append({
+            'title': f"{consulta.paciente} - {consulta.medico}",
+            'id': consulta.paciente.id_paciente,
+            'start': consulta.data_consulta.strftime("%m/%d/%Y, %H:%M:%S") + f"T{consulta.horario}",  # Formato ISO 8601
+            'end': consulta.data_consulta.strftime("%m/%d/%Y, %H:%M:%S") + f"T{consulta.horario}",  # Se tiver horário de fim
+        })
     
-    paciente_nome = request.GET.get("paciente", None)
-    medico_nome = request.GET.get("medico", None)
-    
-    # Localiza os objetos de Paciente e Medico
-    paciente = Paciente.objects.get(nome=paciente_nome)
-    medico = Medico.objects.get(nome=medico_nome)
-    
-    data_consulta = start.split("T")[0]
-    horario = start.split("T")[1]
-    
-    consulta = Consulta(paciente=paciente, medico=medico, data_consulta=data_consulta, horario=horario)
-    consulta.save()
-    
-    data = {}
-    return JsonResponse(data)
-
-def update(request):
-    start = request.GET.get("start", None)
-    title = request.GET.get("title", None)
-    id = request.GET.get("id", None)
-
-    consulta = Consulta.objects.get(id=id)
-    
-    data_consulta = start.split("T")[0]
-    horario = start.split("T")[1]
-
-    consulta.data_consulta = data_consulta
-    consulta.horario = horario
-    consulta.save()
-    
-    data = {}
-    return JsonResponse(data)
-
-def remove(request):
-    id = request.GET.get("id", None)
-    consulta = Consulta.objects.get(id=id)
-    consulta.delete()
-    
-    data = {}
-    return JsonResponse(data)
+    return JsonResponse(events, safe=False)
