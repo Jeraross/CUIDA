@@ -18,8 +18,7 @@ body {
 header {
     width: 100%;
     background-color: #ffffffaf; /* Mesma cor de fundo que o main */
-    
-    padding: 12px 0; /* Um pequeno padding para dar espaço entre o topo e a navbar */
+    padding: 12px 0;
 }
 
 .navbar {
@@ -32,8 +31,8 @@ header {
     align-items: center;
 }
 
-.navbar h1{
-    color:#1f2b5b;
+.navbar h1 {
+    color: #1f2b5b;
     margin-bottom: 5px;
     font-size: 36px;
     margin-left: 15px;
@@ -44,14 +43,14 @@ header {
     width: 110px;
     margin-right: -990px;
 }
-.out{
+
+.out {
     width: 40px;
     cursor: pointer;
-    
 }
 
 main {
-   display: flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     background-color: #ffffffaf;
@@ -61,39 +60,52 @@ main {
     flex-direction: column;
 }
 
+/* Usando grid para organizar em duas linhas */
 .main_body {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 2.5rem; /* Espaçamento entre os botões */
-    width: 32vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas por linha */
+    grid-gap: 2.5rem; /* Espaçamento entre os itens */
+    justify-items: center; /* Centraliza os itens nas colunas */
+    width: 100%;
+    max-width: 80vw;
+    margin-top: 20px;
 }
 
 .homebutton {
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    width: 15vw; 
-    padding: 18px; 
-    font-size: large; 
-    font-family: sans-serif; 
-    background-color: #30d1fe; 
-    border: none; 
-    color: #1f2b5b; 
-    cursor: pointer; 
-    border-radius: 5px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 15vw;
+    padding: 18px;
+    font-size: large;
+    background-color: #30d1fe;
+    border: none;
+    color: #1f2b5b;
+    cursor: pointer;
+    border-radius: 5px;
 }
 
 .homebutton:hover {
-    background-color: #2ab9de; 
+    background-color: #2ab9de;
 }
 
 .homebutton svg {
-    margin-bottom: 5px; 
-    width: 90px;  /* Tamanho aumentado */
-    height:90px; /* Tamanho aumentado */
+    margin-bottom: 5px;
+    width: 90px; /* Tamanho aumentado */
+    height: 90px; /* Tamanho aumentado */
     transform: rotate(0deg); /* Alinhamento correto */
+}
+
+/* Tornando responsivo para telas menores */
+@media (max-width: 768px) {
+    .main_body {
+        grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .main_body {
+        grid-template-columns: 1fr; /* 1 coluna em telas pequenas */
+    }
 }
