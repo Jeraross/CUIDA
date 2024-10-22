@@ -197,7 +197,7 @@ def detalhes_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     return render(request, 'cadastro/detalhes_paciente.html', {'paciente': paciente})
 
-@login_required(login_url='login')
+
 def index(request):  
     all_consultas = Consulta.objects.all()
     context = {
@@ -212,8 +212,8 @@ def all_events(request):
         out.append({                                                                                                     
             'title': f"{consulta.paciente.nome} com {consulta.medico.nome}",                                                            
             'id': consulta.id,                                                                                               
-            'start': consulta.data_consulta.strftime("%Y-%m-%d") + "T" + consulta.horario.strftime("%H:%M:%S"),                                                         
-            'end': consulta.data_consulta.strftime("%Y-%m-%d") + "T" + consulta.horario.strftime("%H:%M:%S"),                                                             
+            'start': consulta.data_consulta.strftime("%Y-%m-%d") + "T" + consulta.horario,
+            'end': consulta.data_consulta.strftime("%Y-%m-%d") + "T" + consulta.horario,
         })                                                                                                               
     return JsonResponse(out, safe=False)
 
