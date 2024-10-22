@@ -143,6 +143,12 @@ def cadastrar_medico(request):
 
         if nome and especialidade_id and crm:
             especialidade = get_object_or_404(Especialidade, id=especialidade_id)
+
+            # Verifica se já existe um médico com o mesmo CRM
+            if Medico.objects.filter(crm=crm).exists():
+                messages.error(request, "Um médico com esse CRM já está cadastrado.")
+                return redirect('cadastrar_medico')
+
             Medico.objects.create(nome=nome, especialidade=especialidade, crm=crm, numero_celular=numero_celular)
             return redirect('visualizar_medicos')
 
