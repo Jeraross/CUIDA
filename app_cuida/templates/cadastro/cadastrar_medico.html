@@ -52,7 +52,46 @@
 
       <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
+
   </main>
+
+  <!-- Exibir mensagens de erro e sucesso -->
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <style>
+    .messages {
+      list-style-type: none; /* Remove a marcação da lista */
+      padding: 0; /* Remove o preenchimento da lista */
+      margin: 10px 0; /* Espaçamento acima e abaixo da lista */
+    }
+
+    .messages li {
+      padding: 10px; /* Preenchimento interno para cada mensagem */
+      margin: 5px 0; /* Espaçamento entre as mensagens */
+      border-radius: 4px; /* Arredondar as bordas */
+    }
+
+    /* Estilo para mensagens de erro */
+    .messages li.error {
+      background-color: #f8d7da; /* Fundo vermelho claro */
+      color: #721c24; /* Texto vermelho escuro */
+      border: 1px solid #f5c6cb; /* Borda vermelha */
+      border-radius: 2rem;
+    }
+
+    /* Estilo para mensagens de sucesso */
+    .messages li.success {
+      background-color: #d4edda; /* Fundo verde claro */
+      color: #155724; /* Texto verde escuro */
+      border: 1px solid #c3e6cb; /* Borda verde */
+    }
+  </style>
 
 </body>
 

@@ -35,6 +35,7 @@
                         <th>Especialidade</th>
                         <th>CRM</th>
                         <th>Número de Celular</th>
+                        <th>Ações</th> <!-- Adiciona uma coluna para ações -->
                     </tr>
                 </thead>
                 <tbody id="medicoTableBody">
@@ -44,16 +45,37 @@
                         <td>{{ medico.especialidade.nome }}</td>
                         <td>{{ medico.crm }}</td>
                         <td>{{ medico.numero_celular }}</td>
+                        <td>
+                            <form action="{% url 'excluir_medico' medico.id %}" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-excluir">Excluir</button>
+                            </form>
+                        </td> <!-- Botão de excluir -->
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="4">Nenhum médico cadastrado.</td>
+                        <td colspan="5">Nenhum médico cadastrado.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </section>
     </main>
+
+    <style>
+        .btn-excluir {
+            background-color: #dc3545; /* Cor de fundo vermelho */
+            color: white; /* Cor do texto */
+            border: none; /* Sem borda */
+            padding: 5px 10px; /* Preenchimento */
+            border-radius: 4px; /* Borda arredondada */
+            cursor: pointer; /* Cursor em forma de mão */
+        }
+
+        .btn-excluir:hover {
+            background-color: #c82333; /* Cor de fundo ao passar o mouse */
+        }
+    </style>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

@@ -111,9 +111,13 @@ def cadastrar_especialidade(request):
         nome = request.POST.get('nome')
 
         if nome:
-            Especialidade.objects.create(nome=nome)
-            return redirect('visualizar_especialidades')
-        
+            if not Especialidade.objects.filter(nome=nome).exists():
+                Especialidade.objects.create(nome=nome)
+                return redirect('visualizar_especialidades')
+            else:
+                messages.error(request, "Essa especialidade já está cadastrada.")
+                return redirect('cadastrar_especialidade') 
+
     return render(request, 'cadastro/cadastrar_especialidade.html')
 
 def visualizar_especialidades(request):
@@ -129,7 +133,6 @@ def excluir_especialidade(request, id):
         especialidade = get_object_or_404(Especialidade, id=id)
         especialidade.delete()
         return redirect('visualizar_especialidades')
-# views.py
 
 def cadastrar_medico(request):
     if request.method == 'POST':
@@ -140,6 +143,12 @@ def cadastrar_medico(request):
 
         if nome and especialidade_id and crm:
             especialidade = get_object_or_404(Especialidade, id=especialidade_id)
+
+            # Verifica se já existe um médico com o mesmo CRM
+            if Medico.objects.filter(crm=crm).exists():
+                messages.error(request, "Um médico com esse CRM já está cadastrado.")
+                return redirect('cadastrar_medico')
+
             Medico.objects.create(nome=nome, especialidade=especialidade, crm=crm, numero_celular=numero_celular)
             return redirect('visualizar_medicos')
 
