@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Paciente, Especialidade, Medico, Consulta
+from .models import Paciente, Especialidade, Medico, Consulta, Events
 from django.db.models import Q
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from datetime import datetime, timedelta
+
 
 @login_required(login_url='login')
 def add(request):
@@ -183,8 +184,15 @@ def cadastrar_consulta(request):
                 })
 
             Consulta.objects.create(paciente=paciente, medico=medico, data_consulta=data_consulta, horario=horario)
-            messages.success(request, "Consulta cadastrada com sucesso.")
-            return redirect('visualizar_consultas')
+
+            start = data_consulta_str + ' ' + horario
+            end = data_consulta_str + ' ' + horario  # Assuming the end time is the same as start time for simplicity
+            title = f"{medico.nome} - {paciente.nome}"
+            event = Events(name=title, start=start, end=end)
+            event.save()
+            data = {}
+
+            return redirect('visualizar_consultas'), JsonResponse(data)
 
     pacientes = Paciente.objects.all()
     medicos = Medico.objects.all()
@@ -249,3 +257,27 @@ def home(request):
 def detalhes_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     return render(request, 'cadastro/detalhes_paciente.html', {'paciente': paciente})
+
+def index(request):  
+    all_consultas = Consulta.objects.all()
+    context = {
+        "consultas": all_consultas,
+    }
+    return render(request, 'cadastro/index.html', context)
+
+def all_consultas(request):
+    consultas = Events.objects.all()
+    events = []
+
+    for consulta in consultas:
+        events.append({
+            'title': consulta.name,
+            'id': consulta.id,
+            'start': consulta.start.strftime("%m/%d/%Y, %H:%M:%S"),
+            'end': consulta.end.strftime("%m/%d/%Y, %H:%M:%S"),
+        })
+    
+    data = {
+        'events': events
+    }
+    
