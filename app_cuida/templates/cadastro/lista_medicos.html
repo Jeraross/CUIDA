@@ -6,80 +6,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Médicos</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lista_consultas.css' %}"> <!-- Reutilizando o CSS de consultas -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 </head>
 
 <body>
-    <header>
-        <nav class="navbar">
+    <main class="container">
+        <section class="header">
             <a href="{% url 'home' %}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M16 12H8" />
+                    <path d="m12 8-4 4 4 4" />
+                </svg>
             </a>
-            <h1>Lista de Médicos:</h1>
+            <h1>Lista de Médicos</h1>
+            <div class="input-group">
+                <input type="search" id="searchInput" placeholder="Busque aqui...">
+            </div>
             <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
-        </nav>
-    </header>
+        </section>
 
-    <main>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Especialidade</th>
-                    <th>CRM</th>
-                    <th>Número de Celular</th>
-                    <th>Ações</th> <!-- Nova coluna para ações -->
-                </tr>
-            </thead>
-            <tbody>
-                {% for medico in medicos %}
-                <tr>
-                    <td>{{ medico.nome }}</td>
-                    <td>{{ medico.especialidade.nome }}</td>
-                    <td>{{ medico.crm }}</td>
-                    <td>{{ medico.numero_celular }}</td>
-                    <td>
-                        <form action="{% url 'excluir_medico' medico.id %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-danger">Excluir</button>
-                        </form>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5">Nenhum médico cadastrado.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <section class="table-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Especialidade</th>
+                        <th>CRM</th>
+                        <th>Número de Celular</th>
+                    </tr>
+                </thead>
+                <tbody id="medicoTableBody">
+                    {% for medico in medicos %}
+                    <tr>
+                        <td class="nome-medico">{{ medico.nome }}</td>
+                        <td>{{ medico.especialidade.nome }}</td>
+                        <td>{{ medico.crm }}</td>
+                        <td>{{ medico.numero_celular }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">Nenhum médico cadastrado.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
     </main>
 
-    <style>
-        table {
-    width: 100%;
-    border-collapse: collapse; /* Remove o espaço entre as bordas das células */
-    margin: 20px 0; /* Adiciona um espaço em cima e embaixo da tabela */
-}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById("searchInput");
+            const tableRows = document.querySelectorAll("tbody tr");
 
-th, td {
-    padding: 12px; /* Adiciona espaço interno nas células */
-    text-align: left; /* Alinha o texto à esquerda */
-    border: 1px solid #ddd; /* Adiciona borda às células */
-}
+            // Função para filtrar as linhas da tabela pelo nome do médico
+            searchInput.addEventListener("input", function () {
+                const searchText = searchInput.value.toLowerCase();
 
-th {
-    background-color: #f2f2f2; /* Cor de fundo para o cabeçalho */
-}
+                tableRows.forEach(function (row) {
+                    const nomeMedico = row.querySelectorAll("td")[0].textContent.toLowerCase(); // Nome do médico na 1ª coluna
 
-tr:nth-child(even) {
-    background-color: #f9f9f9; /* Cor de fundo para linhas pares */
-}
-
-tr:hover {
-    background-color: #f1f1f1; /* Cor de fundo ao passar o mouse */
-}
-
-    </style>
+                    // Verificar se o nome do médico contém o texto de busca
+                    if (nomeMedico.includes(searchText)) {
+                        row.style.display = ""; // Exibe a linha
+                    } else {
+                        row.style.display = "none"; // Oculta a linha
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
