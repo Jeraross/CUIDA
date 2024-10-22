@@ -1,5 +1,13 @@
+Cypress.Commands.add('deleteAllUsers', () => {
+    cy.exec('python delete_users.py', { failOnNonZeroExit: false });
+});
+
 Cypress.Commands.add('deletePatient', (cpf) => {
     cy.exec(`python delete_patient.py ${cpf}`, { failOnNonZeroExit: false });
+});
+
+Cypress.Commands.add('switchToRegister', () => {
+    cy.get('#register').click();
 });
 
 Cypress.Commands.add('login', (username, password) => {
@@ -39,12 +47,19 @@ Cypress.Commands.add('createPatient', (nome, idade, cpf, numero_celular, numero_
 
 describe('User flow and Patient Registration', () => {
     it('Deve deletar todos os usuários, criar um novo usuário, fazer login, deletar o paciente específico, e cadastrar um novo paciente.', () => {
-        const testUsername = 'testuser';
         const cpfToDelete = '12345678909'; 
 
         cy.deletePatient(cpfToDelete);
 
-        cy.login(testUsername, 'password123');
+        cy.deleteAllUsers();
+
+        cy.visit('/')
+
+        cy.switchToRegister();
+
+        cy.createUser('testuser', 'testuser@example.com', 'password123');
+
+        cy.login('testuser', 'password123');
 
         cy.accessForm();
 
@@ -68,9 +83,16 @@ describe('User flow and Patient Registration', () => {
 
 describe ('User flow and Patient Registration: Error 1', () => {
     it('Deve deletar todos os usuários, criar um novo usuário, fazer login, deletar o paciente específico, e exibir uma mensagem de erro quando o usuário tentar cadastrar um paciente com o mesmo CPF.', () => {
-        const testUsername = 'testuser';
 
-        cy.login(testUsername, 'password123');
+        cy.deleteAllUsers();
+
+        cy.visit('/')
+
+        cy.switchToRegister();
+
+        cy.createUser('testuser', 'testuser@example.com', 'password123');
+
+        cy.login('testuser', 'password123');
 
         cy.accessForm();
 
@@ -90,9 +112,16 @@ describe ('User flow and Patient Registration: Error 1', () => {
 
 describe ('User flow and Patient Registration: Error 2', () => {
     it('Deve deletar todos os usuários, criar um novo usuário, fazer login, deletar o paciente específico, e exibir uma mensagem de erro quando o usuário tentar cadastrar um paciente com o mesmo número de prontuário.', () => {
-        const testUsername = 'testuser';
 
-        cy.login(testUsername, 'password123');
+        cy.deleteAllUsers();
+
+        cy.visit('/')
+
+        cy.switchToRegister();
+
+        cy.createUser('testuser', 'testuser@example.com', 'password123');
+
+        cy.login('testuser', 'password123');
 
         cy.accessForm();
 
