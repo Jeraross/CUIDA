@@ -111,9 +111,13 @@ def cadastrar_especialidade(request):
         nome = request.POST.get('nome')
 
         if nome:
-            Especialidade.objects.create(nome=nome)
-            return redirect('visualizar_especialidades')
-        
+            if not Especialidade.objects.filter(nome=nome).exists():
+                Especialidade.objects.create(nome=nome)
+                return redirect('visualizar_especialidades')
+            else:
+                messages.error(request, "Essa especialidade já está cadastrada.")
+                return redirect('cadastrar_especialidade') 
+
     return render(request, 'cadastro/cadastrar_especialidade.html')
 
 def visualizar_especialidades(request):
@@ -129,7 +133,6 @@ def excluir_especialidade(request, id):
         especialidade = get_object_or_404(Especialidade, id=id)
         especialidade.delete()
         return redirect('visualizar_especialidades')
-# views.py
 
 def cadastrar_medico(request):
     if request.method == 'POST':

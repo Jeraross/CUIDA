@@ -22,13 +22,34 @@
         <section class="listagem">
             <div class="especialidades">
                 {% for especialidade in especialidades %}
-                <div class="especialidade-card">{{ especialidade.nome }}</div>
+                <div class="especialidade-card">
+                    <span>{{ especialidade.nome }}</span>
+                    <form action="{% url 'excluir_especialidade' especialidade.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-excluir">Excluir</button>
+                    </form>
+                </div>
                 {% empty %}
                 <div class="especialidade-card">Nenhuma especialidade cadastrada.</div>
                 {% endfor %}
             </div>
         </section>
     </main>
+
+    <style>
+        .btn-excluir {
+            background-color: #dc3545; /* Cor de fundo vermelho */
+            color: white; /* Cor do texto */
+            border: none; /* Sem borda */
+            padding: 5px 10px; /* Preenchimento */
+            border-radius: 4px; /* Borda arredondada */
+            cursor: pointer; /* Cursor em forma de mão */
+        }
+
+        .btn-excluir:hover {
+            background-color: #c82333; /* Cor de fundo ao passar o mouse */
+        }
+    </style>
 </body>
 
 </html>
