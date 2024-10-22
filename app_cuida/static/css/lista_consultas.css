@@ -35,6 +35,7 @@
   .header h1 {
     color: #1f2b5b;
     font-size: 30px;
+    padding-left: -800px;
   }
   
   .header img.logo {
@@ -85,3 +86,20 @@
     background-color: #f1f1f1;
   }
   
+  .header .input-group {
+    width: 40%;
+    display: flex;
+    align-items: center;
+    background-color: #ccd4f065;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+.header .input-group input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    padding: 10px;
+}
