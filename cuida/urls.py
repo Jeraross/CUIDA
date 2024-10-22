@@ -21,8 +21,6 @@ urlpatterns = [
     path('cadastrar_consulta/', views.cadastrar_consulta, name='cadastrar_consulta'),
     path('visualizar_consultas/', views.visualizar_consultas, name='visualizar_consultas'),
     path('paciente/<int:id_paciente>/', views.detalhes_paciente, name='detalhes_paciente'),
-    path('all_consultas/', views.all_events, name='all_consultas'),  # Alterado para 'consultas'
-    path('add_consulta/', views.add_event, name='add_consulta'),     # Alterado para 'consulta'
-    path('update_consulta/', views.update, name='update_consulta'),  # Alterado para 'consulta'
-    path('remove_consulta/', views.remove, name='remove_consulta'),  # Alterado para 'consulta'
+    path('all_consultas/', views.all_consultas, name='all_consultas'),  
+    path('add_consulta/', views.add_consulta, name='add_consulta'),    
 ]
