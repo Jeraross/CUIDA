@@ -2,59 +2,33 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Especialidades</title>
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CUIDA - LISTA DE ESPECIALIDADES</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/paciente.css' %}?v=1.0">
 </head>
 
 <body>
+    <main class="container">
+        <section class="header">
+            <a href="{% url 'home' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
+            </a>
+            <h1>Lista de Especialidades:</h1>
+            <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo" alt="Logo">
+        </section>
 
-  <header>
-    <nav class="navbar">
-      <a href="{% url 'home' %}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
-      </a>
-      <h1>Lista de Especialidades:</h1>
-    </nav>
-  </header>
-
-  <main>
-    <ul>
-      {% for especialidade in especialidades %}
-        <li>
-          {{ especialidade.nome }}
-          <form action="{% url 'excluir_especialidade' especialidade.id %}" method="post" style="display:inline;">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Excluir</button>
-          </form>
-        </li>
-      {% empty %}
-        <li>Nenhuma especialidade cadastrada.</li>
-      {% endfor %}
-    </ul>
-  </main>
-
-  <style>
-    .btn {
-    padding: 5px 10px;
-    margin-left: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn-danger {
-    background-color: #dc3545; /* Vermelho para botão de exclusão */
-    color: white;
-}
-
-.btn-danger:hover {
-    background-color: #c82333; /* Cor mais escura ao passar o mouse */
-}
-
-  </style>
+        <section class="listagem">
+            <div class="especialidades">
+                {% for especialidade in especialidades %}
+                <div class="especialidade-card">{{ especialidade.nome }}</div>
+                {% empty %}
+                <div class="especialidade-card">Nenhuma especialidade cadastrada.</div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
 </body>
 
 </html>

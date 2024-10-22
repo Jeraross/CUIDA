@@ -42,14 +42,12 @@ header {
 img.logo {
     height: 65px;
     width: 110px;
-   
-
 }
-img.back{
+
+img.back {
     width: 35px;
     cursor: pointer;
     margin-left: 5px;
-    
 }
 
 /* Estilizando o main e o formulário */

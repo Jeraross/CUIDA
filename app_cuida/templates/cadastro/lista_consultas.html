@@ -1,29 +1,54 @@
-<table>
-  <tr>
-      <th>ID</th>
-      <th>Paciente</th>
-      <th>Médico</th>
-      <th>Data</th>
-      <th>Horário</th>
-      <th>Ações</th> <!-- Nova coluna para ações -->
-  </tr>
-  {% for consulta in consultas %}
-  <tr>
-      <td>{{ consulta.id }}</td>
-      <td>{{ consulta.paciente.nome }}</td>
-      <td>{{ consulta.medico.nome }}</td>
-      <td>{{ consulta.data_consulta }}</td>
-      <td>{{ consulta.horario }}</td>
-      <td>
-          <form action="{% url 'excluir_consulta' consulta.id %}" method="post" style="display:inline;">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-danger">Excluir</button>
-          </form>
-      </td>
-  </tr>
-  {% empty %}
-  <tr>
-      <td colspan="6">Nenhuma consulta cadastrada.</td>
-  </tr>
-  {% endfor %}
-</table>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Consultas</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/lista_consultas.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+</head>
+
+<body>
+  <main class="container">
+    <section class="header">
+      <a href="{% url 'home' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M16 12H8" />
+          <path d="m12 8-4 4 4 4" />
+        </svg>
+      </a>
+      <h1>Lista de Consultas</h1>
+      <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
+    </section>
+
+    <section class="table-section">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Paciente</th>
+            <th>Médico</th>
+            <th>Data</th>
+            <th>Horário</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for consulta in consultas %}
+          <tr>
+            <td>{{ consulta.id }}</td>
+            <td>{{ consulta.paciente.nome }}</td>
+            <td>{{ consulta.medico.nome }}</td>
+            <td>{{ consulta.data_consulta }}</td>
+            <td>{{ consulta.horario }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+
+</html>

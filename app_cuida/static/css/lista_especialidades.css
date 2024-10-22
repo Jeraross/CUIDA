@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #cbe6f1a2, #30d1fec5);
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #ffffffaf; /* Cor da caixinha */
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px; /* Espaçamento superior para a "caixinha" */
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    color: #1f2b5b;
+    font-size: 30px;
+}
+
+.header img.logo {
+    width: 110px; /* Ajuste o tamanho do logo conforme necessário */
+}
+
+.listagem {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os cartões se movam para a próxima linha */
+    gap: 15px; /* Espaçamento entre os cartões */
+}
+
+.especialidade-card {
+    background-color: #e3f2fd; /* Cor dos cartões (ajustada para um azul claro) */
+    border-radius: 8px;
+    padding: 15px;
+    flex: 1 1 calc(25% - 15px); /* Ajusta o tamanho dos cartões */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 18px;
+    color: #1f2b5b; /* Cor do texto */
+    min-width: 180px; /* Largura mínima para os cartões */
+}
