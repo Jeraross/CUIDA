@@ -44,5 +44,7 @@ describe('User flow', () => {
         cy.login('testuser', 'password123');
 
         cy.view();
+
+        cy.get('.container').should('exist');
     });
 });
