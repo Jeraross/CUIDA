@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse
 from datetime import datetime, timedelta
+from django.http import JsonResponse # Importar JsonResponse
 
 @login_required(login_url='login')
 def add(request):
@@ -165,29 +166,6 @@ def cadastrar_consulta(request):
     return render(request, 'cadastro/cadastrar_consulta.html', {'pacientes': pacientes, 'medicos': medicos, 'horarios': horarios})
 
 
-def calendario_view(request):
-   
-    now = datetime.now()
-    month = now.month
-    year = now.year
-
-   
-    first_day = datetime(year, month, 1)
-    if month == 12:
-        next_month = datetime(year + 1, 1, 1)
-    else:
-        next_month = datetime(year, month + 1, 1)
-    num_days = (next_month - first_day).days
-
-    
-    days = [first_day + timedelta(days=i) for i in range(num_days)]
-
-    context = {
-        'days': days,   
-    }
-    return render(request, 'cadastro/calendario.html', context)
-
-
 def visualizar_consultas(request):
     consultas = Consulta.objects.all()
     context = {
@@ -218,3 +196,69 @@ def home(request):
 def detalhes_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     return render(request, 'cadastro/detalhes_paciente.html', {'paciente': paciente})
+
+@login_required(login_url='login')
+def index(request):  
+    all_consultas = Consulta.objects.all()
+    context = {
+        "consultas": all_consultas,
+    }
+    return render(request, 'cadastro/index.html', context)
+
+def all_events(request):                                                                                                 
+    all_consultas = Consulta.objects.all()                                                                                    
+    out = []                                                                                                             
+    for consulta in all_consultas:                                                                                             
+        out.append({                                                                                                     
+            'title': f"{consulta.paciente.nome} com {consulta.medico.nome}",                                                            
+            'id': consulta.id,                                                                                               
+            'start': consulta.data_consulta.strftime("%Y-%m-%d") + "T" + consulta.horario.strftime("%H:%M:%S"),                                                         
+            'end': consulta.data_consulta.strftime("%Y-%m-%d") + "T" + consulta.horario.strftime("%H:%M:%S"),                                                             
+        })                                                                                                               
+    return JsonResponse(out, safe=False)
+
+def add_event(request):
+    start = request.GET.get("start", None)
+    end = request.GET.get("end", None)
+    title = request.GET.get("title", None)
+    
+    paciente_nome = request.GET.get("paciente", None)
+    medico_nome = request.GET.get("medico", None)
+    
+    # Localiza os objetos de Paciente e Medico
+    paciente = Paciente.objects.get(nome=paciente_nome)
+    medico = Medico.objects.get(nome=medico_nome)
+    
+    data_consulta = start.split("T")[0]
+    horario = start.split("T")[1]
+    
+    consulta = Consulta(paciente=paciente, medico=medico, data_consulta=data_consulta, horario=horario)
+    consulta.save()
+    
+    data = {}
+    return JsonResponse(data)
+
+def update(request):
+    start = request.GET.get("start", None)
+    title = request.GET.get("title", None)
+    id = request.GET.get("id", None)
+
+    consulta = Consulta.objects.get(id=id)
+    
+    data_consulta = start.split("T")[0]
+    horario = start.split("T")[1]
+
+    consulta.data_consulta = data_consulta
+    consulta.horario = horario
+    consulta.save()
+    
+    data = {}
+    return JsonResponse(data)
+
+def remove(request):
+    id = request.GET.get("id", None)
+    consulta = Consulta.objects.get(id=id)
+    consulta.delete()
+    
+    data = {}
+    return JsonResponse(data)
