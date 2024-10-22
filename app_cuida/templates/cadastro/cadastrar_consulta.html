@@ -1,45 +1,77 @@
-<form action="{% url 'cadastrar_consulta' %}" method="post">
-    {% csrf_token %}
-  
-    <!-- Campo para Selecionar Paciente -->
-    <div class="form-group">
-      <label for="paciente">Paciente</label>
-      <select id="paciente" name="paciente" class="form-control">
-        <option value="">Selecione um paciente</option>
-        {% for paciente in pacientes %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CADASTRAR CONSULTA</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/cadastrar_consulta.css' %}">
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar">
+      <a href="{% url 'home' %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
+      </a>
+      <h1>Cadastro de Consultas:</h1>
+      <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
+    </nav>
+
+  </header>
+
+  <main>
+
+    <form action="{% url 'cadastrar_consulta' %}" method="post">
+      {% csrf_token %}
+
+      <!-- Campo para Selecionar Paciente -->
+      <div class="form-group">
+        <label for="paciente">Paciente</label>
+        <select id="paciente" name="paciente" class="form-control">
+          <option value="">Selecione um paciente</option>
+          {% for paciente in pacientes %}
           <option value="{{ paciente.id_paciente }}">{{ paciente.nome }}</option>
-        {% endfor %}
-      </select>
-    </div>
-  
-    <!-- Campo para Selecionar Médico -->
-    <div class="form-group">
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Campo para Selecionar Médico -->
+      <div class="form-group">
         <label for="medico">Médico</label>
         <select id="medico" name="medico" class="form-control">
           <option value="">Selecione um médico</option>
           {% for medico in medicos %}
-            <option value="{{ medico.id }}">{{ medico.nome }}</option>
+          <option value="{{ medico.id }}">{{ medico.nome }}</option>
           {% endfor %}
         </select>
       </div>
-  
-    <!-- Campo para Data da Consulta -->
-    <div class="form-group">
-      <label for="data_consulta">Data da Consulta</label>
-      <input type="date" id="data_consulta" name="data_consulta" class="form-control">
-    </div>
-  
-    <!-- Campo para Selecionar Horário -->
-    <div class="form-group">
-      <label for="horario">Horário</label>
-      <select id="horario" name="horario" class="form-control">
-        <option value="">Selecione um horário</option>
-        {% for horario in horarios %}
+
+      <!-- Campo para Data da Consulta -->
+      <div class="form-group">
+        <label for="data_consulta">Data da Consulta</label>
+        <input type="date" id="data_consulta" name="data_consulta" class="form-control">
+      </div>
+
+      <!-- Campo para Selecionar Horário -->
+      <div class="form-group">
+        <label for="horario">Horário</label>
+        <select id="horario" name="horario" class="form-control">
+          <option value="">Selecione um horário</option>
+          {% for horario in horarios %}
           <option value="{{ horario }}">{{ horario }}</option>
-        {% endfor %}
-      </select>
-    </div>
-  
-    <button type="submit" class="btn btn-primary">Cadastrar Consulta</button>
-  </form>
-  
+          {% endfor %}
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Cadastrar Consulta</button>
+    </form>
+
+  </main>
+
+
+</body>
+
+</html>
