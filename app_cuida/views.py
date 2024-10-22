@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Paciente, Especialidade, Medico, Consulta
+from django.db.models import Q
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -18,6 +19,10 @@ def add(request):
         cpf = request.POST.get('cpf')
         status = request.POST.get('status')
 
+        if Paciente.objects.filter(Q(cpf=cpf) | Q(numero_prontuario=numero_prontuario)).exists():
+            messages.error(request, 'Já existe um paciente com o mesmo CPF ou número de prontuário.')
+            return redirect('form')
+
         paciente = Paciente(
             nome=nome,
             idade=idade,
@@ -27,9 +32,13 @@ def add(request):
             cpf=cpf,
             status=status
         )
-        paciente.save()
 
-        return redirect('home')
+        try:
+            paciente.save()
+            messages.success(request, 'Paciente cadastrado com sucesso!')
+            return redirect('home')
+        except:
+            messages.error(request, 'Ocorreu um erro ao cadastrar o paciente, por favor tente de novo.')
 
     return render(request, 'cadastro/form.html')
 
@@ -38,7 +47,6 @@ def update(request, id_paciente):
     paciente = Paciente.objects.filter(id_paciente=id_paciente).first()
     
     if request.method == 'POST':
-        # Capturar os dados do formulário
         paciente.nome = request.POST.get('nome')
         paciente.idade = request.POST.get('idade')
         paciente.numero_celular = request.POST.get('numero_celular')

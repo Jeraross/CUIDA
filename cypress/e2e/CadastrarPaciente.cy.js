@@ -38,7 +38,7 @@ Cypress.Commands.add('createPatient', (nome, idade, cpf, numero_celular, numero_
 });
 
 describe('User flow and Patient Registration', () => {
-    it('should delete all users, create a new user, login, delete the specific patient, and register a new patient', () => {
+    it('Deve deletar todos os usuários, criar um novo usuário, fazer login, deletar o paciente específico, e cadastrar um novo paciente.', () => {
         const testUsername = 'testuser';
         const cpfToDelete = '12345678909'; 
 
@@ -49,7 +49,7 @@ describe('User flow and Patient Registration', () => {
         cy.accessForm();
 
         const nome = 'Guilherme Mourão';
-        const idade = '30';
+        const idade = '20';
         const cpf = cpfToDelete;
         const numero_celular = '81989468836';
         const numero_prontuario = '20230002';
@@ -63,5 +63,49 @@ describe('User flow and Patient Registration', () => {
         cy.get('[href="/pacientes/"] > .homebutton').click();
 
         cy.contains(nome).should('exist');
+    });
+});
+
+describe ('User flow and Patient Registration: Error 1', () => {
+    it('Deve deletar todos os usuários, criar um novo usuário, fazer login, deletar o paciente específico, e exibir uma mensagem de erro quando o usuário tentar cadastrar um paciente com o mesmo CPF.', () => {
+        const testUsername = 'testuser';
+
+        cy.login(testUsername, 'password123');
+
+        cy.accessForm();
+
+        const nome = 'Guilherme Mourão';
+        const idade = '20';
+        const cpf = '12345678909';
+        const numero_celular = '81989468836';
+        const numero_prontuario = '20230003';
+        const sexo = 'M';
+        const status = 'NÃO ATENDIDO';
+
+        cy.createPatient(nome, idade, cpf, numero_celular, numero_prontuario, sexo, status);
+
+        cy.get('.alert').should('exist');
+    });
+});
+
+describe ('User flow and Patient Registration: Error 2', () => {
+    it('Deve deletar todos os usuários, criar um novo usuário, fazer login, deletar o paciente específico, e exibir uma mensagem de erro quando o usuário tentar cadastrar um paciente com o mesmo número de prontuário.', () => {
+        const testUsername = 'testuser';
+
+        cy.login(testUsername, 'password123');
+
+        cy.accessForm();
+
+        const nome = 'Jeronimo Rossi';
+        const idade = '20';
+        const cpf = '98765432100.';
+        const numero_celular = '81989468836';
+        const numero_prontuario = '20230002';
+        const sexo = 'M';
+        const status = 'NÃO ATENDIDO';
+
+        cy.createPatient(nome, idade, cpf, numero_celular, numero_prontuario, sexo, status);
+
+        cy.get('.alert').should('exist');
     });
 });
