@@ -70,10 +70,12 @@ describe('Cadastro de Médico', () => {
         // Verifica se o médico foi cadastrado na lista
         cy.contains(nome).should('exist'); 
         cy.contains(crm).should('exist'); 
+        cy.contains(numero_celular).should('exist');
+        
     });
 
     it('não deve permitir cadastrar um médico com o mesmo CRM', () => {
-        cy.get('.lucide').click();
+        cy.visit('/cadastrar_medico/');
         cy.get('#nome').type('Dr. Maria Oliveira');
         cy.get('#especialidade').select(especialidade);
         cy.get('#crm').type(crm); // Tentar cadastrar o mesmo CRM
@@ -83,4 +85,11 @@ describe('Cadastro de Médico', () => {
         // Verifica se a mensagem de erro aparece
         cy.contains("Um médico com esse CRM já está cadastrado.").should('exist');
     });
+
+    it('deve acessar a página de visualizar médicos e excluir o médico que foi cadastrado nesse teste', () => {
+
+        cy.visit('/visualizar_medicos/');
+        cy.contains(nome).parents('tr').find('.btn-excluir').click();
+        cy.contains(crm).should('not.exist');
+    })
 });
