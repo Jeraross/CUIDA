@@ -81,6 +81,14 @@
     </form>
   </main>
 
+  {% if messages %}
+  <div>
+    {% for message in messages %}
+      <div class="alert {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+{% endif %}
+
   <script>
     function validateForm() {
       // Validação de Nome

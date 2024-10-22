@@ -1,10 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Paciente, Especialidade, Medico, Consulta, Events
+from django.db.models import Q
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
-from datetime import datetime
+from datetime import datetime, timedelta
+
 
 @login_required(login_url='login')
 def add(request):
@@ -17,6 +20,10 @@ def add(request):
         cpf = request.POST.get('cpf')
         status = request.POST.get('status')
 
+        if Paciente.objects.filter(Q(cpf=cpf) | Q(numero_prontuario=numero_prontuario)).exists():
+            messages.error(request, 'Já existe um paciente com o mesmo CPF ou número de prontuário.')
+            return redirect('form')
+
         paciente = Paciente(
             nome=nome,
             idade=idade,
@@ -26,9 +33,13 @@ def add(request):
             cpf=cpf,
             status=status
         )
-        paciente.save()
 
-        return redirect('home')
+        try:
+            paciente.save()
+            messages.success(request, 'Paciente cadastrado com sucesso!')
+            return redirect('home')
+        except:
+            messages.error(request, 'Ocorreu um erro ao cadastrar o paciente, por favor tente de novo.')
 
     return render(request, 'cadastro/form.html')
 
@@ -37,7 +48,6 @@ def update(request, id_paciente):
     paciente = Paciente.objects.filter(id_paciente=id_paciente).first()
     
     if request.method == 'POST':
-        # Capturar os dados do formulário
         paciente.nome = request.POST.get('nome')
         paciente.idade = request.POST.get('idade')
         paciente.numero_celular = request.POST.get('numero_celular')
@@ -114,9 +124,12 @@ def visualizar_especialidades(request):
     return render(request, 'cadastro/lista_especialidades.html', context)
 
 
+def excluir_especialidade(request, id):
+    if request.method == 'POST':
+        especialidade = get_object_or_404(Especialidade, id=id)
+        especialidade.delete()
+        return redirect('visualizar_especialidades')
 # views.py
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Medico, Especialidade
 
 def cadastrar_medico(request):
     if request.method == 'POST':
@@ -140,6 +153,13 @@ def visualizar_medicos(request):
     }
     return render(request, 'cadastro/lista_medicos.html', context)
 
+def excluir_medico(request, id):
+    medico = get_object_or_404(Medico, id=id)  
+    if request.method == 'POST':
+        medico.delete() 
+        return redirect('visualizar_medicos') 
+    return render(request, 'confirmar_exclusao.html', {'medico': medico})
+
 def cadastrar_consulta(request):
     if request.method == 'POST':
         paciente_id = request.POST.get('paciente')
@@ -147,14 +167,24 @@ def cadastrar_consulta(request):
         data_consulta_str = request.POST.get('data_consulta')
         horario = request.POST.get('horario')
 
-        # Verifique se os dados estão sendo capturados corretamente
         print(f"Paciente ID: {paciente_id}, Médico ID: {medico_id}, Data: {data_consulta_str}, Horário: {horario}")
 
         if paciente_id and medico_id and data_consulta_str and horario:
             paciente = Paciente.objects.get(id_paciente=paciente_id)
             medico = Medico.objects.get(id=medico_id)
-            data_consulta = datetime.strptime(data_consulta_str, '%Y-%m-%d').date()  # Converter string para date
+            data_consulta = datetime.strptime(data_consulta_str, '%Y-%m-%d').date()
+
+            # Verifica se já existe uma consulta agendada para o médico na mesma data e horário
+            if Consulta.objects.filter(medico=medico, data_consulta=data_consulta, horario=horario).exists():
+                messages.error(request, "O médico já está ocupado neste horário.")
+                return render(request, 'cadastro/cadastrar_consulta.html', {
+                    'pacientes': Paciente.objects.all(),
+                    'medicos': Medico.objects.all(),
+                    'horarios': ['08:00', '09:00', '10:00', '14:00', '15:00'],
+                })
+
             Consulta.objects.create(paciente=paciente, medico=medico, data_consulta=data_consulta, horario=horario)
+
             start = data_consulta_str + ' ' + horario
             end = data_consulta_str + ' ' + horario  # Assuming the end time is the same as start time for simplicity
             title = f"{medico.nome} - {paciente.nome}"
@@ -170,13 +200,39 @@ def cadastrar_consulta(request):
 
     return render(request, 'cadastro/cadastrar_consulta.html', {'pacientes': pacientes, 'medicos': medicos, 'horarios': horarios})
 
-
 def visualizar_consultas(request):
     consultas = Consulta.objects.all()
     context = {
         'consultas': consultas
     }
     return render(request, 'cadastro/lista_consultas.html', context)
+
+def excluir_consulta(request, id):
+    consulta = get_object_or_404(Consulta, id=id)
+    consulta.delete()
+    return redirect('visualizar_consultas')
+
+def calendario_view(request):
+   
+    now = datetime.now()
+    month = now.month
+    year = now.year
+
+   
+    first_day = datetime(year, month, 1)
+    if month == 12:
+        next_month = datetime(year + 1, 1, 1)
+    else:
+        next_month = datetime(year, month + 1, 1)
+    num_days = (next_month - first_day).days
+
+    
+    days = [first_day + timedelta(days=i) for i in range(num_days)]
+
+    context = {
+        'days': days,   
+    }
+    return render(request, 'cadastro/calendario.html', context)
 
 def login(request):
     if request.method == 'GET':
@@ -202,7 +258,6 @@ def detalhes_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     return render(request, 'cadastro/detalhes_paciente.html', {'paciente': paciente})
 
-
 def index(request):  
     all_consultas = Consulta.objects.all()
     context = {
@@ -226,4 +281,3 @@ def all_consultas(request):
         'events': events
     }
     
-    return JsonResponse(data)

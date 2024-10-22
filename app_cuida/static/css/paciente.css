@@ -133,3 +133,8 @@ body {
 .cards::-webkit-scrollbar-track {
     background-color: #f1f1f1;
 }
+
+#notFoundMessage {
+    color: red;
+    font-weight: bold;
+}
