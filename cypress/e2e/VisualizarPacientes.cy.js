@@ -36,8 +36,8 @@ describe('Fluxo de Usuário', () => {
         cy.deleteAllUsers();
         cy.visit('/');
         cy.switchToRegister();
-        cy.createUser('usuarioTeste', 'usuarioTeste@example.com', 'senha123');
-        cy.login('usuarioTeste', 'senha123');
+        cy.createUser('testuser', 'testuser@example.com', 'password123');
+        cy.login('testuser', 'password123');
     });
 
     it('Deve acessar a página de visualização de pacientes', () => {
