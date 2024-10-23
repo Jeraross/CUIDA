@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from datetime import datetime, timedelta
+import pandas as pd
 
 
 @login_required(login_url='login')
@@ -290,3 +291,22 @@ def all_consultas(request):
         'events': events
     }
     
+    import pandas as pd
+from django.http import HttpResponse
+from .models import Paciente
+
+def gerar_relatorio(request):
+
+    pacientes = Paciente.objects.all().values(
+        'id_paciente', 'nome', 'idade', 'cpf', 'numero_celular', 
+        'numero_prontuario', 'sexo', 'status'
+    )
+    
+    df = pd.DataFrame(pacientes)
+    
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=relatorio_pacientes.xlsx'
+    
+    df.to_excel(response, index=False)
+    
+    return response
