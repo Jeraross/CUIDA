@@ -54,7 +54,7 @@ Cypress.Commands.add('search', (name) => {
     cy.get('#searchInput').type('{enter}');
 });
 
-describe('Patient Search Functionality', () => {
+describe('Funcionalidade de Busca de Pacientes', () => {
     
     beforeEach(() => {
         cy.deleteAllUsers();
@@ -69,7 +69,7 @@ describe('Patient Search Functionality', () => {
         cy.exec('python delete_all_patients.py', { failOnNonZeroExit: false });
     });
 
-    it('Deve exibir a lista de pacientes cujos nomes contêm "João"', () => {
+    it('Cenário 1: Deve exibir a lista de pacientes cujos nomes contêm "João"', () => {
         const nomePaciente1 = 'João da Silva';
         const nomePaciente2 = 'João Pedro';
         const cpf1 = '12345678909';
@@ -85,13 +85,13 @@ describe('Patient Search Functionality', () => {
         cy.contains(nomePaciente2).should('exist');
     });
 
-    it('Deve exibir a lista vazia quando não há resultados (busca por "XYZ")', () => {
+    it('Cenário 2: Deve exibir a lista vazia quando não há resultados (busca por "XYZ")', () => {
         cy.search('XYZ');
 
         cy.get('#notFoundMessage').should('exist');
     });
 
-    it('Deve exibir todos os pacientes quando a busca estiver vazia', () => {
+    it('Cenário 3: Deve exibir todos os pacientes quando a busca estiver vazia', () => {
         const nomePaciente1 = 'João da Silva';
         const nomePaciente2 = 'João Pedro';
         const cpf1 = '12345678909';
@@ -106,16 +106,15 @@ describe('Patient Search Functionality', () => {
         cy.contains(nomePaciente2).should('exist');
     });
 
-    it('Deve exibir uma mensagem de erro ao procurar um paciente não existente', () => {
+    it('Cenário 4: Deve exibir uma mensagem de erro ao procurar um paciente não existente', () => {
         const nomePaciente = 'Paciente';
 
-        
         cy.search(nomePaciente);
 
         cy.get('#notFoundMessage').should('exist');
     });
 
-    it('Deve exibir resultados case-insensitive', () => {
+    it('Cenário 5: Deve exibir resultados case-insensitive', () => {
         const nomePaciente = 'Guilherme Mourão';
         const cpf = '95570044019';
 
@@ -127,5 +126,3 @@ describe('Patient Search Functionality', () => {
         cy.contains(nomePaciente).should('exist');
     });
 });
-
-
