@@ -31,20 +31,18 @@ Cypress.Commands.add('view', () => {
 });
 
 
-describe('User flow', () => {
-    it('should delete all users, create a new user, login and access the view page', () => {
+describe('Fluxo de Usuário', () => {
+    before(() => {
         cy.deleteAllUsers();
-
-        cy.visit('/')
-
+        cy.visit('/');
         cy.switchToRegister();
-
         cy.createUser('testuser', 'testuser@example.com', 'password123');
-
         cy.login('testuser', 'password123');
+    });
 
+    it('Deve acessar a página de visualização de pacientes', () => {
         cy.view();
-
         cy.get('.container').should('exist');
     });
 });
+
