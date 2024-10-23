@@ -192,6 +192,15 @@ def cadastrar_consulta(request):
         medico = Medico.objects.get(id=medico_id)
         data_consulta = datetime.strptime(data_consulta_str, '%Y-%m-%d').date()
 
+        # Verifica se a data da consulta não é uma data passada
+        if data_consulta < datetime.now().date():
+            messages.error(request, "A data da consulta não pode ser no passado.")
+            return render(request, 'cadastro/cadastrar_consulta.html', {
+                'pacientes': Paciente.objects.all(),
+                'medicos': Medico.objects.all(),
+                'horarios': ['08:00', '09:00', '10:00', '14:00', '15:00'],
+            })
+
         # Verifica se já existe uma consulta agendada para o médico na mesma data e horário
         if Consulta.objects.filter(medico=medico, data_consulta=data_consulta, horario=horario).exists():
             messages.error(request, "O médico já está ocupado neste horário.")
