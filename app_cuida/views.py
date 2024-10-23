@@ -3,9 +3,9 @@ from .models import Paciente, Especialidade, Medico, Consulta, Events
 from django.db.models import Q
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
 from datetime import datetime, timedelta
 import pandas as pd
 
@@ -95,17 +95,18 @@ def cadastro(request):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
 
-        # Verifica se o usuário já existe
         user = User.objects.filter(username=username).first()
 
         if user:
             return HttpResponse('Já existe um usuário com esse nome!')
         
-        # Se não existir, cria um novo usuário
         user = User.objects.create_user(username=username, email=email, password=senha)
         user.save()
 
         return render(request, 'cadastro/login.html', {'success_message': 'Usuário cadastrado com sucesso!'})
+    
+def is_admin(user):
+    return user.is_superuser
     
 def cadastrar_especialidade(request):
     if request.method == 'POST':
@@ -145,7 +146,6 @@ def cadastrar_medico(request):
         if nome and especialidade_id and crm:
             especialidade = get_object_or_404(Especialidade, id=especialidade_id)
 
-            # Verifica se já existe um médico com o mesmo CRM
             if Medico.objects.filter(crm=crm).exists():
                 messages.error(request, "Um médico com esse CRM já está cadastrado.")
                 return redirect('cadastrar_medico')
@@ -179,36 +179,53 @@ def cadastrar_consulta(request):
 
         print(f"Paciente ID: {paciente_id}, Médico ID: {medico_id}, Data: {data_consulta_str}, Horário: {horario}")
 
-        if paciente_id and medico_id and data_consulta_str and horario:
-            paciente = Paciente.objects.get(id_paciente=paciente_id)
-            medico = Medico.objects.get(id=medico_id)
-            data_consulta = datetime.strptime(data_consulta_str, '%Y-%m-%d').date()
+        if not paciente_id or not medico_id or not data_consulta_str or not horario:
+            messages.error(request, "Por favor, preencha todos os campos obrigatórios.")
+            return render(request, 'cadastro/cadastrar_consulta.html', {
+                'pacientes': Paciente.objects.all(),
+                'medicos': Medico.objects.all(),
+                'horarios': ['08:00', '09:00', '10:00', '14:00', '15:00'],
+            })
 
-            # Verifica se já existe uma consulta agendada para o médico na mesma data e horário
-            if Consulta.objects.filter(medico=medico, data_consulta=data_consulta, horario=horario).exists():
-                messages.error(request, "O médico já está ocupado neste horário.")
-                return render(request, 'cadastro/cadastrar_consulta.html', {
-                    'pacientes': Paciente.objects.all(),
-                    'medicos': Medico.objects.all(),
-                    'horarios': ['08:00', '09:00', '10:00', '14:00', '15:00'],
-                })
+        paciente = Paciente.objects.get(id_paciente=paciente_id)
+        medico = Medico.objects.get(id=medico_id)
+        data_consulta = datetime.strptime(data_consulta_str, '%Y-%m-%d').date()
 
-            Consulta.objects.create(paciente=paciente, medico=medico, data_consulta=data_consulta, horario=horario)
+        if data_consulta < datetime.now().date():
+            messages.error(request, "A data da consulta não pode ser no passado.")
+            return render(request, 'cadastro/cadastrar_consulta.html', {
+                'pacientes': Paciente.objects.all(),
+                'medicos': Medico.objects.all(),
+                'horarios': ['08:00', '09:00', '10:00', '14:00', '15:00'],
+            })
 
-            start = data_consulta_str + ' ' + horario
-            end = data_consulta_str + ' ' + horario  # Assuming the end time is the same as start time for simplicity
-            title = f"{medico.nome} - {paciente.nome}"
-            event = Events(name=title, start=start, end=end)
-            event.save()
-            data = {}
+        if Consulta.objects.filter(medico=medico, data_consulta=data_consulta, horario=horario).exists():
+            messages.error(request, "O médico já está ocupado neste horário.")
+            return render(request, 'cadastro/cadastrar_consulta.html', {
+                'pacientes': Paciente.objects.all(),
+                'medicos': Medico.objects.all(),
+                'horarios': ['08:00', '09:00', '10:00', '14:00', '15:00'],
+            })
 
-            return redirect('visualizar_consultas'), JsonResponse(data)
+        Consulta.objects.create(paciente=paciente, medico=medico, data_consulta=data_consulta, horario=horario)
+
+        start = f"{data_consulta_str} {horario}"
+        end = f"{data_consulta_str} {horario}"
+        title = f"{medico.nome} - {paciente.nome}"
+        event = Events(name=title, start=start, end=end)
+        event.save()
+
+        return redirect('visualizar_consultas')
 
     pacientes = Paciente.objects.all()
     medicos = Medico.objects.all()
     horarios = ['08:00', '09:00', '10:00', '14:00', '15:00']
 
-    return render(request, 'cadastro/cadastrar_consulta.html', {'pacientes': pacientes, 'medicos': medicos, 'horarios': horarios})
+    return render(request, 'cadastro/cadastrar_consulta.html', {
+        'pacientes': pacientes,
+        'medicos': medicos,
+        'horarios': horarios,
+    })
 
 def visualizar_consultas(request):
     consultas = Consulta.objects.all()
@@ -255,7 +272,7 @@ def login(request):
         user = authenticate(request, username=username, password=senha)
 
         if user is not None:
-            auth_login(request, user)  # Alterado o nome para auth_login para não sobrecarregar o método login
+            auth_login(request, user)
             return redirect('home')
         else:
             return HttpResponse('Usuário ou senha inválidos!')
@@ -290,23 +307,21 @@ def all_consultas(request):
     data = {
         'events': events
     }
-    
-    import pandas as pd
-from django.http import HttpResponse
-from .models import Paciente
 
 def gerar_relatorio(request):
-
-    pacientes = Paciente.objects.all().values(
-        'id_paciente', 'nome', 'idade', 'cpf', 'numero_celular', 
-        'numero_prontuario', 'sexo', 'status'
-    )
-    
-    df = pd.DataFrame(pacientes)
-    
-    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=relatorio_pacientes.xlsx'
-    
-    df.to_excel(response, index=False)
-    
-    return response
+    try:
+        pacientes = Paciente.objects.all().values(
+            'id_paciente', 'nome', 'idade', 'cpf', 'numero_celular', 
+            'numero_prontuario', 'sexo', 'status'
+        )
+        
+        df = pd.DataFrame(pacientes)
+        
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=relatorio_pacientes.xlsx'
+        
+        df.to_excel(response, index=False)
+        
+        return response
+    except:
+        return HttpResponse("Erro ao gerar o relatório, tente novamente mais tarde", content_type="text/plain")
