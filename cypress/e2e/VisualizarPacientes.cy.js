@@ -32,16 +32,14 @@ Cypress.Commands.add('view', () => {
 
 
 describe('User flow', () => {
-    it('should delete all users, create a new user, login and access the view page', () => {
+    it('Deve acessar a página de visualização de pacientes', () => {
+        before(() => {
         cy.deleteAllUsers();
-
         cy.visit('/')
-
         cy.switchToRegister();
-
         cy.createUser('testuser', 'testuser@example.com', 'password123');
-
         cy.login('testuser', 'password123');
+        });
 
         cy.view();
 
