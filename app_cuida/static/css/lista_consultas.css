@@ -103,3 +103,29 @@ table tr:hover {
   font-size: 16px;
   padding: 10px;
 }
+
+.delete-button{
+  background-color: #dc3545; /* Cor de fundo vermelho */
+  color: white; /* Cor do texto */
+  border: none; /* Sem borda */
+  padding: 5px 10px; /* Preenchimento */
+  border-radius: 4px; /* Borda arredondada */
+  cursor: pointer; /* Cursor em forma de mão */
+}
+
+.delete-button:hover {
+  background-color: #c82333; /* Cor de fundo ao passar o mouse */
+}
+
+.btn-excluir {
+    background-color: #dc3545; /* Cor de fundo vermelho */
+    color: white; /* Cor do texto */
+    border: none; /* Sem borda */
+    padding: 5px 10px; /* Preenchimento */
+    border-radius: 4px; /* Borda arredondada */
+    cursor: pointer; /* Cursor em forma de mão */
+}
+
+.btn-excluir:hover {
+    background-color: #c82333; /* Cor de fundo ao passar o mouse */
+}
