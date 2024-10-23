@@ -3,9 +3,9 @@ from .models import Paciente, Especialidade, Medico, Consulta, Events
 from django.db.models import Q
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
 from datetime import datetime, timedelta
 import pandas as pd
 
@@ -95,17 +95,18 @@ def cadastro(request):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
 
-        # Verifica se o usuário já existe
         user = User.objects.filter(username=username).first()
 
         if user:
             return HttpResponse('Já existe um usuário com esse nome!')
         
-        # Se não existir, cria um novo usuário
         user = User.objects.create_user(username=username, email=email, password=senha)
         user.save()
 
         return render(request, 'cadastro/login.html', {'success_message': 'Usuário cadastrado com sucesso!'})
+    
+def is_admin(user):
+    return user.is_superuser
     
 def cadastrar_especialidade(request):
     if request.method == 'POST':
@@ -145,7 +146,6 @@ def cadastrar_medico(request):
         if nome and especialidade_id and crm:
             especialidade = get_object_or_404(Especialidade, id=especialidade_id)
 
-            # Verifica se já existe um médico com o mesmo CRM
             if Medico.objects.filter(crm=crm).exists():
                 messages.error(request, "Um médico com esse CRM já está cadastrado.")
                 return redirect('cadastrar_medico')
@@ -268,7 +268,7 @@ def login(request):
         user = authenticate(request, username=username, password=senha)
 
         if user is not None:
-            auth_login(request, user)  # Alterado o nome para auth_login para não sobrecarregar o método login
+            auth_login(request, user)
             return redirect('home')
         else:
             return HttpResponse('Usuário ou senha inválidos!')
@@ -303,23 +303,21 @@ def all_consultas(request):
     data = {
         'events': events
     }
-    
-    import pandas as pd
-from django.http import HttpResponse
-from .models import Paciente
 
 def gerar_relatorio(request):
-
-    pacientes = Paciente.objects.all().values(
-        'id_paciente', 'nome', 'idade', 'cpf', 'numero_celular', 
-        'numero_prontuario', 'sexo', 'status'
-    )
-    
-    df = pd.DataFrame(pacientes)
-    
-    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=relatorio_pacientes.xlsx'
-    
-    df.to_excel(response, index=False)
-    
-    return response
+    try:
+        pacientes = Paciente.objects.all().values(
+            'id_paciente', 'nome', 'idade', 'cpf', 'numero_celular', 
+            'numero_prontuario', 'sexo', 'status'
+        )
+        
+        df = pd.DataFrame(pacientes)
+        
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = 'attachment; filename=relatorio_pacientes.xlsx'
+        
+        df.to_excel(response, index=False)
+        
+        return response
+    except:
+        return HttpResponse("Erro ao gerar o relatório, tente novamente mais tarde", content_type="text/plain")
