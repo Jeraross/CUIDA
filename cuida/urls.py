@@ -24,4 +24,5 @@ urlpatterns = [
     path('visualizar_consultas/', views.visualizar_consultas, name='visualizar_consultas'),
     path('paciente/<int:id_paciente>/', views.detalhes_paciente, name='detalhes_paciente'),
     path('all_consultas/', views.all_consultas, name='all_consultas'),
+    path('gerar-relatorio/', views.gerar_relatorio, name='gerar_relatorio'),
 ]
