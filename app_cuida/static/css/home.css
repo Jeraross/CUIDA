@@ -76,7 +76,8 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 15vw;
+    width: 15vw; /* Tamanho fixo para todos os botões */
+    height: 150px; /* Define uma altura fixa para garantir que todos os botões tenham a mesma altura */
     padding: 18px;
     font-size: large;
     background-color: #30d1fe;
@@ -84,6 +85,13 @@ main {
     color: #1f2b5b;
     cursor: pointer;
     border-radius: 5px;
+    text-align: center; /* Centraliza o texto */
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .homebutton:hover {
@@ -92,9 +100,9 @@ main {
 
 .homebutton svg {
     margin-bottom: 5px;
-    width: 90px; /* Tamanho aumentado */
-    height: 90px; /* Tamanho aumentado */
-    transform: rotate(0deg); /* Alinhamento correto */
+    width: 90px;
+    height: 90px;
+    transform: rotate(0deg);
 }
 
 /* Tornando responsivo para telas menores */
