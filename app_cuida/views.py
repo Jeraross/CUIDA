@@ -84,7 +84,7 @@ def visualizar_edit(request):
 def delete_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     paciente.delete()
-    return redirect('edit')
+    return redirect('listagem_pacientes')
 
 def cadastro(request):
     if request.method == 'GET':

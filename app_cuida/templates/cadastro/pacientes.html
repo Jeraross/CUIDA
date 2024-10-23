@@ -14,14 +14,22 @@
     <main class="container">
         <section class="header">
             <a href="{% url 'home' %}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M16 12H8" />
+                    <path d="m12 8-4 4 4 4" />
+                </svg>
             </a>
             <h1>Pacientes Cadastrados:</h1>
             <div class="input-group">
                 <input type="search" id="searchInput" placeholder="Busque aqui...">
             </div>
             <a href="{% url 'form' %}">
-                <svg xmlns="c:\Users\maria\Downloads\edit.svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
+                <svg xmlns="c:\Users\maria\Downloads\edit.svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M16 12H8" />
+                    <path d="m12 8-4 4 4 4" />
+                </svg>
             </a>
             <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
         </section>
@@ -33,6 +41,11 @@
                 <p><strong>CPF</strong> {{paciente.cpf}}</p>
                 <p><strong>Prontuário</strong> {{paciente.numero_prontuario}}</p>
                 <p class="status {{paciente.status|lower|slugify}}">{{paciente.status}}</p>
+                <!-- Botão de excluir -->
+        <form action="{% url 'delete_paciente' paciente.id_paciente %}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este paciente?');">
+            {% csrf_token %}
+            <button type="submit" class="delete-button">Excluir</button>
+        </form>
             </div>
             {% endfor %}
         </section>
@@ -49,11 +62,11 @@
             notFoundMessage.style.color = "red";
             notFoundMessage.style.marginTop = "10px";
             searchInput.parentNode.insertBefore(notFoundMessage, searchInput.nextSibling);
-    
+
             searchInput.addEventListener("input", function () {
                 const searchText = searchInput.value.toLowerCase();
                 let found = false;
-    
+
                 cards.forEach(function (card) {
                     const cardData = card.textContent.toLowerCase();
                     if (cardData.includes(searchText)) {
@@ -63,23 +76,48 @@
                         card.style.display = "none";
                     }
                 });
-    
+
                 if (!found) {
                     notFoundMessage.style.display = "";
                 } else {
                     notFoundMessage.style.display = "none";
                 }
             });
-    
+
+            // Aplicar classes de status
             cards.forEach(function (card) {
                 const statusElement = card.querySelector('.status');
                 const status = statusElement.textContent.trim().toLowerCase();
-    
+
                 if (status === "atendido") {
                     statusElement.classList.add("status-atendido");
                 } else if (status === "não atendido") {
                     statusElement.classList.add("status-nao-atendido");
                 }
+            });
+
+            // Função para excluir paciente
+            const deleteButtons = document.querySelectorAll('.delete-btn');
+            deleteButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const pacienteId = this.getAttribute('data-id');
+
+                    if (confirm('Tem certeza de que deseja excluir este paciente?')) {
+                        fetch(`/pacientes/excluir/${pacienteId}/`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRFToken': '{{ csrf_token }}',
+                                'Content-Type': 'application/json'
+                            }
+                        }).then(response => {
+                            if (response.ok) {
+                                this.closest('.card').remove();
+                            } else {
+                                alert('Erro ao excluir o paciente.');
+                            }
+                        });
+                    }
+                });
             });
         });
     </script>
