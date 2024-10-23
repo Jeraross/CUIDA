@@ -45,96 +45,83 @@ Cypress.Commands.add('createPatient', (nome, idade, cpf, numero_celular, numero_
     cy.get('.btn').click();
 });
 
-describe('User flow and Patient Registration', () => {
-    it('Deve deletar todos os usuários, criar um novo usuário, fazer login, deletar o paciente específico, e cadastrar um novo paciente.', () => {
-        const cpfToDelete = '12345678909'; 
+describe('User flow: Patient Registration', () => {
+    const nome = 'Guilherme Mourão';
+    const idade = '20';
+    const cpfToDelete = '12345678909';
+    const numero_celular = '81989468836';
+    const numero_prontuario = '20230002';
+    const sexo = 'M';
+    const status = 'NÃO ATENDIDO';
 
+    it('Deve excluir todos os usuários, criar um novo, fazer login, deletar o paciente específico, e cadastrar um novo paciente.', () => {
         cy.deletePatient(cpfToDelete);
-
         cy.deleteAllUsers();
 
-        cy.visit('/')
-
+        cy.visit('/');
         cy.switchToRegister();
-
         cy.createUser('testuser', 'testuser@example.com', 'password123');
-
         cy.login('testuser', 'password123');
-
         cy.accessForm();
 
-        const nome = 'Guilherme Mourão';
-        const idade = '20';
-        const cpf = cpfToDelete;
-        const numero_celular = '81989468836';
-        const numero_prontuario = '20230002';
-        const sexo = 'M';
-        const status = 'NÃO ATENDIDO';
-
-        cy.createPatient(nome, idade, cpf, numero_celular, numero_prontuario, sexo, status);
-
+        cy.createPatient(nome, idade, cpfToDelete, numero_celular, numero_prontuario, sexo, status);
         cy.url().should('include', '/home');
-
         cy.get('[href="/pacientes/"] > .homebutton').click();
-
         cy.contains(nome).should('exist');
     });
-});
 
-describe ('User flow and Patient Registration: Error 1', () => {
-    it('Deve deletar todos os usuários, criar um novo usuário, fazer login, deletar o paciente específico, e exibir uma mensagem de erro quando o usuário tentar cadastrar um paciente com o mesmo CPF.', () => {
-
+    it('Deve exibir uma mensagem de erro ao tentar cadastrar um paciente com o mesmo CPF.', () => {
         cy.deleteAllUsers();
 
-        cy.visit('/')
-
+        cy.visit('/');
         cy.switchToRegister();
-
         cy.createUser('testuser', 'testuser@example.com', 'password123');
-
         cy.login('testuser', 'password123');
-
         cy.accessForm();
 
-        const nome = 'Guilherme Mourão';
-        const idade = '20';
-        const cpf = '12345678909';
-        const numero_celular = '81989468836';
-        const numero_prontuario = '20230003';
-        const sexo = 'M';
-        const status = 'NÃO ATENDIDO';
+        cy.createPatient(nome, idade, cpfToDelete, numero_celular, '20230003', sexo, status);
+        cy.get('.alert').should('exist'); // Verifica a existência da mensagem de erro
+    });
 
-        cy.createPatient(nome, idade, cpf, numero_celular, numero_prontuario, sexo, status);
+    it('Deve exibir uma mensagem de erro ao tentar cadastrar um paciente com o mesmo número de prontuário.', () => {
+        const novoCPF = '98765432100';
+        
+        cy.deleteAllUsers();
 
-        cy.get('.alert').should('exist');
+        cy.visit('/');
+        cy.switchToRegister();
+        cy.createUser('testuser', 'testuser@example.com', 'password123');
+        cy.login('testuser', 'password123');
+        cy.accessForm();
+
+        cy.createPatient('Jeronimo Rossi', idade, novoCPF, numero_celular, numero_prontuario, sexo, status);
+        cy.get('.alert').should('exist'); // Verifica a existência da mensagem de erro
     });
 });
 
-describe ('User flow and Patient Registration: Error 2', () => {
-    it('Deve deletar todos os usuários, criar um novo usuário, fazer login, deletar o paciente específico, e exibir uma mensagem de erro quando o usuário tentar cadastrar um paciente com o mesmo número de prontuário.', () => {
-
+describe('Form validation: Patient Registration', () => {
+    it('Deve impedir o envio do formulário quando um ou mais campos estão vazios.', () => {
         cy.deleteAllUsers();
 
-        cy.visit('/')
-
+        cy.visit('/');
         cy.switchToRegister();
-
         cy.createUser('testuser', 'testuser@example.com', 'password123');
-
         cy.login('testuser', 'password123');
-
         cy.accessForm();
 
-        const nome = 'Jeronimo Rossi';
-        const idade = '20';
-        const cpf = '98765432100.';
-        const numero_celular = '81989468836';
-        const numero_prontuario = '20230002';
-        const sexo = 'M';
-        const status = 'NÃO ATENDIDO';
+        cy.get('#nome').type('Teste Incompleto');
+        cy.get('button[type="submit"]').click();
 
-        cy.createPatient(nome, idade, cpf, numero_celular, numero_prontuario, sexo, status);
+        // Verifica se a página ainda está no formulário (significa que a submissão falhou)
+        cy.url().should('include', '/form'); 
 
-        cy.get('.alert').should('exist');
+        // Verifica o status da resposta HTTP (opcional)
+        cy.intercept('POST', '/form', (req) => {
+            req.on('response', (res) => {
+                expect(res.statusCode).to.eq(400); // Verifica se o status HTTP é 400 Bad Request
+            });
+        });
+
     });
 });
+
