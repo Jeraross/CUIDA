@@ -45,51 +45,47 @@ Cypress.Commands.add('createPatient', (nome, idade, cpf, numero_celular, numero_
     cy.get('.btn').click();
 });
 
-describe('Cadastro de Médico', () => {
+describe('Gestão de Médicos', () => {
     const especialidade = 'Cardiologia'; 
     const crm = '123456';
     const nome = 'Dr. João Silva';
     const numero_celular = '9876543210';
 
     before(() => {
-        cy.deleteAllUsers(); // Deletar todos os usuários antes do teste
+        cy.deleteAllUsers();
         cy.visit('/');
         cy.switchToRegister();
         cy.createUser('testuser', 'testuser@example.com', 'password123');
         cy.login('testuser', 'password123');
     });
 
-    it('deve cadastrar um novo médico com sucesso', () => {
+    it('Cenário 1: Cadastro de um novo médico com sucesso', () => {
         cy.get('[href="/cadastrar_medico/"]').click();
         cy.get('#nome').type(nome);
-        cy.get('#especialidade').select(especialidade); // Certifique-se de que a especialidade está disponível
+        cy.get('#especialidade').select(especialidade);
         cy.get('#crm').type(crm);
         cy.get('#numero_celular').type(numero_celular);
         cy.get('button[type="submit"]').click();
 
-        // Verifica se o médico foi cadastrado na lista
-        cy.contains(nome).should('exist'); 
-        cy.contains(crm).should('exist'); 
+        cy.contains(nome).should('exist');
+        cy.contains(crm).should('exist');
         cy.contains(numero_celular).should('exist');
-        
     });
 
-    it('não deve permitir cadastrar um médico com o mesmo CRM', () => {
+    it('Cenário 2: Impedir cadastro com CRM duplicado', () => {
         cy.visit('/cadastrar_medico/');
         cy.get('#nome').type('Dr. Maria Oliveira');
         cy.get('#especialidade').select(especialidade);
-        cy.get('#crm').type(crm); // Tentar cadastrar o mesmo CRM
+        cy.get('#crm').type(crm);
         cy.get('#numero_celular').type('9123456789');
         cy.get('button[type="submit"]').click();
 
-        // Verifica se a mensagem de erro aparece
         cy.contains("Um médico com esse CRM já está cadastrado.").should('exist');
     });
 
-    it('deve acessar a página de visualizar médicos e excluir o médico que foi cadastrado nesse teste', () => {
-
+    it('Cenário 3: Excluir um médico cadastrado', () => {
         cy.visit('/visualizar_medicos/');
         cy.contains(nome).parents('tr').find('.btn-excluir').click();
         cy.contains(crm).should('not.exist');
-    })
+    });
 });

@@ -23,7 +23,7 @@
       <h1>Lista de Consultas</h1>
       <div class="input-group">
         <input type="search" id="searchInput" placeholder="Busque aqui...">
-    </div>
+      </div>
       <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
     </section>
 
@@ -36,16 +36,25 @@
             <th>Médico</th>
             <th>Data</th>
             <th>Horário</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           {% for consulta in consultas %}
           <tr>
             <td>{{ consulta.id }}</td>
-            <td >{{ consulta.paciente.nome }}</td>
+            <td>{{ consulta.paciente.nome }}</td>
             <td>{{ consulta.medico.nome }}</td>
             <td>{{ consulta.data_consulta }}</td>
             <td>{{ consulta.horario }}</td>
+            <td>
+              <form action="{% url 'excluir_consulta' consulta.id %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="delete-button" onclick="return confirm('Tem certeza que deseja excluir esta consulta?');">
+                  <i class="fas fa-trash"></i> Excluir
+                </button>
+              </form>
+            </td>
           </tr>
           {% endfor %}
         </tbody>
@@ -54,26 +63,24 @@
   </main>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.getElementById("searchInput");
-    const tableRows = document.querySelectorAll("tbody tr");
+      const searchInput = document.getElementById("searchInput");
+      const tableRows = document.querySelectorAll("tbody tr");
 
-    // Função para filtrar as linhas da tabela pelo nome do paciente
-    searchInput.addEventListener("input", function () {
+      searchInput.addEventListener("input", function () {
         const searchText = searchInput.value.toLowerCase();
 
         tableRows.forEach(function (row) {
-            const pacienteNome = row.querySelectorAll("td")[1].textContent.toLowerCase(); // Nome do paciente na 2ª coluna
+          const pacienteNome = row.querySelectorAll("td")[1].textContent.toLowerCase();
 
-            // Verificar se o nome do paciente contém o texto de busca
-            if (pacienteNome.includes(searchText)) {
-                row.style.display = ""; // Exibe a linha
-            } else {
-                row.style.display = "none"; // Oculta a linha
-            }
+          if (pacienteNome.includes(searchText)) {
+            row.style.display = "";
+          } else {
+            row.style.display = "none";
+          }
         });
+      });
     });
-});
-</script>
+  </script>
 </body>
 
 </html>
