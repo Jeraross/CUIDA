@@ -64,6 +64,11 @@
         <label for="status">Status:</label>
         <p>{{ paciente.status }}</p>
       </div>
+
+      <!-- Botão para editar -->
+      <div class="form-group">
+        <a href="{% url 'update_paciente' paciente.id_paciente %}" class="btn-edit">Editar</a>
+      </div>
     </section>
   </main>
 
