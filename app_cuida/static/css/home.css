@@ -82,7 +82,7 @@ main {
     height: 150px; /* Define uma altura fixa para garantir que todos os botões tenham a mesma altura */
     padding: 18px;
     font-size: large;
-    background-color: #30d1fe;
+    background-color: #30d1fe38;
     border: none;
     color: #1f2b5b;
     cursor: pointer;
@@ -97,7 +97,7 @@ a {
 }
 
 .homebutton:hover {
-    background-color: #2ab9de;
+    background-color: #2abade78;
 }
 
 .homebutton svg {
