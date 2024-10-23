@@ -179,7 +179,6 @@ def cadastrar_consulta(request):
 
         print(f"Paciente ID: {paciente_id}, Médico ID: {medico_id}, Data: {data_consulta_str}, Horário: {horario}")
 
-        # Validação dos campos obrigatórios
         if not paciente_id or not medico_id or not data_consulta_str or not horario:
             messages.error(request, "Por favor, preencha todos os campos obrigatórios.")
             return render(request, 'cadastro/cadastrar_consulta.html', {
@@ -192,7 +191,6 @@ def cadastrar_consulta(request):
         medico = Medico.objects.get(id=medico_id)
         data_consulta = datetime.strptime(data_consulta_str, '%Y-%m-%d').date()
 
-        # Verifica se a data da consulta não é uma data passada
         if data_consulta < datetime.now().date():
             messages.error(request, "A data da consulta não pode ser no passado.")
             return render(request, 'cadastro/cadastrar_consulta.html', {
@@ -201,7 +199,6 @@ def cadastrar_consulta(request):
                 'horarios': ['08:00', '09:00', '10:00', '14:00', '15:00'],
             })
 
-        # Verifica se já existe uma consulta agendada para o médico na mesma data e horário
         if Consulta.objects.filter(medico=medico, data_consulta=data_consulta, horario=horario).exists():
             messages.error(request, "O médico já está ocupado neste horário.")
             return render(request, 'cadastro/cadastrar_consulta.html', {
@@ -213,15 +210,13 @@ def cadastrar_consulta(request):
         Consulta.objects.create(paciente=paciente, medico=medico, data_consulta=data_consulta, horario=horario)
 
         start = f"{data_consulta_str} {horario}"
-        end = f"{data_consulta_str} {horario}"  # Assuming the end time is the same as start time for simplicity
+        end = f"{data_consulta_str} {horario}"
         title = f"{medico.nome} - {paciente.nome}"
         event = Events(name=title, start=start, end=end)
         event.save()
 
-        # Redireciona após a criação da consulta
-        return redirect('visualizar_consultas')  # Apenas redireciona para visualizar consultas
+        return redirect('visualizar_consultas')
 
-    # Se não for uma requisição POST, renderiza o formulário
     pacientes = Paciente.objects.all()
     medicos = Medico.objects.all()
     horarios = ['08:00', '09:00', '10:00', '14:00', '15:00']

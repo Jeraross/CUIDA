@@ -92,7 +92,7 @@ describe('Cadastro de Consultas', () => {
     const nomeMedico2 = 'Dr. Paulo';
     const dataConsulta2 = '2024-10-25';
     const horarioConsulta2 = '14:00';
-    const cpfPaciente2 = '98765432100'; // CPF do paciente João
+    const cpfPaciente2 = '98765432100';
     const nomePaciente2 = 'João';
     const prontuarioPaciente2 = '20240001';
 
@@ -102,61 +102,54 @@ describe('Cadastro de Consultas', () => {
         cy.deleteAllSpecialties();
         cy.deleteAllDoctors();
         cy.deletePatient(cpfPaciente);
-        
-        // Criando o usuário de teste
+
         cy.visit('/');
         cy.get('#register').click();
         cy.createUser('testuser', 'testuser@example.com', 'password123');
         cy.login('testuser', 'password123');
 
-        // Criando especialidade, médicos e pacientes
         cy.createSpecialty(especialidade);
         cy.createDoctor(nomeMedico, especialidade, crm, celularMedico);
-        cy.createDoctor(nomeMedico2, especialidade, '654321', '9876543211'); // Adicionando o Dr. Paulo
+        cy.createDoctor(nomeMedico2, especialidade, '654321', '9876543211');
         cy.createPatient(nomePaciente, idadePaciente, cpfPaciente, celularPaciente, prontuarioPaciente, sexoPaciente, statusPaciente);
         cy.createPatient(nomePaciente2, idadePaciente, cpfPaciente2, celularPaciente, prontuarioPaciente2, sexoPaciente, statusPaciente); // Adicionando o paciente João
     });
 
-    it('Cenário 2: Deve agendar uma consulta com sucesso', () => {
+    it('Cenário 1: Deve agendar uma consulta com sucesso', () => {
         cy.createAppointment(dataConsulta2, horarioConsulta2, nomeMedico2, nomePaciente2);
 
         cy.visit('/visualizar_consultas/');
         cy.contains(nomePaciente2).should('exist');
         cy.contains(nomeMedico2).should('exist');
-        cy.contains('2 p.m.').should('exist'); // Verificando o horário em formato abreviado
-        cy.get('tbody > tr:nth-child(1) > td:nth-child(4)').should('contain', 'Oct. 25, 2024'); // Verificando a data
+        cy.contains('2 p.m.').should('exist');
+        cy.get('tbody > tr:nth-child(1) > td:nth-child(4)').should('contain', 'Oct. 25, 2024');
     });
 
-    it('Cenário 3: Deve validar horário indisponível', () => {
-        // Agendando a consulta inicialmente
-        cy.createAppointment(dataConsulta2, horarioConsulta2, nomeMedico2, nomePaciente2);
-        
-        // Tentando agendar novamente para o mesmo horário
+    it('Cenário 2: Deve validar horário indisponível', () => {
         cy.createAppointment(dataConsulta2, horarioConsulta2, nomeMedico2, nomePaciente2);
 
-        // Verificando a mensagem de erro
-        cy.get('.message').should('contain', 'O médico já está ocupado neste horário.'); // Verifica se a mensagem de erro aparece
+        cy.createAppointment(dataConsulta2, horarioConsulta2, nomeMedico2, nomePaciente2);
+
+        cy.get('.message').should('contain', 'O médico já está ocupado neste horário.');
     });
 
-    it('Cenário 4: Deve validar campos obrigatórios', () => {
+    it('Cenário 3: Deve validar campos obrigatórios', () => {
         cy.visit('/cadastrar_consulta/');
-        cy.get('button[type="submit"]').click(); // Tentando enviar o formulário vazio
+        cy.get('button[type="submit"]').click(); 
 
-        // Verificando a mensagem de erro
-        cy.get('.message').should('contain', 'Por favor, preencha todos os campos obrigatórios.'); // Verifica se existe a mensagem de erro
+        cy.get('.message').should('contain', 'Por favor, preencha todos os campos obrigatórios.');
     });
 
-    it('Cenário 5: Deve validar data passada', () => {
-        const dataConsultaPassada = '2024-08-15'; // Data no passado
-        cy.createAppointment(dataConsultaPassada, horarioConsulta, nomeMedico, nomePaciente); // Tentando agendar a consulta
+    it('Cenário 4: Deve validar data passada', () => {
+        const dataConsultaPassada = '2024-08-15';
+        cy.createAppointment(dataConsultaPassada, horarioConsulta, nomeMedico, nomePaciente);
 
-        // Verificando a mensagem de erro
-        cy.get('.error-message').should('contain', 'Data inválida. A consulta não pode ser agendada para uma data passada.');
+        cy.get('.message').should('contain', 'A data da consulta não pode ser no passado.');
     });
 
     afterEach(() => {
         cy.deleteAllAppointments();
         cy.deletePatient(cpfPaciente);
-        cy.deletePatient(cpfPaciente2); // Deletando também o paciente João
+        cy.deletePatient(cpfPaciente2); 
     });
 });
