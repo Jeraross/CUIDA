@@ -37,8 +37,7 @@ describe('Fluxo de Especialidade', () => {
         cy.login('testuser', 'password123');
     });
 
-    it('deve excluir a especialidade caso já exista, cadastrar uma nova e excluí-la', () => {
-        // Verificar e excluir a especialidade se já existir
+    it('Cenário 1: Cadastrar uma nova especialidade', () => {
         cy.visit('/visualizar_especialidades/');
         cy.contains(especialidade).then(($especialidade) => {
             if ($especialidade.length) {
@@ -54,16 +53,24 @@ describe('Fluxo de Especialidade', () => {
         cy.get('button[type="submit"]').click();
 
         cy.contains(especialidade).should('exist');
-
-        cy.contains(especialidade).siblings('form').find('.btn-excluir').click();
-        cy.contains(especialidade).should('not.exist');
     });
 
-    it('deve tentar cadastrar uma especialidade já existente e exibir mensagem de erro', () => {
+    it('Cenário 2: Excluir uma especialidade existente', () => {
         cy.get('[href="/cadastrar_especialidade/"] > .homebutton').click();
         cy.get('#nome').type(especialidade);
         cy.get('button[type="submit"]').click();
 
+        cy.visit('/visualizar_especialidades/');
+        cy.contains(especialidade).siblings('form').find('.btn-excluir').click();
+        cy.on('window:confirm', () => true);
+        
+        cy.contains(especialidade).should('not.exist');
+    });
+
+    it('Cenário 3: Tentar cadastrar uma especialidade já existente', () => {
+        cy.get('[href="/cadastrar_especialidade/"] > .homebutton').click();
+        cy.get('#nome').type(especialidade);
+        cy.get('button[type="submit"]').click();
         cy.contains(especialidade).should('exist');
 
         cy.get('.lucide').click(); 
@@ -73,8 +80,13 @@ describe('Fluxo de Especialidade', () => {
 
         cy.contains("Essa especialidade já está cadastrada.").should('exist');
     });
+
+    it('Cenário 4: Listar especialidades', () => {
+        cy.get('[href="/cadastrar_especialidade/"] > .homebutton').click();
+        cy.get('#nome').type(especialidade);
+        cy.get('button[type="submit"]').click();
+        
+        cy.visit('/visualizar_especialidades/');
+        cy.contains(especialidade).should('exist');
+    });
 });
-
-
-
-
