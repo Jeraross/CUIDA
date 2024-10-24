@@ -90,11 +90,15 @@ Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar
 ![print backlog](https://github.com/user-attachments/assets/dbd63170-59f0-4090-9376-496df929f044)
 
 [Screencast](https://youtu.be/VcyipfuOsEo)
-
-
 </details>
 
+<details>
+<summary><h2>Terceira entrega</h2></summary>
 
+![print_backlog](https://github.com/user-attachments/assets/250a3554-bfe6-41d6-a7ac-29806c74e239)
+![print_painel](https://github.com/user-attachments/assets/bd59a012-737b-4716-b970-1682d933725a)
+
+</details>
 
 
 
