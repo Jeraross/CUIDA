@@ -11,12 +11,12 @@ Este projeto foi criado como parte da disciplina de Fundamentos de Desenvolvimen
 - Visualização:
     >Pacientes atendidos / pendentes
     >Histórico de visitas dos pacientes
-- Adicionar pacientes na planilha 
-- Cadastrar médicos, atendentes e administradores
+- Cadastrar atendentes (usuários), pacientes, especialidades médicas, médicos
 - Automação:
     >Entrada de dados
     >Verificação de duplicatas pelo número do prontuário
     >Marcação de status
+- Agendar Consultas
 - Gerar relatórios (mensais/ por pedido)
 - Backup automático de dados
 
@@ -26,6 +26,7 @@ Este projeto foi criado como parte da disciplina de Fundamentos de Desenvolvimen
 - **Interface**: HTML/CSS/JavaScript - Para a interface do usuário.
 - **Banco de dados**: Sqlite/PostgreSQL - Para armazenar informações.
 - **Hospedagem**: Azure - O produto final será hospedado na plataforma Azure.
+- **Framework de Testes**: Cypress . Os testes automatizados estão sendo feitos com auxílio do Cypress.
 
 ## Ferramentas
 
@@ -89,11 +90,15 @@ Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar
 ![print backlog](https://github.com/user-attachments/assets/dbd63170-59f0-4090-9376-496df929f044)
 
 [Screencast](https://youtu.be/VcyipfuOsEo)
-
-
 </details>
 
+<details>
+<summary><h2>Terceira entrega</h2></summary>
 
+![print_backlog](https://github.com/user-attachments/assets/250a3554-bfe6-41d6-a7ac-29806c74e239)
+![print_painel](https://github.com/user-attachments/assets/bd59a012-737b-4716-b970-1682d933725a)
+
+</details>
 
 
 
