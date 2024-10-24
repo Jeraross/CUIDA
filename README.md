@@ -99,7 +99,9 @@ Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar
 ![print_painel](https://github.com/user-attachments/assets/bd59a012-737b-4716-b970-1682d933725a)
 
 [Screencast Azure](https://youtu.be/cp6oxWRFipo)
+
 [Screencast Testes](https://youtu.be/qOd59qAeruw)
+
 [Screencast Figma](https://youtu.be/-xv2u3OiRsc)
 </details>
 
