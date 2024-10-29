@@ -50,11 +50,19 @@ Este projeto é licenciado sob a [MIT License](https://opensource.org/licenses/M
 <details>
 <summary><h2>Links</h2></summary>
 
-[site - Azure](https://cuida.azurewebsites.net/)
+<div align="center">
+    <a href="https://cuida.azurewebsites.net/">
+        <img src="https://img.shields.io/badge/Site%20Azure-0078D4?style=for-the-badge&logo=Microsoft-Azure&logoColor=white" alt="Site Azure">
+    </a>
+    <a href="https://projetofds-2.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog">
+        <img src="https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=Jira&logoColor=white" alt="Jira">
+    </a>
+    <a href="https://www.figma.com/design/CndQKFYTloNvwzZdAP9MBW/CUIDA?node-id=0-1&t=9B6yPwZDwriNW5Py-1">
+        <img src="https://img.shields.io/badge/Figma%20do%20Projeto-0AC97F?style=for-the-badge&logo=Figma&logoColor=white" alt="Figma">
+    </a>
+</div>
 
-[Jira](https://projetofds-2.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog)
-
-[figma](https://www.figma.com/design/CndQKFYTloNvwzZdAP9MBW/CUIDA?node-id=0-1&t=9B6yPwZDwriNW5Py-1)
+---
 
 </details>
 
