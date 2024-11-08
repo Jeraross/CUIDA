@@ -66,13 +66,13 @@ class Consulta(models.Model):
     medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
     data_consulta = models.DateField()
     horario = models.TimeField(max_length=5)
-    observacoes = models.TextField(blank=True, null=True)
+    sintomas = models.TextField(blank=True, null=True)
     diagnostico = models.TextField(blank=True, null=True)
-    receita = models.TextField(blank=True, null=True)
+    tratamento = models.TextField(blank=True, null=True)
+    observacoes = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"Consulta de {self.paciente.nome} com {self.medico.nome} em {self.data_consulta} às {self.horario}"
-
 
 
 
