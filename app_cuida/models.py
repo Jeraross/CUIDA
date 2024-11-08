@@ -56,8 +56,6 @@ class Medico(models.Model):
 
     def __str__(self):
         return self.nome
-    
-# models.py
 
 from django.db import models
 
@@ -66,17 +64,21 @@ class Consulta(models.Model):
     medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
     data_consulta = models.DateField()
     horario = models.TimeField(max_length=5)
-    observacoes = models.TextField(blank=True, null=True)
-    diagnostico = models.TextField(blank=True, null=True)
-    receita = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"Consulta de {self.paciente.nome} com {self.medico.nome} em {self.data_consulta} às {self.horario}"
 
+class HistoricoConsulta(models.Model):
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name="historico")
+    sintomas = models.TextField()
+    diagnostico = models.TextField()
+    tratamento = models.TextField()
+    observacoes = models.TextField()
+    data_consulta = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"Consulta de {self.paciente.nome} em {self.data_consulta.strftime('%Y-%m-%d')}"
 
-
-# Create your models here.
 class Events(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255,null=True,blank=True)

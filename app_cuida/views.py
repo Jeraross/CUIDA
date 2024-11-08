@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Paciente, Especialidade, Medico, Consulta, Events
+from .models import Paciente, Especialidade, Medico, Consulta, Events, HistoricoConsulta
 from django.db.models import Q
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
@@ -308,16 +308,25 @@ def all_consultas(request):
         'events': events
     }
 
-def paciente_detalhes(request, id):
-    # Obter o paciente pelo ID
-    paciente = get_object_or_404(Paciente, id=id)
-    # Obter todas as consultas associadas ao paciente, ordenadas da mais recente para a mais antiga
-    consultas = Consulta.objects.filter(paciente=paciente).order_by('-data_consulta')
+def adicionar_historico(request, paciente_id):
+    paciente = get_object_or_404(Paciente, id=paciente_id)
+    if request.method == 'POST':
+        sintomas = request.POST.get('sintomas')
+        diagnostico = request.POST.get('diagnostico')
+        tratamento = request.POST.get('tratamento')
+        observacoes = request.POST.get('observacoes')
+
+        # Salvar o histórico da consulta
+        HistoricoConsulta.objects.create(
+            paciente=paciente,
+            sintomas=sintomas,
+            diagnostico=diagnostico,
+            tratamento=tratamento,
+            observacoes=observacoes
+        )
+        return redirect('detalhes_paciente', paciente_id=paciente.id)
     
-    return render(request, 'paciente_detalhes.html', {
-        'paciente': paciente,
-        'consultas': consultas
-    })
+    return render(request, 'adicionar_historico.html', {'paciente': paciente})
 
 def gerar_relatorio(request):
     try:
