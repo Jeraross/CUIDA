@@ -57,23 +57,14 @@ class Medico(models.Model):
     def __str__(self):
         return self.nome
     
-# models.py
-
-from django.db import models
-
 class Consulta(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
     medico = models.ForeignKey(Medico, on_delete=models.CASCADE)
     data_consulta = models.DateField()
     horario = models.TimeField(max_length=5)
-    sintomas = models.TextField(blank=True, null=True)
-    diagnostico = models.TextField(blank=True, null=True)
-    tratamento = models.TextField(blank=True, null=True)
-    observacoes = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f"Consulta de {self.paciente.nome} com {self.medico.nome} em {self.data_consulta} às {self.horario}"
-
 
 
 # Create your models here.
