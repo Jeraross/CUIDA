@@ -308,6 +308,17 @@ def all_consultas(request):
         'events': events
     }
 
+def paciente_detalhes(request, id):
+    # Obter o paciente pelo ID
+    paciente = get_object_or_404(Paciente, id=id)
+    # Obter todas as consultas associadas ao paciente, ordenadas da mais recente para a mais antiga
+    consultas = Consulta.objects.filter(paciente=paciente).order_by('-data_consulta')
+    
+    return render(request, 'paciente_detalhes.html', {
+        'paciente': paciente,
+        'consultas': consultas
+    })
+
 def gerar_relatorio(request):
     try:
         pacientes = Paciente.objects.all().values(
