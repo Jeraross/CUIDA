@@ -13,13 +13,15 @@
 
   <header>
     <nav class="navbar">
-      <a href="{% url 'listagem_pacientes' %}">
+        <a href="{% url 'listagem_pacientes' %}">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
       </a>
       
       <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
 
-      <h3><a href="{% url 'update_paciente' paciente.id_paciente %}">Editar</a></h3>
+      <h3><a href="{% url 'update_paciente' paciente.id_paciente %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
+      </a></h3>
     </nav>
   </header>
 
@@ -67,26 +69,6 @@
       <div class="form-group">
         <a href="{% url 'update_paciente' paciente.id_paciente %}" class="btn-edit">Editar</a>
       </div>
-    </section>
-
-    <!-- Seção para o Histórico de Consultas -->
-    <section class="consultas">
-      <h2>Histórico de Consultas</h2>
-
-      {% if consultas %}
-        <ul>
-          {% for consulta in consultas %}
-            <li>
-              <strong>Data:</strong> {{ consulta.data_consulta }}<br>
-              <strong>Horário:</strong> {{ consulta.horario }}<br>
-              <strong>Médico:</strong> {{ consulta.medico.nome }}<br>
-              <a href="{% url 'consulta_detalhes' consulta.id %}">Ver Detalhes</a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% else %}
-        <p>Não há consultas registradas para este paciente.</p>
-      {% endif %}
     </section>
   </main>
 
