@@ -308,9 +308,8 @@ def all_consultas(request):
         'events': events
     }
 
-def adicionar_historico(request, id_paciente):
-    paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
-    
+def adicionar_historico(request, paciente_id):
+    paciente = get_object_or_404(Paciente, id=paciente_id)
     if request.method == 'POST':
         sintomas = request.POST.get('sintomas')
         diagnostico = request.POST.get('diagnostico')
@@ -327,7 +326,7 @@ def adicionar_historico(request, id_paciente):
         )
         return redirect('detalhes_paciente', paciente_id=paciente.id)
     
-    return redirect('detalhes_paciente', id_paciente=paciente.id_paciente)
+    return render(request, 'adicionar_historico.html', {'paciente': paciente})
 
 def gerar_relatorio(request):
     try:

@@ -73,11 +73,6 @@
     <section class="consultas">
       <h2>Histórico de Consultas</h2>
 
-      <!-- Botão para adicionar nova consulta -->
-      <div class="form-group">
-        <a href="{% url 'adicionar_historico' paciente.id_paciente %}" class="btn-add">Adicionar Nova Consulta</a>
-      </div>
-
       {% if consultas %}
         <ul>
           {% for consulta in consultas %}
