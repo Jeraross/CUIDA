@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Paciente, Especialidade, Medico, Consulta, Events
+from .models import Paciente, Especialidade, Medico, Consulta, Events, Biometria, SinaisVitais
 from django.db.models import Q
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
@@ -84,6 +84,10 @@ def visualizar_edit(request):
 @login_required(login_url='login')
 def delete_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
+
+    Biometria.objects.filter(paciente=paciente).delete()
+    SinaisVitais.objects.filter(paciente=paciente).delete()
+
     paciente.delete()
     return redirect('listagem_pacientes')
 
@@ -283,7 +287,16 @@ def home(request):
 
 def detalhes_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
-    return render(request, 'cadastro/detalhes_paciente.html', {'paciente': paciente})
+    biometrias = Biometria.objects.filter(paciente=paciente).order_by('-data_consulta')[:2]
+    sinais_vitais = SinaisVitais.objects.filter(paciente=paciente).order_by('-data_consulta')[:2]
+
+    context = {
+        'paciente': paciente,
+        'biometrias': biometrias,
+        'sinais_vitais': sinais_vitais,
+    }
+    return render(request, 'cadastro/detalhes_paciente.html', context)
+
 
 def index(request):  
     all_consultas = Consulta.objects.all()
@@ -325,3 +338,54 @@ def gerar_relatorio(request):
         return response
     except:
         return HttpResponse("Erro ao gerar o relatório, tente novamente mais tarde", content_type="text/plain")
+
+def adicionar_biometria(request, id_paciente):
+    paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
+    
+    if request.method == 'POST':
+        data_consulta = request.POST.get('data_consulta')
+        peso = request.POST.get('peso')
+        altura = request.POST.get('altura')
+        
+        # Verificar se os campos estão preenchidos
+        if data_consulta and peso and altura:
+            Biometria.objects.create(
+                paciente=paciente,
+                data_consulta=data_consulta,
+                peso=peso,
+                altura=altura
+            )
+            messages.success(request, 'Biometria adicionada com sucesso!')
+            return redirect('detalhes_paciente', id_paciente=paciente.id_paciente)
+        else:
+            messages.error(request, 'Por favor, preencha todos os campos.')
+    
+    return redirect('cadastro/detalhes_paciente', id_paciente=paciente.id_paciente)
+
+@login_required(login_url='login')
+def adicionar_sinais_vitais(request, id_paciente):
+    paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
+    
+    if request.method == 'POST':
+        data_consulta = request.POST.get('data_consulta')
+        temperatura = request.POST.get('temperatura')
+        pulso = request.POST.get('pulso')
+        pressao = request.POST.get('pressao')
+        
+        # Verificar se os campos estão preenchidos
+        if data_consulta and temperatura and pulso and pressao:
+            SinaisVitais.objects.create(
+                paciente=paciente,
+                data_consulta=data_consulta,
+                temperatura=temperatura,
+                pulso=pulso,
+                pressao=pressao
+            )
+            messages.success(request, 'Sinais vitais adicionados com sucesso!')
+            return redirect('detalhes_paciente', id_paciente=paciente.id_paciente)
+        else:
+            messages.error(request, 'Por favor, preencha todos os campos.')
+    
+    return redirect('cadastro/detalhes_paciente', id_paciente=paciente.id_paciente)
+
+

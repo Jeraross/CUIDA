@@ -1,77 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Detalhes do Paciente</title>
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Paciente</title>
+    {% load static %}
 </head>
-
 <body>
+    <header>
+        <nav class="navbar">
+            <a href="{% url 'listagem_pacientes' %}">Voltar</a>
+            <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
+        </nav>
+    </header>
 
-  <header>
-    <nav class="navbar">
-        <a href="{% url 'listagem_pacientes' %}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
-      </a>
-      
-      <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
+    <main>
+        <section class="details">
+            <h2>{{ paciente.nome }}</h2>
 
-      <h3><a href="{% url 'update_paciente' paciente.id_paciente %}">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
-      </a></h3>
-    </nav>
-  </header>
+            <div class="form-group">
+                <label>Sexo:</label>
+                <p>{{ paciente.get_sexo_display }}</p>
+            </div>
+            <div class="form-group">
+                <label>Idade:</label>
+                <p>{{ paciente.idade }}</p>
+            </div>
+            <div class="form-group">
+                <label>Contato:</label>
+                <p>{{ paciente.numero_celular }}</p>
+            </div>
 
-  <main>
-    <section class="details">
-      <h2>{{ paciente.nome }}</h2>
+            <h3>Biometria:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Peso (kg)</th>
+                        <th>Altura (cm)</th>
+                        <th>IMC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for bio in biometrias %}
+                        <tr>
+                            <td>{{ bio.data_consulta }}</td>
+                            <td>{{ bio.peso }}</td>
+                            <td>{{ bio.altura }}</td>
+                            <td>{{ bio.imc }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="4">Sem registros de biometria.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-      <!-- Exibição dos campos com os detalhes do paciente -->
-      <div class="form-group">
-        <label for="nome">Nome:</label>
-        <p>{{ paciente.nome }}</p>
-      </div>
+            <!-- Adicionar biometria -->
+            <form action="{% url 'adicionar_biometria' paciente.id_paciente %}" method="POST">
+                {% csrf_token %}
+                <h4>Adicionar Biometria</h4>
+                <div class="form-group">
+                    <label for="data_consulta">Data da consulta:</label>
+                    <input type="date" name="data_consulta" required>
+                </div>
+                <div class="form-group">
+                    <label for="peso">Peso (kg):</label>
+                    <input type="number" step="0.1" name="peso" required>
+                </div>
+                <div class="form-group">
+                    <label for="altura">Altura (cm):</label>
+                    <input type="number" name="altura" required>
+                </div>
+                <button type="submit">Salvar Biometria</button>
+            </form>
 
-      <div class="form-group">
-        <label for="idade">Idade:</label>
-        <p>{{ paciente.idade }}</p>
-      </div>
+            <h3>Sinais Vitais:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Temp (°C)</th>
+                        <th>Pulso (BPM)</th>
+                        <th>Pressão (mmHg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sinais in sinais_vitais %}
+                        <tr>
+                            <td>{{ sinais.data_consulta }}</td>
+                            <td>{{ sinais.temperatura }}</td>
+                            <td>{{ sinais.pulso }}</td>
+                            <td>{{ sinais.pressao }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="4">Sem registros de sinais vitais.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-      <div class="form-group">
-        <label for="cpf">CPF:</label>
-        <p>{{ paciente.cpf }}</p>
-      </div>
+            <!-- Adicionar sinais vitais -->
+            <form action="{% url 'adicionar_sinais_vitais' paciente.id_paciente %}" method="POST">
+                {% csrf_token %}
+                <h4>Adicionar Sinais Vitais</h4>
+                <div class="form-group">
+                    <label for="data_consulta">Data da consulta:</label>
+                    <input type="date" name="data_consulta" required>
+                </div>
+                <div class="form-group">
+                    <label for="temperatura">Temperatura (°C):</label>
+                    <input type="number" step="0.1" name="temperatura" required>
+                </div>
+                <div class="form-group">
+                    <label for="pulso">Pulso (BPM):</label>
+                    <input type="number" name="pulso" required>
+                </div>
+                <div class="form-group">
+                    <label for="pressao">Pressão (mmHg):</label>
+                    <input type="text" name="pressao" value="120/80" required>
+                </div>
+                <button type="submit">Salvar Sinais Vitais</button>
+            </form>
 
-      <div class="form-group">
-        <label for="numero_celular">Número de Celular:</label>
-        <p>{{ paciente.numero_celular }}</p>
-      </div>
-
-      <div class="form-group">
-        <label for="numero_prontuario">Número de Prontuário:</label>
-        <p>{{ paciente.numero_prontuario }}</p>
-      </div>
-
-      <div class="form-group">
-        <label for="sexo">Sexo:</label>
-        <p>{{ paciente.sexo }}</p>
-      </div>
-
-      <div class="form-group">
-        <label for="status">Status:</label>
-        <p>{{ paciente.status }}</p>
-      </div>
-
-      <!-- Botão para editar -->
-      <div class="form-group">
-        <a href="{% url 'update_paciente' paciente.id_paciente %}" class="btn-edit">Editar</a>
-      </div>
-    </section>
-  </main>
-
+        </section>
+    </main>
 </body>
-
 </html>

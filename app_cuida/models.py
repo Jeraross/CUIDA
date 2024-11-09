@@ -76,3 +76,35 @@ class Events(models.Model):
 
     class Meta:  
         db_table = "tblevents"
+
+# models.py
+# models.py
+class Biometria(models.Model):
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='biometrias')
+    data_consulta = models.DateField()
+    peso = models.DecimalField(max_digits=5, decimal_places=2)
+    altura = models.IntegerField()
+    imc = models.DecimalField(max_digits=4, decimal_places=1, blank=True)
+
+    def save(self, *args, **kwargs):
+        # Converte peso para float e altura para inteiro para evitar erros de tipo
+        if self.peso and self.altura:
+            try:
+                peso_num = float(self.peso)  # Certifique-se de que peso é numérico
+                altura_num = int(self.altura)  # Certifique-se de que altura é inteiro
+                altura_m = altura_num / 100  # Converte altura de cm para metros
+                self.imc = round(peso_num / (altura_m ** 2), 1)
+            except ValueError:
+                pass  # Se houver erro na conversão, não calculamos o IMC
+        super().save(*args, **kwargs)
+
+class SinaisVitais(models.Model):
+    # Campos existentes
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='sinais_vitais')
+    data_consulta = models.DateField()
+    temperatura = models.DecimalField(max_digits=4, decimal_places=1)
+    pulso = models.IntegerField()
+    pressao = models.CharField(max_length=10, default="120/80")
+
+    def __str__(self):
+        return f"Sinais vitais de {self.paciente.nome} em {self.data_consulta}"
