@@ -48,7 +48,7 @@
                         <td>
                             <form action="{% url 'excluir_medico' medico.id %}" method="post" style="display: inline;">
                                 {% csrf_token %}
-                                <button type="submit" class="btn-excluir">Excluir</button>
+                                <button type="submit" class="btn-excluir"><i class="fas fa-trash"></i> Excluir</button>
                             </form>
                         </td> <!-- Botão de excluir -->
                     </tr>

@@ -42,6 +42,7 @@ body {
     display: flex;
     flex-wrap: wrap; /* Permite que os cartões se movam para a próxima linha */
     gap: 15px; /* Espaçamento entre os cartões */
+    justify-content: center;
 }
 
 .especialidade-card {

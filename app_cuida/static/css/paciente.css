@@ -115,10 +115,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Alterna a cor de fundo para os cartões */
-.card:nth-child(even) {
-    background-color: #cbe6f134;
-}
 
 /* Customização da barra de rolagem */
 .cards::-webkit-scrollbar {
@@ -138,3 +134,15 @@ body {
     color: red;
     font-weight: bold;
 }
+.delete-btn{
+    background-color: #dc3545; /* Cor de fundo vermelho */
+    color: white; /* Cor do texto */
+    border: none; /* Sem borda */
+    padding: 5px 10px; /* Preenchimento */
+    border-radius: 4px; /* Borda arredondada */
+    cursor: pointer; /* Cursor em forma de mão */
+  }
+  
+  .delete-btn:hover {
+    background-color: #c82333; /* Cor de fundo ao passar o mouse */
+  }

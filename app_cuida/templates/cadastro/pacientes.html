@@ -25,13 +25,11 @@
                 <input type="search" id="searchInput" placeholder="Busque aqui...">
             </div>
             <a href="{% url 'form' %}">
-                <svg xmlns="c:\Users\maria\Downloads\edit.svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left">
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M16 12H8" />
-                    <path d="m12 8-4 4 4 4" />
-                </svg>
-            </a>
-            <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.56078 20.2501L20.5608 8.25011L15.7501 3.43945L3.75012 15.4395V20.2501H8.56078ZM15.7501 5.56077L18.4395 8.25011L16.5001 10.1895L13.8108 7.50013L15.7501 5.56077ZM12.7501 8.56079L15.4395 11.2501L7.93946 18.7501H5.25012L5.25012 16.0608L12.7501 8.56079Z" fill="currentColor"></path>
+            </svg>
+        </a>
+             <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
         </section>
 
         <section class="cards">
@@ -44,7 +42,8 @@
                 <!-- Botão de excluir -->
         <form action="{% url 'delete_paciente' paciente.id_paciente %}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este paciente?');">
             {% csrf_token %}
-            <button type="submit" class="delete-button">Excluir</button>
+            <button type="submit" class="delete-btn">
+                <i class="fas fa-trash"></i> Excluir</button>
         </form>
             </div>
             {% endfor %}
