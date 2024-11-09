@@ -19,6 +19,7 @@
         <section class="details">
             <h2>{{ paciente.nome }}</h2>
 
+            <!-- Informação básica do paciente -->
             <div class="form-group">
                 <label>Sexo:</label>
                 <p>{{ paciente.get_sexo_display }}</p>
@@ -32,6 +33,7 @@
                 <p>{{ paciente.numero_celular }}</p>
             </div>
 
+            <!-- Biometria -->
             <h3>Biometria:</h3>
             <table>
                 <thead>
@@ -40,6 +42,7 @@
                         <th>Peso (kg)</th>
                         <th>Altura (cm)</th>
                         <th>IMC</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,9 +52,15 @@
                             <td>{{ bio.peso }}</td>
                             <td>{{ bio.altura }}</td>
                             <td>{{ bio.imc }}</td>
+                            <td>
+                                <form action="{% url 'excluir_biometria' bio.id paciente.id_paciente %}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" onclick="return confirm('Deseja excluir esta biometria?');">Excluir</button>
+                                </form>
+                            </td>
                         </tr>
                     {% empty %}
-                        <tr><td colspan="4">Sem registros de biometria.</td></tr>
+                        <tr><td colspan="5">Sem registros de biometria.</td></tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -75,6 +84,7 @@
                 <button type="submit">Salvar Biometria</button>
             </form>
 
+            <!-- Sinais Vitais -->
             <h3>Sinais Vitais:</h3>
             <table>
                 <thead>
@@ -83,6 +93,7 @@
                         <th>Temp (°C)</th>
                         <th>Pulso (BPM)</th>
                         <th>Pressão (mmHg)</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,9 +103,15 @@
                             <td>{{ sinais.temperatura }}</td>
                             <td>{{ sinais.pulso }}</td>
                             <td>{{ sinais.pressao }}</td>
+                            <td>
+                                <form action="{% url 'excluir_sinais_vitais' sinais.id paciente.id_paciente %}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" onclick="return confirm('Deseja excluir estes sinais vitais?');">Excluir</button>
+                                </form>
+                            </td>
                         </tr>
                     {% empty %}
-                        <tr><td colspan="4">Sem registros de sinais vitais.</td></tr>
+                        <tr><td colspan="5">Sem registros de sinais vitais.</td></tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -122,6 +139,116 @@
                 <button type="submit">Salvar Sinais Vitais</button>
             </form>
 
+            <!-- Condições Especiais -->
+            <h3>Condições Especiais:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for condicao in condicoes_especiais %}
+                        <tr>
+                            <td>{{ condicao.descricao }}</td>
+                            <td>
+                                <form action="{% url 'excluir_condicao_especial' condicao.id paciente.id_paciente %}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" onclick="return confirm('Deseja excluir esta condição especial?');">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="2">Sem registros de condições especiais.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Adicionar condição especial -->
+            <form action="{% url 'adicionar_condicao_especial' paciente.id_paciente %}" method="POST">
+                {% csrf_token %}
+                <h4>Adicionar Condição Especial</h4>
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <input type="text" name="descricao" required>
+                </div>
+                <button type="submit">Salvar Condição</button>
+            </form>
+
+            <!-- Alergias -->
+            <h3>Alergias:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alergia in alergias %}
+                        <tr>
+                            <td>{{ alergia.descricao }}</td>
+                            <td>
+                                <form action="{% url 'excluir_alergia' alergia.id paciente.id_paciente %}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" onclick="return confirm('Deseja excluir esta alergia?');">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="2">Sem registros de alergias.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Adicionar alergia -->
+            <form action="{% url 'adicionar_alergia' paciente.id_paciente %}" method="POST">
+                {% csrf_token %}
+                <h4>Adicionar Alergia</h4>
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <input type="text" name="descricao" required>
+                </div>
+                <button type="submit">Salvar Alergia</button>
+            </form>
+
+            <!-- Medicamentos Ativos -->
+            <h3>Medicamentos Ativos:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for medicamento in medicamentos_ativos %}
+                        <tr>
+                            <td>{{ medicamento.descricao }}</td>
+                            <td>
+                                <form action="{% url 'excluir_medicamento_ativo' medicamento.id paciente.id_paciente %}" method="POST" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" onclick="return confirm('Deseja excluir este medicamento ativo?');">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr><td colspan="2">Sem registros de medicamentos ativos.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Adicionar medicamento ativo -->
+            <form action="{% url 'adicionar_medicamento_ativo' paciente.id_paciente %}" method="POST">
+                {% csrf_token %}
+                <h4>Adicionar Medicamento Ativo</h4>
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <input type="text" name="descricao" required>
+                </div>
+                <button type="submit">Salvar Medicamento</button>
+            </form>
         </section>
     </main>
 </body>

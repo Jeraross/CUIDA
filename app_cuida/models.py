@@ -108,3 +108,27 @@ class SinaisVitais(models.Model):
 
     def __str__(self):
         return f"Sinais vitais de {self.paciente.nome} em {self.data_consulta}"
+    
+class CondicoesEspeciais(models.Model):
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='condicoes_especiais')
+    descricao = models.CharField(max_length=255)
+    data_registro = models.DateField(default=date.today)
+
+    def __str__(self):
+        return f"Condição Especial de {self.paciente.nome}: {self.descricao}"
+
+class Alergia(models.Model):
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='alergias')
+    descricao = models.CharField(max_length=255)
+    data_registro = models.DateField(default=date.today)
+
+    def __str__(self):
+        return f"Alergia de {self.paciente.nome}: {self.descricao}"
+
+class MedicamentoAtivo(models.Model):
+    paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='medicamentos_ativos')
+    descricao = models.CharField(max_length=255)
+    data_registro = models.DateField(default=date.today)
+
+    def __str__(self):
+        return f"Medicamento Ativo de {self.paciente.nome}: {self.descricao}"

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Paciente, Especialidade, Medico, Consulta, Events, Biometria, SinaisVitais
+from .models import Paciente, Especialidade, Medico, Consulta, Events
+from .models import Biometria, SinaisVitais, CondicoesEspeciais, Alergia, MedicamentoAtivo
 from django.db.models import Q
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
@@ -8,6 +9,7 @@ from django.contrib import messages
 from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
 from datetime import datetime, timedelta
 import pandas as pd
+from django.urls import reverse
 
 
 @login_required(login_url='login')
@@ -84,10 +86,6 @@ def visualizar_edit(request):
 @login_required(login_url='login')
 def delete_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
-
-    Biometria.objects.filter(paciente=paciente).delete()
-    SinaisVitais.objects.filter(paciente=paciente).delete()
-
     paciente.delete()
     return redirect('listagem_pacientes')
 
@@ -289,11 +287,17 @@ def detalhes_paciente(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     biometrias = Biometria.objects.filter(paciente=paciente).order_by('-data_consulta')[:2]
     sinais_vitais = SinaisVitais.objects.filter(paciente=paciente).order_by('-data_consulta')[:2]
+    condicoes_especiais = CondicoesEspeciais.objects.filter(paciente=paciente)
+    alergias = Alergia.objects.filter(paciente=paciente)
+    medicamentos_ativos = MedicamentoAtivo.objects.filter(paciente=paciente)
 
     context = {
         'paciente': paciente,
         'biometrias': biometrias,
         'sinais_vitais': sinais_vitais,
+        'condicoes_especiais': condicoes_especiais,
+        'alergias': alergias,
+        'medicamentos_ativos': medicamentos_ativos,
     }
     return render(request, 'cadastro/detalhes_paciente.html', context)
 
@@ -363,6 +367,13 @@ def adicionar_biometria(request, id_paciente):
     return redirect('cadastro/detalhes_paciente', id_paciente=paciente.id_paciente)
 
 @login_required(login_url='login')
+def excluir_biometria(request, id_biometria, id_paciente):
+    biometria = get_object_or_404(Biometria, id=id_biometria)
+    biometria.delete()
+    messages.success(request, 'Biometria excluída com sucesso!')
+    return redirect('detalhes_paciente', id_paciente=id_paciente)
+
+@login_required(login_url='login')
 def adicionar_sinais_vitais(request, id_paciente):
     paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     
@@ -388,4 +399,54 @@ def adicionar_sinais_vitais(request, id_paciente):
     
     return redirect('cadastro/detalhes_paciente', id_paciente=paciente.id_paciente)
 
+@login_required(login_url='login')
+def excluir_sinais_vitais(request, id_sinais_vitais, id_paciente):
+    sinais_vitais = get_object_or_404(SinaisVitais, id=id_sinais_vitais)
+    sinais_vitais.delete()
+    messages.success(request, 'Sinais vitais excluídos com sucesso!')
+    return redirect('detalhes_paciente', id_paciente=id_paciente)
 
+def adicionar_condicao_especial(request, paciente_id):
+    paciente = get_object_or_404(Paciente, id_paciente=paciente_id)
+    if request.method == 'POST':
+        descricao = request.POST['descricao']
+        CondicoesEspeciais.objects.create(paciente=paciente, descricao=descricao)
+        return redirect(reverse('detalhes_paciente', args=[paciente_id]))
+    return render(request, 'detalhes_paciente.html', {'paciente': paciente})
+
+def adicionar_alergia(request, paciente_id):
+    paciente = get_object_or_404(Paciente, id_paciente=paciente_id)
+    if request.method == 'POST':
+        descricao = request.POST['descricao']
+        Alergia.objects.create(paciente=paciente, descricao=descricao)
+        return redirect(reverse('detalhes_paciente', args=[paciente_id]))
+    return render(request, 'detalhes_paciente.html', {'paciente': paciente})
+
+def adicionar_medicamento_ativo(request, paciente_id):
+    paciente = get_object_or_404(Paciente, id_paciente=paciente_id)
+    if request.method == 'POST':
+        descricao = request.POST['descricao']
+        MedicamentoAtivo.objects.create(paciente=paciente, descricao=descricao)
+        return redirect(reverse('detalhes_paciente', args=[paciente_id]))
+    return render(request, 'detalhes_paciente.html', {'paciente': paciente})
+
+@login_required(login_url='login')
+def excluir_condicao_especial(request, id_condicao, id_paciente):
+    condicao = get_object_or_404(CondicoesEspeciais, id=id_condicao)
+    condicao.delete()
+    messages.success(request, 'Condição especial excluída com sucesso!')
+    return redirect('detalhes_paciente', id_paciente=id_paciente)
+
+@login_required(login_url='login')
+def excluir_alergia(request, id_alergia, id_paciente):
+    alergia = get_object_or_404(Alergia, id=id_alergia)
+    alergia.delete()
+    messages.success(request, 'Alergia excluída com sucesso!')
+    return redirect('detalhes_paciente', id_paciente=id_paciente)
+
+@login_required(login_url='login')
+def excluir_medicamento_ativo(request, id_medicamento, id_paciente):
+    medicamento = get_object_or_404(MedicamentoAtivo, id=id_medicamento)
+    medicamento.delete()
+    messages.success(request, 'Medicamento ativo excluído com sucesso!')
+    return redirect('detalhes_paciente', id_paciente=id_paciente)
