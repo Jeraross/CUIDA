@@ -1,0 +1,193 @@
+/* Estilos gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(to right, #cbe6f1a2, #30d1fec5);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* Header fixo ocupando toda a largura */
+header {
+    width: 100vw;
+    background-color: #dcdcdc;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header .navbar a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+header .logo {
+    width: 50px;
+    height: auto;
+}
+
+/* Conteúdo principal */
+main {
+    width: 100%;
+    max-width: 800px;
+    background-color: #ffffffcc;
+    padding: 20px;
+    padding-top: 90px; /* Espaço para o header fixo */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* Detalhes do paciente */
+.details h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: left; /* Nome alinhado à esquerda */
+}
+
+/* Agrupamento de informações do paciente */
+.details .form-group-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.details .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.details .form-group label {
+    font-weight: bold;
+    color: #555;
+}
+
+.details .form-group p {
+    color: #333;
+}
+
+/* Tabelas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 0; /* Remove margens */
+}
+
+table th, table td {
+    padding: 8px 10px; /* Ajuste de padding para preencher mais a área */
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Seções */
+h3 {
+    font-size: 16px;
+    color: #1f2b5b;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+h4 {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #555;
+    font-weight: bold;
+}
+
+/* Formulários */
+form {
+    margin-top: 10px;
+}
+
+form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+form label {
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+form input[type="date"],
+form input[type="number"],
+form input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
+/* Botão de excluir */
+button[type="submit"] {
+    background-color: #1f2b5b;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+button[type="submit"]:hover {
+    background-color: #c82333;
+}
+
+/* Estilos específicos para campos especiais */
+.details .conditions, .details .allergies, .details .medications {
+    margin-top: 10px;
+}
+
+.details .conditions p,
+.details .allergies p,
+.details .medications p {
+    padding: 5px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #333;
+}
