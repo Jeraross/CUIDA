@@ -5,7 +5,7 @@ from django.contrib import admin
 
 urlpatterns = [
     path('', views.cadastro, name='cadastro'),
-    path('calendario/', views.index, name='index'),
+    path('calendario/', views.calendario_view, name='calendario'),
     path('login/', views.login, name='login'),
     path('home/', views.home, name='home'),     
     path('form/', views.add, name='form'), 

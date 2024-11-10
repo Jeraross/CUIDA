@@ -242,27 +242,39 @@ def excluir_consulta(request, id):
     return redirect('visualizar_consultas')
 
 def calendario_view(request):
-   
     now = datetime.now()
     month = now.month
     year = now.year
 
-   
+    # Primeiro dia do mês
     first_day = datetime(year, month, 1)
+
+    # Próximo mês para calcular o número de dias do mês atual
     if month == 12:
         next_month = datetime(year + 1, 1, 1)
     else:
         next_month = datetime(year, month + 1, 1)
     num_days = (next_month - first_day).days
 
-    
+    # Lista de todos os dias do mês
     days = [first_day + timedelta(days=i) for i in range(num_days)]
 
+    # Consulta as consultas para o mês atual
+    consultas = Consulta.objects.filter(data_consulta__year=year, data_consulta__month=month)
+
+    # Organiza consultas por dia
+    consultas_por_dia = {}
+    for consulta in consultas:
+        dia = consulta.data_consulta
+        if dia not in consultas_por_dia:
+            consultas_por_dia[dia] = []
+        consultas_por_dia[dia].append(consulta)
+
     context = {
-        'days': days,   
+        'days': days,
+        'consultas_por_dia': consultas_por_dia,
     }
     return render(request, 'cadastro/calendario.html', context)
-
 def login(request):
     if request.method == 'GET':
         return render(request, 'cadastro/login.html')

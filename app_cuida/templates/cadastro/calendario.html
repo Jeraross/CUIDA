@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
     <title>Calendário</title>
@@ -14,6 +14,32 @@
             border: 1px solid #ddd;
             padding: 20px;
             text-align: center;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            max-width: 90%;
+        }
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -21,8 +47,82 @@
     <h1>Calendário</h1>
     <div class="calendar">
         {% for day in days %}
-            <div class="day">{{ day }}</div>
+            <div class="day" onclick="openModal('{{ day.date }}')">
+                {{ day.date }}
+            </div>
         {% endfor %}
     </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modal-date">Consultas</h2>
+            <div id="modal-content">
+                <!-- Consultas serão exibidas aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Objeto que armazena as consultas por dia (passado do Django)
+        const consultasPorDia = {
+            {% for day, consultas in consultas_por_dia.items %}
+                "{{ day }}": [
+                    {% for consulta in consultas %}
+                        {
+                            "paciente": "{{ consulta.paciente.nome }}",
+                            "medico": "{{ consulta.medico.nome }}",
+                            "horario": "{{ consulta.horario }}"
+                        },
+                    {% endfor %}
+                ],
+            {% endfor %}
+        };
+
+        function openModal(date) {
+            const modal = document.getElementById('modal');
+            const modalDate = document.getElementById('modal-date');
+            const modalContent = document.getElementById('modal-content');
+
+            // Define o título da data no modal
+            modalDate.textContent = `Consultas para ${date}`;
+
+            // Limpa o conteúdo anterior do modal
+            modalContent.innerHTML = '';
+
+            // Verifica se existem consultas para o dia
+            if (consultasPorDia[date]) {
+                consultasPorDia[date].forEach(consulta => {
+                    const consultaDiv = document.createElement('div');
+                    consultaDiv.classList.add('consulta');
+                    consultaDiv.innerHTML = `
+                        <strong>Paciente:</strong> ${consulta.paciente}<br>
+                        <strong>Médico:</strong> ${consulta.medico}<br>
+                        <strong>Horário:</strong> ${consulta.horario}
+                    `;
+                    modalContent.appendChild(consultaDiv);
+                });
+            } else {
+                modalContent.innerHTML = '<p>Sem consultas</p>';
+            }
+
+            // Exibe o modal
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+        }
+
+        // Fecha o modal ao clicar fora dele
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
 </body>
 </html>
