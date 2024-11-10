@@ -33,6 +33,10 @@
                 <p>{{ paciente.numero_celular }}</p>
             </div>
 
+            <a href="{% url 'exportar_paciente_excel' paciente.id_paciente %}">
+                <button type="button">Baixar Histórico como Excel</button>
+            </a>
+
             <!-- Biometria -->
             <h3>Biometria:</h3>
             <table>

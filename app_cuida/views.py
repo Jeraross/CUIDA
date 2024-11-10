@@ -1,15 +1,16 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from .models import Paciente, Especialidade, Medico, Consulta, Events
 from .models import Biometria, SinaisVitais, CondicoesEspeciais, Alergia, MedicamentoAtivo
-from django.db.models import Q
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from datetime import datetime, timedelta
 import pandas as pd
-from django.urls import reverse
+import openpyxl
 
 
 @login_required(login_url='login')
@@ -174,14 +175,14 @@ def excluir_medico(request, id):
 
 def cadastrar_consulta(request):
     if request.method == 'POST':
-        paciente_id = request.POST.get('paciente')
+        id_paciente = request.POST.get('paciente')
         medico_id = request.POST.get('medico')
         data_consulta_str = request.POST.get('data_consulta')
         horario = request.POST.get('horario')
 
-        print(f"Paciente ID: {paciente_id}, Médico ID: {medico_id}, Data: {data_consulta_str}, Horário: {horario}")
+        print(f"Paciente ID: {id_paciente}, Médico ID: {medico_id}, Data: {data_consulta_str}, Horário: {horario}")
 
-        if not paciente_id or not medico_id or not data_consulta_str or not horario:
+        if not id_paciente or not medico_id or not data_consulta_str or not horario:
             messages.error(request, "Por favor, preencha todos os campos obrigatórios.")
             return render(request, 'cadastro/cadastrar_consulta.html', {
                 'pacientes': Paciente.objects.all(),
@@ -189,7 +190,7 @@ def cadastrar_consulta(request):
                 'horarios': ['08:00', '09:00', '10:00', '14:00', '15:00'],
             })
 
-        paciente = Paciente.objects.get(id_paciente=paciente_id)
+        paciente = Paciente.objects.get(id_paciente=id_paciente)
         medico = Medico.objects.get(id=medico_id)
         data_consulta = datetime.strptime(data_consulta_str, '%Y-%m-%d').date()
 
@@ -418,28 +419,28 @@ def excluir_sinais_vitais(request, id_sinais_vitais, id_paciente):
     messages.success(request, 'Sinais vitais excluídos com sucesso!')
     return redirect('detalhes_paciente', id_paciente=id_paciente)
 
-def adicionar_condicao_especial(request, paciente_id):
-    paciente = get_object_or_404(Paciente, id_paciente=paciente_id)
+def adicionar_condicao_especial(request, id_paciente):
+    paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     if request.method == 'POST':
         descricao = request.POST['descricao']
         CondicoesEspeciais.objects.create(paciente=paciente, descricao=descricao)
-        return redirect(reverse('detalhes_paciente', args=[paciente_id]))
+        return redirect(reverse('detalhes_paciente', args=[id_paciente]))
     return render(request, 'detalhes_paciente.html', {'paciente': paciente})
 
-def adicionar_alergia(request, paciente_id):
-    paciente = get_object_or_404(Paciente, id_paciente=paciente_id)
+def adicionar_alergia(request, id_paciente):
+    paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     if request.method == 'POST':
         descricao = request.POST['descricao']
         Alergia.objects.create(paciente=paciente, descricao=descricao)
-        return redirect(reverse('detalhes_paciente', args=[paciente_id]))
+        return redirect(reverse('detalhes_paciente', args=[id_paciente]))
     return render(request, 'detalhes_paciente.html', {'paciente': paciente})
 
-def adicionar_medicamento_ativo(request, paciente_id):
-    paciente = get_object_or_404(Paciente, id_paciente=paciente_id)
+def adicionar_medicamento_ativo(request, id_paciente):
+    paciente = get_object_or_404(Paciente, id_paciente=id_paciente)
     if request.method == 'POST':
         descricao = request.POST['descricao']
         MedicamentoAtivo.objects.create(paciente=paciente, descricao=descricao)
-        return redirect(reverse('detalhes_paciente', args=[paciente_id]))
+        return redirect(reverse('detalhes_paciente', args=[id_paciente]))
     return render(request, 'detalhes_paciente.html', {'paciente': paciente})
 
 @login_required(login_url='login')
@@ -462,3 +463,39 @@ def excluir_medicamento_ativo(request, id_medicamento, id_paciente):
     medicamento.delete()
     messages.success(request, 'Medicamento ativo excluído com sucesso!')
     return redirect('detalhes_paciente', id_paciente=id_paciente)
+
+def exportar_paciente_excel(request, id_paciente):
+    paciente = Paciente.objects.get(id_paciente=id_paciente)
+    
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = "Detalhes do Paciente"
+    
+    sheet["A1"] = "Nome"
+    sheet["B1"] = paciente.nome
+    sheet["A2"] = "Sexo"
+    sheet["B2"] = paciente.get_sexo_display()
+    sheet["A3"] = "Idade"
+    sheet["B3"] = paciente.idade
+    sheet["A4"] = "Contato"
+    sheet["B4"] = paciente.numero_celular
+    
+    biometria_sheet = workbook.create_sheet(title="Biometria")
+    biometria_sheet.append(["Data", "Peso (kg)", "Altura (cm)", "IMC"])
+    for bio in Biometria.objects.filter(paciente=paciente):
+        biometria_sheet.append([bio.data_consulta, bio.peso, bio.altura, bio.imc])
+    
+    sinais_vitais_sheet = workbook.create_sheet(title="Sinais Vitais")
+    sinais_vitais_sheet.append(["Data", "Temperatura (°C)", "Pulso (BPM)", "Pressão (mmHg)"])
+    for sinais in SinaisVitais.objects.filter(paciente=paciente):
+        sinais_vitais_sheet.append([sinais.data_consulta, sinais.temperatura, sinais.pulso, sinais.pressao])
+    
+    condicoes_sheet = workbook.create_sheet(title="Condições Especiais")
+    condicoes_sheet.append(["Descrição"])
+    for condicao in CondicoesEspeciais.objects.filter(paciente=paciente):
+        condicoes_sheet.append([condicao.descricao])
+    
+    response = HttpResponse(content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    response["Content-Disposition"] = f'attachment; filename="{paciente.nome}_detalhes.xlsx"'
+    workbook.save(response)
+    return response
