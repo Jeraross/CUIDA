@@ -158,10 +158,10 @@ describe('Fluxo Completo de Paciente: Registro e Exportação de Dados', () => {
         // Baixar o Excel
         cy.get('a > button').click();
         
-        cy.wait(2000); // Aguarda o download
+        cy.wait(5000); // Aguarda o download
         
         // Use o comando personalizado para verificar o Excel
-        const filePath = 'cypress/downloads/Guilherme Mourão_detalhes.xlsx'; // Ajuste o caminho de download conforme necessário
-        cy.verificarExcel(filePath);  // Verifica o conteúdo do Excel
+        const filePath = 'cypress/downloads/Guilherme Mourão_detalhes.xlsx'; 
+        cy.verificarExcel(filePath);
     });
 });
