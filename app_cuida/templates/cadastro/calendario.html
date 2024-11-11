@@ -6,7 +6,6 @@
     <title>Calendário de Consultas</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/calendario.css' %}">
-    <link rel="stylesheet" href="{% static 'css/form.css' %}">
 </head>
 <body>
     <header>
@@ -14,7 +13,11 @@
           <a href="{% url 'home' %}">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
           </a>
-          <h1>{{ month_name }} {{ year }}</h1> <!-- Exibe o mês e o ano -->
+      
+            
+            <h1>{{ month_name }} {{ year }}</h1> <!-- Exibe o mês e o ano -->
+        
+         
           <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
         </nav>
     </header>
@@ -25,6 +28,9 @@
             {% for day in days %}
                 <div class="day" onclick="openModal('{{ day.date }}')">
                     {{ day.date|date:"j" }} <!-- Apenas o número do dia -->
+                    {% if day.date in consultas_por_dia %}
+                        <span class="dot"></span> <!-- Exibe uma bolinha laranja se houver consulta -->
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>
@@ -85,6 +91,12 @@
         function closeModal() {
             const modal = document.getElementById('modal');
             modal.style.display = 'none';
+        }
+
+        function navigateMonth(direction) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('month_offset', direction);
+            window.location.href = url;
         }
     </script>
 </body>
