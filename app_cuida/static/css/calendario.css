@@ -1,0 +1,86 @@
+/* Estilos para o calendário */
+    .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+    }
+
+    .day {
+        border: 1px solid #ddd;
+        padding: 15px;
+        background-color: #fff; /* Fundo branco para os quadrados */
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        cursor: pointer;
+        transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .day:hover {
+        background-color: #f0f8ff; /* Cor suave no hover */
+        transform: scale(1.05);
+    }
+
+    /* Modal estilos */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 400px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Botão de fechar no modal */
+    .close-btn {
+        color: #333;
+        float: right;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+        color: #f44336;
+    }
+
+    /* Conteúdo do modal */
+    #modal-content {
+        margin-top: 10px;
+    }
+
+    .consulta {
+        margin-bottom: 10px;
+        padding: 8px;
+        background-color: #f7f7f7;
+        border-left: 4px solid #3f51b5;
+        border-radius: 4px;
+    }
+
+    .consulta strong {
+        color: #333;
+    }
+
