@@ -37,5 +37,4 @@ urlpatterns = [
     path('paciente/<int:id_paciente>/adicionar_medicamento_ativo/', views.adicionar_medicamento_ativo, name='adicionar_medicamento_ativo'),
     path('excluir_medicamento_ativo/<int:id_medicamento>/<int:id_paciente>/', views.excluir_medicamento_ativo, name='excluir_medicamento_ativo'),
     path('exportar_paciente_excel/<int:id_paciente>/', views.exportar_paciente_excel, name='exportar_paciente_excel'),
-    path('calendario/<int:year>/<int:month>/', views.calendario_view, name='calendario_view'),
 ]

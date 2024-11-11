@@ -243,44 +243,44 @@ def excluir_consulta(request, id):
     consulta.delete()
     return redirect('visualizar_consultas')
 
-def calendario_view(request, year=None, month=None):
-    if year is None or month is None:
-        # Pega o mês e ano atuais se não forem especificados
-        now = datetime.now()
-        year = now.year
-        month = now.month
-    else:
-        # Converte os parâmetros para inteiros
-        year = int(year)
-        month = int(month)
+def calendario_view(request):
+    # Recupera o mês e ano da URL ou usa o atual
+    month = int(request.GET.get('month', datetime.now().month))
+    year = int(request.GET.get('year', datetime.now().year))
 
-    # Calcula o primeiro e último dia do mês
+    # Ajusta o mês e ano caso estejam fora do intervalo permitido
+    if month < 1:
+        month = 12
+        year -= 1
+    elif month > 12:
+        month = 1
+        year += 1
+
+    # Primeiro dia do mês e número de dias no mês
     first_day = datetime(year, month, 1)
-    if month == 12:
-        next_month = datetime(year + 1, 1, 1)
-    else:
-        next_month = datetime(year, month + 1, 1)
+    next_month = datetime(year + 1, 1, 1) if month == 12 else datetime(year, month + 1, 1)
     num_days = (next_month - first_day).days
-
-    # Cria uma lista de todos os dias do mês
     days = [first_day + timedelta(days=i) for i in range(num_days)]
 
-    # Consulta as consultas por dia
+    # Consulta as consultas para o mês atual
+    consultas = Consulta.objects.filter(data_consulta__year=year, data_consulta__month=month)
     consultas_por_dia = {}
-    for consulta in Consulta.objects.filter(data_consulta__year=year, data_consulta__month=month):
-        consultas_por_dia.setdefault(consulta.data_consulta, []).append(consulta)
+    for consulta in consultas:
+        dia = consulta.data_consulta
+        if dia not in consultas_por_dia:
+            consultas_por_dia[dia] = []
+        consultas_por_dia[dia].append(consulta)
+
+    # Nomes dos meses
+    month_name = first_day.strftime('%B')
 
     context = {
         'days': days,
         'consultas_por_dia': consultas_por_dia,
-        'current_year': year,
-        'current_month': month,
-        'previous_month': month - 1 if month > 1 else 12,
-        'previous_year': year if month > 1 else year - 1,
-        'next_month': month + 1 if month < 12 else 1,
-        'next_year': year if month < 12 else year + 1,
+        'month': month,
+        'year': year,
+        'month_name': month_name,
     }
-
     return render(request, 'cadastro/calendario.html', context)
 
 def login(request):
