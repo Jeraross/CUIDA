@@ -34,7 +34,6 @@ jobs:
 
       - name: Run local server and tests
         run: |
-          cd ..
           python manage.py migrate
           python manage.py runserver &
           sleep 5
