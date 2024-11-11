@@ -74,7 +74,8 @@ Cypress.Commands.add('createAppointment', (data, horario, medico, paciente) => {
     cy.get('button[type="submit"]').click();
 });
 
-describe('Cadastro de Consultas', () => {
+
+describe('Calendário', () => {
     const especialidade = 'Cardiologia';
     const nomeMedico = 'Dr. João Silva';
     const crm = '123456';
@@ -86,70 +87,47 @@ describe('Cadastro de Consultas', () => {
     const prontuarioPaciente = '20230004';
     const sexoPaciente = 'F';
     const statusPaciente = 'NÃO ATENDIDO';
-    const dataConsulta = '2024-12-24';
+    const dataConsulta = '2024-11-24';
     const horarioConsulta = '10:00';
     
     const nomeMedico2 = 'Dr. Paulo';
-    const dataConsulta2 = '2024-12-25';
+    const dataConsulta2 = '2024-11-25';
     const horarioConsulta2 = '14:00';
     const cpfPaciente2 = '98765432100';
     const nomePaciente2 = 'João';
     const prontuarioPaciente2 = '20240001';
-
     beforeEach(() => {
         cy.deleteAllUsers();
         cy.deleteAllAppointments();
         cy.deleteAllSpecialties();
         cy.deleteAllDoctors();
         cy.deletePatient(cpfPaciente);
+        cy.deletePatient(cpfPaciente2);
+        cy.createUser('admin', 'admin@example', 'admin');
+        cy.login('admin', 'admin');
+    });
 
-        cy.visit('/');
-        cy.get('#register').click();
-        cy.createUser('testuser', 'testuser@example.com', 'password123');
-        cy.login('testuser', 'password123');
-
+    it('Cenário 1: Deve exibir o calendário com as consultas agendadas', () => {
         cy.createSpecialty(especialidade);
         cy.createDoctor(nomeMedico, especialidade, crm, celularMedico);
-        cy.createDoctor(nomeMedico2, especialidade, '654321', '9876543211');
+        cy.createDoctor(nomeMedico2, especialidade, '654321', celularMedico);
         cy.createPatient(nomePaciente, idadePaciente, cpfPaciente, celularPaciente, prontuarioPaciente, sexoPaciente, statusPaciente);
-        cy.createPatient(nomePaciente2, idadePaciente, cpfPaciente2, celularPaciente, prontuarioPaciente2, sexoPaciente, statusPaciente); // Adicionando o paciente João
-    });
-
-    it('Cenário 1: Deve agendar uma consulta com sucesso', () => {
+        cy.createPatient(nomePaciente2, idadePaciente, cpfPaciente2, celularPaciente, prontuarioPaciente2, sexoPaciente, statusPaciente);
+        cy.createAppointment(dataConsulta, horarioConsulta, nomeMedico, nomePaciente);
         cy.createAppointment(dataConsulta2, horarioConsulta2, nomeMedico2, nomePaciente2);
-
-        cy.visit('/visualizar_consultas/');
-        cy.contains(nomePaciente2).should('exist');
-        cy.contains(nomeMedico2).should('exist');
-        cy.contains('2 p.m.').should('exist');
-        cy.get('tbody > tr:nth-child(1) > td:nth-child(4)').should('contain', 'Dec. 25, 2024');
+        cy.visit('/calendario/');
+        cy.contains('Nov. 24, 2024').click();
+        cy.get('.consulta').should('contain', 'Dr. João Silva');
+        cy.get('.consulta').should('contain', 'Maria Souza');
+        cy.get('.close-btn').click();
+        cy.contains('Nov. 25, 2024').click();
+        cy.get('.consulta').should('contain', 'Dr. Paulo');
+        cy.get('.consulta').should('contain', 'João');
     });
 
-    it('Cenário 2: Deve validar horário indisponível', () => {
-        cy.createAppointment(dataConsulta2, horarioConsulta2, nomeMedico2, nomePaciente2);
-
-        cy.createAppointment(dataConsulta2, horarioConsulta2, nomeMedico2, nomePaciente2);
-
-        cy.get('.message').should('contain', 'O médico já está ocupado neste horário.');
-    });
-
-    it('Cenário 3: Deve validar campos obrigatórios', () => {
-        cy.visit('/cadastrar_consulta/');
-        cy.get('button[type="submit"]').click(); 
-
-        cy.get('.message').should('contain', 'Por favor, preencha todos os campos obrigatórios.');
-    });
-
-    it('Cenário 4: Deve validar data passada', () => {
-        const dataConsultaPassada = '2024-08-15';
-        cy.createAppointment(dataConsultaPassada, horarioConsulta, nomeMedico, nomePaciente);
-
-        cy.get('.message').should('contain', 'A data da consulta não pode ser no passado.');
-    });
-
-    afterEach(() => {
-        cy.deleteAllAppointments();
-        cy.deletePatient(cpfPaciente);
-        cy.deletePatient(cpfPaciente2); 
-    });
+    it('Cenário 2: Se não houver consultas no dia, deve mostrar em branco', () => {
+        cy.visit('/calendario/');
+        cy.contains('Nov. 24, 2024').click();
+        cy.get('.consulta').should('not.exist');
+    })
 });
