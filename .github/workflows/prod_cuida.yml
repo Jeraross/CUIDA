@@ -32,7 +32,7 @@ jobs:
           pip install -r requirements.txt
           npm ci
 
-      - name: Run Local Server
+      - name: Run local server and tests
         run: |
           python manage.py migrate
           python manage.py runserver &
