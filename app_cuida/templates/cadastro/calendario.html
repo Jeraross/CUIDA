@@ -6,36 +6,35 @@
     <title>Calendário de Consultas</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/calendario.css' %}">
+    
 </head>
 <body>
     <header>
         <nav class="navbar">
           <a href="{% url 'home' %}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left">
+              <circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/>
+            </svg>
           </a>
-      
-            
-            <h1>{{ month_name }} {{ year }}</h1> <!-- Exibe o mês e o ano -->
-        
-         
+          <button class="nav-arrowl" onclick="navigateMonth(-1)">&lt;</button>
+          <h1>{{ month_name }} {{ year }}</h1>
+          <button class="nav-arrowr" onclick="navigateMonth(1)">&gt;</button>
           <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
         </nav>
     </header>
 
     <main>
-        <!-- Exibe o calendário -->
         <div class="calendar">
             {% for day in days %}
                 <div class="day" onclick="openModal('{{ day.date }}')">
-                    {{ day.date|date:"j" }} <!-- Apenas o número do dia -->
+                    {{ day.date|date:"j" }}
                     {% if day.date in consultas_por_dia %}
-                        <span class="dot"></span> <!-- Exibe uma bolinha laranja se houver consulta -->
+                        <span class="dot"></span>
                     {% endif %}
                 </div>
             {% endfor %}
         </div>
 
-        <!-- Modal para exibir consultas -->
         <div id="modal" class="modal">
             <div class="modal-content">
                 <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -93,10 +92,16 @@
             modal.style.display = 'none';
         }
 
-        function navigateMonth(direction) {
-            const url = new URL(window.location.href);
-            url.searchParams.set('month_offset', direction);
-            window.location.href = url;
+        function navigateMonth(change) {
+            const newMonth = parseInt("{{ month }}") + change;
+            const newYear = newMonth < 1 ? parseInt("{{ year }}") - 1 : newMonth > 12 ? parseInt("{{ year }}") + 1 : parseInt("{{ year }}");
+            const finalMonth = newMonth < 1 ? 12 : newMonth > 12 ? 1 : newMonth;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('month', finalMonth);
+            urlParams.set('year', newYear);
+
+            window.location.search = urlParams.toString();
         }
     </script>
 </body>

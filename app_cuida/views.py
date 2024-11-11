@@ -244,30 +244,26 @@ def excluir_consulta(request, id):
     return redirect('visualizar_consultas')
 
 def calendario_view(request):
-    now = datetime.now()
-    month = now.month
-    year = now.year
+    # Recupera o mês e ano da URL ou usa o atual
+    month = int(request.GET.get('month', datetime.now().month))
+    year = int(request.GET.get('year', datetime.now().year))
 
-    # Obter o nome do mês por extenso
-    month_name = calendar.month_name[month]  # Ex: "November" para o mês 11
+    # Ajusta o mês e ano caso estejam fora do intervalo permitido
+    if month < 1:
+        month = 12
+        year -= 1
+    elif month > 12:
+        month = 1
+        year += 1
 
-    # Primeiro dia do mês
+    # Primeiro dia do mês e número de dias no mês
     first_day = datetime(year, month, 1)
-
-    # Próximo mês para calcular o número de dias do mês atual
-    if month == 12:
-        next_month = datetime(year + 1, 1, 1)
-    else:
-        next_month = datetime(year, month + 1, 1)
+    next_month = datetime(year + 1, 1, 1) if month == 12 else datetime(year, month + 1, 1)
     num_days = (next_month - first_day).days
-
-    # Lista de todos os dias do mês
     days = [first_day + timedelta(days=i) for i in range(num_days)]
 
     # Consulta as consultas para o mês atual
     consultas = Consulta.objects.filter(data_consulta__year=year, data_consulta__month=month)
-
-    # Organiza consultas por dia
     consultas_por_dia = {}
     for consulta in consultas:
         dia = consulta.data_consulta
@@ -275,12 +271,15 @@ def calendario_view(request):
             consultas_por_dia[dia] = []
         consultas_por_dia[dia].append(consulta)
 
-    # Adiciona `month_name` e `year` ao contexto
+    # Nomes dos meses
+    month_name = first_day.strftime('%B')
+
     context = {
         'days': days,
         'consultas_por_dia': consultas_por_dia,
-        'month_name': month_name,
+        'month': month,
         'year': year,
+        'month_name': month_name,
     }
     return render(request, 'cadastro/calendario.html', context)
 

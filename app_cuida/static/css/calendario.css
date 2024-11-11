@@ -21,6 +21,7 @@ header {
     background-color: #ffffffaf;
     padding: 10px 0;
     margin-bottom: 20px;
+    
 }
 
 .navbar {
@@ -36,7 +37,10 @@ header {
 .navbar h1 {
     color: #1f2b5b;
     font-size: 24px;
+    text-align: center;
+    margin-right: -70px;
 }
+
 
 .calendar-header {
     display: flex;
@@ -45,7 +49,7 @@ header {
     gap: 15px;
 }
 
-.nav-arrow {
+.nav-arrowl {
     font-size: 24px;
     font-weight: bold;
     color: #333;
@@ -53,7 +57,22 @@ header {
     border: none;
     cursor: pointer;
     transition: color 0.2s;
+    margin-right: -300px;
+    margin-left: 75px;
 }
+
+.nav-arrowr {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    margin-left: -250px;
+
+}
+
 
 .nav-arrow:hover {
     color: #0073e6;
@@ -72,6 +91,7 @@ img.logo {
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
+    align-items: center;
 }
 
 .day {
