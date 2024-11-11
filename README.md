@@ -120,6 +120,10 @@ Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar
 ![print_painel](https://github.com/user-attachments/assets/10329099-8668-482f-90b5-36d9b774f9f1)
 ![print issues/bug tracker](https://github.com/user-attachments/assets/27a359fd-9107-4fcc-814f-8fd0189700b4)
 
+[Screencast CI/CD](https://youtu.be/dEnAB3lUhdQ)
+
+
+
 
 </details>
 
