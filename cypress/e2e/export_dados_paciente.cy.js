@@ -74,7 +74,7 @@ Cypress.Commands.add('excluirObservacao', () => {
 import ExcelJS from 'exceljs';
 
 Cypress.Commands.add('verificarExcel', (filePath) => {
-    cy.wait(10000); // Aguarda o arquivo ser gerado e salvo
+    cy.wait(5000); // Aguarda o arquivo ser gerado e salvo
   
     // Verifica se o arquivo existe
     cy.readFile(filePath, 'utf8').should('exist').then(() => {
@@ -158,11 +158,10 @@ describe('Fluxo Completo de Paciente: Registro e Exportação de Dados', () => {
         // Baixar o Excel
         cy.get('a > button').click();
         
-        cy.wait(5000); // Aguarda o download
+        cy.wait(2000); // Aguarda o download
         
         // Use o comando personalizado para verificar o Excel
-        const filePath = 'cypress/downloads/Guilherme Mourão_detalhes.xlsx';
-        cy.readFile(filePath).should('exist');
+        const filePath = 'cypress/downloads/Guilherme Mourão_detalhes.xlsx'; 
         cy.verificarExcel(filePath);
     });
 });

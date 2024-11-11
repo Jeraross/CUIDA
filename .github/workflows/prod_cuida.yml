@@ -39,10 +39,6 @@ jobs:
           sleep 5
           npx cypress run
 
-      - name: List contents of the downloads folder
-        run: ls -l cypress/downloads
-
-
       - name: Cleaning testing files
         run: |
           rm .env
