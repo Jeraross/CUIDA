@@ -40,7 +40,7 @@ git checkout -b minha-nova-funcionalidade
 
 <strong>1º) Entre no Diretório do Projeto:</strong>
 ```
-cd PROJECT_FDS
+cd cuida
 ```
 
 <strong>2º) Crie um Ambiente Virtual:</strong>

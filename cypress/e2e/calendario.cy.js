@@ -116,18 +116,18 @@ describe('Calendário', () => {
         cy.createAppointment(dataConsulta, horarioConsulta, nomeMedico, nomePaciente);
         cy.createAppointment(dataConsulta2, horarioConsulta2, nomeMedico2, nomePaciente2);
         cy.visit('/calendario/');
-        cy.contains('Nov. 24, 2024').click();
+        cy.get('[onclick="openModal(\'Nov. 24, 2024\')"]').click();
         cy.get('.consulta').should('contain', 'Dr. João Silva');
         cy.get('.consulta').should('contain', 'Maria Souza');
         cy.get('.close-btn').click();
-        cy.contains('Nov. 25, 2024').click();
+        cy.get('[onclick="openModal(\'Nov. 25, 2024\')"]').click();
         cy.get('.consulta').should('contain', 'Dr. Paulo');
         cy.get('.consulta').should('contain', 'João');
     });
 
     it('Cenário 2: Se não houver consultas no dia, deve mostrar em branco', () => {
         cy.visit('/calendario/');
-        cy.contains('Nov. 24, 2024').click();
+        cy.get('[onclick="openModal(\'Nov. 24, 2024\')"]').click();
         cy.get('.consulta').should('not.exist');
     })
 });
