@@ -10,14 +10,24 @@
 </head>
 <body>
     <header>
-        <nav class="navbar">
-          <a href="{% url 'home' %}">
+    <nav class="navbar">
+        <a href="{% url 'home' %}">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
-          </a>
-          <h1>{{ month_name }} {{ year }}</h1> <!-- Exibe o mês e o ano -->
-          <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
-        </nav>
-    </header>
+        </a>
+        
+        <!-- Link para o mês anterior -->
+        <a href="{% url 'calendario_view' previous_year previous_month %}" class="nav-arrow">&#9664;</a>
+        
+        <!-- Nome do mês e ano atual -->
+        <h1>{{ month_name }} {{ year }}</h1>
+        
+        <!-- Link para o próximo mês -->
+        <a href="{% url 'calendario_view' next_year next_month %}" class="nav-arrow">&#9654;</a>
+        
+        <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
+    </nav>
+</header>
+
 
     <main>
         <!-- Exibe o calendário -->
