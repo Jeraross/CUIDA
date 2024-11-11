@@ -3,40 +3,54 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: sans-serif; /* Remove Arial para igualar o estilo do header */
 }
 
 body {
-    background: linear-gradient(to right, #cbe6f1a2, #30d1fec5);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(to right, #cbe6f1a2, #30d1fec5);
+    margin: 0;
+    overflow-x: hidden;
 }
 
 /* Header fixo ocupando toda a largura */
 header {
-    width: 100vw;
-    background-color: #dcdcdc;
-    padding: 10px 20px;
+    width: 100%;
+    background-color: #ffffffaf;
+    margin-top: 0px;
+    padding: 10px 0;
+}
+
+.navbar {
+    width: 100%;
+    height: 70px;
+    background-color: transparent;
+    padding: 0.8rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
-    top: 0;
-    z-index: 1;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-header .navbar a {
-    text-decoration: none;
-    color: #333;
-    font-size: 14px;
+.navbar h1 {
+    color: #1f2b5b;
+    font-size: 30px;
+    margin-left: -790px;
 }
 
-header .logo {
-    width: 50px;
-    height: auto;
+img.logo {
+    height: 65px;
+    width: 110px;
+   
+
+}
+img.back{
+    width: 35px;
+    cursor: pointer;
+    margin-left: 5px;
+    
 }
 
 /* Conteúdo principal */
@@ -56,6 +70,7 @@ main {
     font-size: 20px;
     color: #333;
     margin-bottom: 10px;
+    margin-top: -70px;
     text-align: left; /* Nome alinhado à esquerda */
 }
 
@@ -190,4 +205,20 @@ button[type="submit"]:hover {
     border-radius: 4px;
     font-size: 13px;
     color: #333;
+}
+
+.button-link {
+    display: inline-block;
+    padding: 5px 10px; /* Diminuído para metade do tamanho */
+    background-color: #1f2b5b;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px; /* Diminua o texto se desejar */
+    cursor: pointer;
+}
+
+.button-link:hover {
+    background-color: #2d3a6a; /* Altere para a cor de hover desejada */
 }

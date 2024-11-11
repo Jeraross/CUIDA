@@ -10,10 +10,18 @@
 <body>
     <header>
         <nav class="navbar">
-            <a href="{% url 'listagem_pacientes' %}">Voltar</a>
-            <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
+          <a href="{% url 'home' %}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M16 12H8" />
+              <path d="m12 8-4 4 4 4" />
+            </svg>
+          </a>
+          <h1>Detalhes de Pacientes:</h1>
+          <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
         </nav>
-    </header>
+      </header>
+    
 
     <main>
         <section class="details">
@@ -33,9 +41,7 @@
                 <p>{{ paciente.numero_celular }}</p>
             </div>
 
-            <a href="{% url 'exportar_paciente_excel' paciente.id_paciente %}">
-                <button type="button">Exportar Dados do Paciente</button>
-            </a>
+            <a href="{% url 'exportar_paciente_excel' paciente.id_paciente %}" class="button-link">Exportar Dados do Paciente</a>
 
             <!-- Biometria -->
             <h3>Biometria:</h3>
