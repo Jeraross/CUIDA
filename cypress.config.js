@@ -1,5 +1,6 @@
 const ExcelJS = require('exceljs');
 const path = require('path');
+const fs = require('fs'); // Importa o módulo 'fs' para verificar a existência de arquivos
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
@@ -10,7 +11,7 @@ module.exports = defineConfig({
     watchForFileChanges: false,
     downloadsFolder: 'cypress/downloads',
     setupNodeEvents(on, config) {
-      // Registrar a task readExcel
+      // Registrar as tasks readExcel e fileExists
       on('task', {
         async readExcel(filePath) {
           const absolutePath = path.resolve(filePath);
@@ -24,6 +25,10 @@ module.exports = defineConfig({
           });
 
           return rows;
+        },
+        fileExists(filePath) {
+          const absolutePath = path.resolve(filePath);
+          return fs.existsSync(absolutePath); // Retorna true ou false dependendo da existência do arquivo
         }
       });
     },
