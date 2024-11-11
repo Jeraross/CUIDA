@@ -11,6 +11,7 @@ from django.urls import reverse
 from datetime import datetime, timedelta
 import pandas as pd
 import openpyxl
+import calendar
 
 
 @login_required(login_url='login')
@@ -247,6 +248,9 @@ def calendario_view(request):
     month = now.month
     year = now.year
 
+    # Obter o nome do mês por extenso
+    month_name = calendar.month_name[month]  # Ex: "November" para o mês 11
+
     # Primeiro dia do mês
     first_day = datetime(year, month, 1)
 
@@ -271,11 +275,15 @@ def calendario_view(request):
             consultas_por_dia[dia] = []
         consultas_por_dia[dia].append(consulta)
 
+    # Adiciona `month_name` e `year` ao contexto
     context = {
         'days': days,
         'consultas_por_dia': consultas_por_dia,
+        'month_name': month_name,
+        'year': year,
     }
     return render(request, 'cadastro/calendario.html', context)
+
 def login(request):
     if request.method == 'GET':
         return render(request, 'cadastro/login.html')

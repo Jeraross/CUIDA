@@ -1,132 +1,47 @@
-<!DOCTYPE html> 
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Calendário de Atividades</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendário de Consultas</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-    <style>
-        .calendar {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 10px;
-            padding: 20px;
-        }
-
-        .day {
-            border: 1px solid #ddd;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            background-color: #fff;
-            border-radius: 4px;
-            transition: transform 0.2s;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-
-        .day:hover {
-            transform: scale(1.05);
-            background-color: #f9f9f9;
-        }
-
-        .indicator {
-            display: flex;
-            gap: 4px;
-            margin-top: 8px;
-            justify-content: center;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            background-color: orange;
-            border-radius: 50%;
-            display: inline-block;
-        }
-
-        /* Modal styling */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            width: 300px;
-            max-width: 90%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .close-btn {
-            color: #aaa;
-            float: right;
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.2s;
-        }
-
-        .close-btn:hover {
-            color: #f44336;
-        }
-
-        #modal-content {
-            margin-top: 10px;
-        }
-
-        .consulta {
-            margin-bottom: 10px;
-            padding: 8px;
-            background-color: #f7f7f7;
-            border-left: 4px solid #3f51b5;
-            border-radius: 4px;
-        }
-
-        .consulta strong {
-            color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/calendario.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
 </head>
 <body>
-    <h1>Calendário de Atividades</h1>
-    <div class="calendar">
-        {% for day in days %}
-            <div class="day" onclick="openModal('{{ day.date }}')">
-                <div>{{ day.date }}</div>
-                <div class="indicator">
-                    {% if day.date in consultas_por_dia %}
-                        {% for consulta in consultas_por_dia.day.date %}
-                            <span class="dot"></span>
-                        {% endfor %}
-                    {% endif %}
+    <header>
+        <nav class="navbar">
+          <a href="{% url 'home' %}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-arrow-left"><circle cx="12" cy="12" r="10"/><path d="M16 12H8"/><path d="m12 8-4 4 4 4"/></svg>
+          </a>
+          <h1>{{ month_name }} {{ year }}</h1> <!-- Exibe o mês e o ano -->
+          <img src="{% static 'image/IMG_0211C.PNG' %}" class="logo">
+        </nav>
+    </header>
+
+    <main>
+        <!-- Exibe o calendário -->
+        <div class="calendar">
+            {% for day in days %}
+                <div class="day" onclick="openModal('{{ day.date }}')">
+                    {{ day.date|date:"j" }} <!-- Apenas o número do dia -->
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Modal para exibir consultas -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <h2 id="modal-date">Consultas</h2>
+                <div id="modal-content">
+                    <!-- Consultas serão exibidas aqui -->
                 </div>
             </div>
-        {% endfor %}
-    </div>
-
-    <!-- Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h2 id="modal-date">Consultas</h2>
-            <div id="modal-content">
-                <!-- Consultas serão exibidas aqui -->
-            </div>
         </div>
-    </div>
+    </main>
 
     <script>
-        // Objeto que armazena as consultas por dia (passado do Django)
         const consultasPorDia = {
             {% for day, consultas in consultas_por_dia.items %}
                 "{{ day }}": [
@@ -170,13 +85,6 @@
         function closeModal() {
             const modal = document.getElementById('modal');
             modal.style.display = 'none';
-        }
-
-        window.onclick = function(event) {
-            const modal = document.getElementById('modal');
-            if (event.target == modal) {
-                closeModal();
-            }
         }
     </script>
 </body>
