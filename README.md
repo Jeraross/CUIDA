@@ -116,8 +116,8 @@ Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar
 <details>
 <summary><h2>Quarta entrega</h2></summary>
 
-![print_backlog](https://github.com/user-attachments/assets/250a3554-bfe6-41d6-a7ac-29806c74e239)
-![print_painel](https://github.com/user-attachments/assets/bd59a012-737b-4716-b970-1682d933725a)
+![print_backlog](https://github.com/user-attachments/assets/20f334d2-6466-49f8-a683-0571d8ce5f6a)
+![print_painel](https://github.com/user-attachments/assets/10329099-8668-482f-90b5-36d9b774f9f1)
 
 </details>
 
