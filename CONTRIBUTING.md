@@ -98,13 +98,13 @@ Abra um Pull Request com uma descrição das alterações realizadas.
 <strong>2º) Depois clique em ```Open pull request```:</strong>
 
 <p align="center">
-  <img src="" width="300">
+  <img src="app_cuida/static/image/OPENPULL.png" width="300">
 </p>
 
 <strong>3º) Agora selecione o repositório que você deu fork e a branch que você fez suas alterações:</strong>
 
 <p align="center">
-  <img src="">
+  <img src="app_cuida/static/image/Captura de tela 2024-11-11 223123.png">
 </p>
 
 <strong>4º) Então, para criar seu PR, clique em ```Create pull request```:</strong>
