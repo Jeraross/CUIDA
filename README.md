@@ -97,7 +97,12 @@ Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar
 
 ![print backlog](https://github.com/user-attachments/assets/dbd63170-59f0-4090-9376-496df929f044)
 
-[Screencast](https://youtu.be/VcyipfuOsEo)
+<p align="center">
+<a href="https://youtu.be/VcyipfuOsEo" target="_blank">
+    <img src="https://img.shields.io/badge/▶️%20Screencast-blue?style=for-the-badge" alt="Screencast Azure">
+  </a>
+</p>
+
 </details>
 
 <details>
@@ -106,11 +111,20 @@ Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar
 ![print_backlog](https://github.com/user-attachments/assets/250a3554-bfe6-41d6-a7ac-29806c74e239)
 ![print_painel](https://github.com/user-attachments/assets/bd59a012-737b-4716-b970-1682d933725a)
 
-[Screencast Azure](https://youtu.be/cp6oxWRFipo)
+# Screencasts
 
-[Screencast Testes](https://youtu.be/qOd59qAeruw)
+<p align="center">
+  <a href="https://youtu.be/cp6oxWRFipo" target="_blank">
+    <img src="https://img.shields.io/badge/▶️%20Screencast%20Azure-blue?style=for-the-badge" alt="Screencast Azure">
+  </a>
+  <a href="https://youtu.be/qOd59qAeruw" target="_blank">
+    <img src="https://img.shields.io/badge/▶️%20Screencast%20Testes-green?style=for-the-badge" alt="Screencast Testes">
+  </a>
+  <a href="https://youtu.be/-xv2u3OiRsc" target="_blank">
+    <img src="https://img.shields.io/badge/▶️%20Screencast%20Figma-orange?style=for-the-badge" alt="Screencast Figma">
+  </a>
+</p>
 
-[Screencast Figma](https://youtu.be/-xv2u3OiRsc)
 </details>
 
 <details>
@@ -121,12 +135,22 @@ Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar
 
 ![print issues/bug tracker](https://github.com/user-attachments/assets/27a359fd-9107-4fcc-814f-8fd0189700b4)
 
-[Screencast CI/CD](https://youtu.be/dEnAB3lUhdQ)
+# Screencasts
 
-[Screencast Testes](https://youtu.be/Z4x5mNMfnQw)
-
-[Screencast Figma](https://youtu.be/eq4laIb6xls)
-
+<p align="center">
+  <a href="https://youtu.be/dEnAB3lUhdQ" target="_blank">
+    <img src="https://img.shields.io/badge/▶️%20Screencast%20CI/CD-blue?style=for-the-badge" alt="Screencast CI/CD">
+  </a>
+  <a href="https://youtu.be/Z-oKF-4Y4UY" target="_blank">
+    <img src="https://img.shields.io/badge/▶️%20Screencast%20Testes-green?style=for-the-badge" alt="Screencast Testes">
+  </a>
+  <a href="https://youtu.be/eq4laIb6xls" target="_blank">
+    <img src="https://img.shields.io/badge/▶️%20Screencast%20Figma-orange?style=for-the-badge" alt="Screencast Figma">
+  </a>
+  <a href="https://youtu.be/gQD4BDeOzjY" target="_blank">
+    <img src="https://img.shields.io/badge/▶️%20Screencast%20Azure-purple?style=for-the-badge" alt="Screencast Azure">
+  </a>
+</p>
 
 
 
