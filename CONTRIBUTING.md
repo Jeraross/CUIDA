@@ -130,8 +130,13 @@ Estamos animados para ver suas ideias em ação e trabalharmos juntos para trans
 Se precisar de qualquer coisa ou tiver dúvidas durante o processo, não hesite em entrar em contato. Muito obrigado por ajudar a tornar o **CUIDA** cada vez melhor!
 
 <br>
-<p align="center">
-  <img src="https://image-placeholder-url" width="40px">
-  <br>
-  Fale com a gente: <strong></strong>
-</p>
+<br>
+Fale com a gente:
+- [Guilherme Mourão](https://github.com/guilhermemouraovc) - gmvc@cesar.school
+- [Henrique Figueiredo](https://github.com/fthenri) - hft@cesar.school
+- [Henrique Gueiros](https://github.com/henrique-gueiros) - hwg@cesar.school
+- [Jeronimo Rossi](https://github.com/Jeraross) - jbr2@cesar.school
+- [João Pedro Aguiar](https://github.com/Jp-moraiss) - jpam@cesar.school
+- [Maria Julia Dantas](https://github.com/mariajuliadantas) - mjdma@cesar.school
+
+<br>
