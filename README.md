@@ -122,6 +122,8 @@ Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar
 
 [Screencast CI/CD](https://youtu.be/dEnAB3lUhdQ)
 
+[Screencast Testes](https://youtu.be/Z4x5mNMfnQw)
+
 
 
 
