@@ -1,4 +1,3 @@
-![contribute]
 
 ## Bem-vindo(a)! 
 Se você chegou até aqui, é provável que tenha interesse em contribuir com o **CUIDA**, um software de gestão hospitalar desenvolvido em Django. O CUIDA foi criado para otimizar o atendimento e a organização de dados de pacientes, facilitando o trabalho de profissionais de saúde. Antes de começar a colaborar, leia este guia para entender melhor como nosso sistema funciona e como você pode ajudar a melhorar ainda mais essa ferramenta.
@@ -79,7 +78,7 @@ rode os testes existentes e, caso necessário, crie novos testes. Para fazer ist
 npm ci
 ```
 
-<strong>2º) Rode os testes com:</strong>
+<strong>3º) Rode os testes com:</strong>
 ```
 npx cypress run
 ```
