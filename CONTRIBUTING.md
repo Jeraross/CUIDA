@@ -21,7 +21,7 @@ Você pode colocar uma nova funcionalidade em prática, solucionar alguma issue 
 <strong>1º) Fork do Repositório:</strong> Faça um Fork para levar uma cópia do repositório para a sua conta.  Dessa forma, você pode realizar suas modificações sem impactar o repositório original. 
 <br>
 <p align="center">
-  <img src="static/image/FORK.PNG">
+  <img src="app_cuida/static/image/FORK.PNG">
 </p>
 
 <strong>2º) Clonar o repositório:</strong> 
@@ -40,7 +40,7 @@ git checkout -b minha-nova-funcionalidade
 
 <strong>1º) Entre no Diretório do Projeto:</strong>
 ```
-cd PROJECT_FDS
+cd CUIDA
 ```
 
 <strong>2º) Crie um Ambiente Virtual:</strong>
@@ -92,7 +92,7 @@ Abra um Pull Request com uma descrição das alterações realizadas.
 <strong>1º) No repositório que você deu fork, clique em ```Contribute```:</strong>
 
 <p align="center">
-  <img src="">
+  <img src="app_cuida/static/image/CONTRIBUTE.PNG">
 </p>
 
 <strong>2º) Depois clique em ```Open pull request```:</strong>
@@ -110,7 +110,7 @@ Abra um Pull Request com uma descrição das alterações realizadas.
 <strong>4º) Então, para criar seu PR, clique em ```Create pull request```:</strong>
 
 <p align="center">
-  <img src="" width="300">
+  <img src="app_cuida/static/image/CREATEPULL.PNG" width="300">
 </p>
 
 <strong>5º) No final:</strong>
