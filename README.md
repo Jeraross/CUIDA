@@ -132,6 +132,7 @@ Resultado Esperado: Ao final deste sprint, o sistema deve ser capaz de gerenciar
 
 ![print backlog](https://github.com/user-attachments/assets/f2a0f58b-235b-4529-b5fc-62b4f80c1a67)
 ![print_painel](https://github.com/user-attachments/assets/d7e439eb-8a57-4df8-be97-5f0409ddce74)
+![print_painel2](https://github.com/user-attachments/assets/f62d687e-73bd-4914-8f5f-71136486d9fd)
 
 ![print issues/bug tracker](https://github.com/user-attachments/assets/27a359fd-9107-4fcc-814f-8fd0189700b4)
 
