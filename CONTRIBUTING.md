@@ -133,10 +133,15 @@ Se precisar de qualquer coisa ou tiver dúvidas durante o processo, não hesite 
 <br>
 Fale com a gente:
 - [Guilherme Mourão](https://github.com/guilhermemouraovc) - gmvc@cesar.school
+<br>
 - [Henrique Figueiredo](https://github.com/fthenri) - hft@cesar.school
+<br>
 - [Henrique Gueiros](https://github.com/henrique-gueiros) - hwg@cesar.school
+<br>
 - [Jeronimo Rossi](https://github.com/Jeraross) - jbr2@cesar.school
+<br>
 - [João Pedro Aguiar](https://github.com/Jp-moraiss) - jpam@cesar.school
+<br>
 - [Maria Julia Dantas](https://github.com/mariajuliadantas) - mjdma@cesar.school
 
 <br>
